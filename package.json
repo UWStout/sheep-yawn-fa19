@@ -1,10 +1,10 @@
 {
-  "name": "uwstout-gdd325-gamebase",
-  "version": "2.0.0",
-  "description": "A base project for making 2D web games used in GDD 325 at UW Stout",
-  "author": "Seth Berrier <berriers@uwstout.edu>",
+  "name": "uwstout-gdd325-sheep-yawn",
+  "version": "0.0.1",
+  "description": "Sheep Yawn Game",
+  "author": "Kendra Aumann-Weyenberg, Syd Simonis, Abigail Smith, Mo Morris, Zachary Olson",
   "main": "index.html",
-  "repository": "UWStout/gdd325-web-base",
+  "repository": "UWStout/sheep-yawn-fa19",
   "scripts": {
     "sfx": "audiosprite --loop running --output assets/audio/sounds assets/audio/*.wav",
     "dev": "run-s clean dev-cmd",
@@ -68,7 +68,7 @@
     "phaser-plugin-update": "^2.0.2"
   },
   "window": {
-    "title": "GDD 325 Example Game",
+    "title": "Sheep Yawn Game",
     "icon": "./assets/images/icon.png",
     "toolbar": false,
     "frame": true,
