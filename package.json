@@ -2,7 +2,7 @@
   "name": "uwstout-gdd325-sheep-yawn",
   "version": "0.0.1",
   "description": "Sheep Yawn Game",
-  "author": "Kendra Aumann-Weyenberg, Syd Simonis, Abigail Smith, Mo Morris, Zachary Olson",
+  "author": "Kendra Aumann-Weyenberg, Mo Morris, Zachary Olson, Syd Simonis, Abigail Smith",
   "main": "index.html",
   "repository": "UWStout/sheep-yawn-fa19",
   "scripts": {
