@@ -12,6 +12,7 @@ import UIPlugin from '../plugins/rexrainbow/rexuiplugin.min'
 import BootScene from './scenes/Boot' // A bootstraping loader that loads the assets need by ... the loader!
 import SplashScene from './scenes/Splash' // A fancy loading splash screen for loading more assets
 import TestScene from './scenes/TestScene' // The main game level for testing
+import TestScene from './scenes/TestSheepMove' // The main game level for testing
 import InfoScene from './scenes/InfoScene' // Some static info locked to the camera (like a HUD)
 import PauseMenuScene from './scenes/PauseMenuScene' // A menu displayed while the game is paused
 
