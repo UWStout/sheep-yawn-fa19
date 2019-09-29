@@ -6,6 +6,7 @@
   "main": "index.html",
   "repository": "UWStout/sheep-yawn-fa19",
   "scripts": {
+    "start": "npm-run-all -s buildindex server",
     "sfx": "audiosprite --loop running --output assets/audio/sounds assets/audio/*.wav",
     "dev": "run-s clean dev-cmd",
     "prod": "run-s clean prod-cmd",
