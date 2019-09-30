@@ -5,4 +5,4 @@ import Phaser from 'phaser'
 import config from '../config'
 
 // Import MainCharacter's sprite
-import MainCharacter from 'C:/Sheep_Yawn_github/sheep-yawn-fa19/assets/Test Art/woolhemina_testSprite_256.png'
+// import MainCharacter from 'C:/Sheep_Yawn_github/sheep-yawn-fa19/assets/Test Art/woolhemina_testSprite_256.png'
