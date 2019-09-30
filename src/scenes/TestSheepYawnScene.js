@@ -1,4 +1,4 @@
-/* globalS __DEV__ */
+/* globals __DEV__ */
 
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
@@ -7,7 +7,7 @@ import Phaser from 'phaser'
 // import MainCharacter from '..//sprites/Player'
 
 class TestSheepYawnScene extends Phaser.scene {
-  init(data) {}
+  init (data) {}
 
   // Queue up assets to load
   // Note: these are loaded asyncronously after preload() completes
