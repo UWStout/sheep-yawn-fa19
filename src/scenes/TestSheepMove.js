@@ -4,7 +4,7 @@
 import Phaser from 'phaser'
 
 // Import the main player sprite
-// import MainPlayer from '..//sprites/Player'
+import Woolhemina from '..//sprites/Woolhemina'
 
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
@@ -14,9 +14,13 @@ class TestSheepMove extends Phaser.Scene {
   }
 
   create () {
-    // eslint-disable-next-line prefer-const
-    let sheep = this.add.image(0, 0, 'sheepImage')
-    sheep.setOrigin(0, 0)
+    this.player = new Woolhemina({
+      scene: this,
+      x: 100,
+      y: 100
+    })
+
+    this.add.existing(this.player)
 
     // Setup the key objects
     this.setupKeyboard()
