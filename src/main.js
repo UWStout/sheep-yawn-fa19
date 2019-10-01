@@ -81,7 +81,8 @@ class Game extends Phaser.Game {
     this.scene.add('PauseMenu', PauseMenuScene, false)
 
     // Start with the bootstrap scene that will load assets needed for the splash scene
-    this.scene.start('SheepYawn') // Kendra is working with this for testing
+    this.scene.start('SheepMove')
+    this.scene.run('SheepYawn')
   }
 }
 
