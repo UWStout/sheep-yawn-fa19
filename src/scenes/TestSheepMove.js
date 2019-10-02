@@ -24,6 +24,9 @@ class TestSheepMove extends Phaser.Scene {
 
     this.physics.add.existing(this.player)
 
+    this.player.body.collideWorldBounds = true
+    this.player.body.setSize(50, 105, 20, 20)
+
     // Setup the key objects
     this.setupKeyboard()
 
@@ -52,18 +55,22 @@ class TestSheepMove extends Phaser.Scene {
     if (this.cursors.up.isDown || this.upKey.isDown)
     {
       velocity.y -= 160
-    }
-    if (this.cursors.left.isDown || this.leftKey.isDown)
-    {
-      velocity.x -= 160
+      velocity.x = 0
     }
     if (this.cursors.down.isDown || this.downKey.isDown)
     {
       velocity.y += 160
+      velocity.x = 0
     }
     if (this.cursors.right.isDown || this.rightKey.isDown)
     {
       velocity.x += 160
+      velocity.y = 0
+    }
+    if (this.cursors.left.isDown || this.leftKey.isDown)
+    {
+      velocity.x -= 160
+      velocity.y = 0
     }
 
     this.player.body.velocity.set(velocity.x, velocity.y)
