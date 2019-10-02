@@ -22,10 +22,12 @@ class TestSheepMove extends Phaser.Scene {
 
     this.add.existing(this.player)
 
-    this.physics.enable(this.player, Phaser.Physics.ARCADE) // stuck here
+    this.physics.add.existing(this.player)
 
     // Setup the key objects
     this.setupKeyboard()
+
+    // this.scene.run('SheepYawn')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -46,22 +48,25 @@ class TestSheepMove extends Phaser.Scene {
   }
 
   update (time, delta) {
+    const velocity = { x: 0.0, y: 0.0 }
     if (this.cursors.up.isDown || this.upKey.isDown)
     {
-      this.player.setVelocityY(160)
+      velocity.y -= 160
     }
-    else if (this.cursors.left.isDown || this.leftKey.isDown)
+    if (this.cursors.left.isDown || this.leftKey.isDown)
     {
-      this.player.setVelocityX(-160)
+      velocity.x -= 160
     }
-    else if (this.cursors.down.isDown || this.downKey.isDown)
+    if (this.cursors.down.isDown || this.downKey.isDown)
     {
-      this.player.setVelocityY(-160)
+      velocity.y += 160
     }
-    else if (this.cursors.right.isDown || this.rightKey.isDown)
+    if (this.cursors.right.isDown || this.rightKey.isDown)
     {
-      this.player.setVelocityX(160)
+      velocity.x += 160
     }
+
+    this.player.body.velocity.set(velocity.x, velocity.y)
   }
 
   render () {

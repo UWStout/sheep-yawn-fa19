@@ -9,13 +9,13 @@ import PhaserDebugDrawPlugin from 'phaser-plugin-debug-draw'
 import UIPlugin from '../plugins/rexrainbow/rexuiplugin.min'
 
 // Import the scenes used in our game
-import BootScene from './scenes/Boot' // A bootstraping loader that loads the assets need by ... the loader!
-import SplashScene from './scenes/Splash' // A fancy loading splash screen for loading more assets
-import TestScene from './scenes/TestScene' // The main game level for testing
+// import BootScene from './scenes/Boot' // A bootstraping loader that loads the assets need by ... the loader!
+// import SplashScene from './scenes/Splash' // A fancy loading splash screen for loading more assets
+// import TestScene from './scenes/TestScene' // The main game level for testing
 import TestSheepMove from './scenes/TestSheepMove' // Kendra is using this for testing
 import TestSheepYawnScene from './scenes/TestSheepYawnScene' // Abby is using this for testing
-import InfoScene from './scenes/InfoScene' // Some static info locked to the camera (like a HUD)
-import PauseMenuScene from './scenes/PauseMenuScene' // A menu displayed while the game is paused
+// import InfoScene from './scenes/InfoScene' // Some static info locked to the camera (like a HUD)
+// import PauseMenuScene from './scenes/PauseMenuScene' // A menu displayed while the game is paused
 
 // Import our general configuration file
 import config from './config'
@@ -60,29 +60,25 @@ class Game extends Phaser.Game {
         scene: scenePlugins
       },
       physics: {
-        default: 'matter',
-        matter: {
-          debug: __DEV__,
-          gravity: {
-            y: 0.8
-          }
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 0.0 }
         }
       }
     })
 
     // Name and load ALL needed game scenes (add more scenes here as you make them)
-    this.scene.add('Boot', BootScene, false)
-    this.scene.add('Splash', SplashScene, false)
-    this.scene.add('Test', TestScene, false)
+    // this.scene.add('Boot', BootScene, false)
+    // this.scene.add('Splash', SplashScene, false)
+    // this.scene.add('Test', TestScene, false)
     this.scene.add('SheepMove', TestSheepMove, false)
     this.scene.add('SheepYawn', TestSheepYawnScene, false) // Abby is testing this
     // Extra scenes showing how you can layer scenes together
-    this.scene.add('Info', InfoScene, false)
-    this.scene.add('PauseMenu', PauseMenuScene, false)
+    // this.scene.add('Info', InfoScene, false)
+    // this.scene.add('PauseMenu', PauseMenuScene, false)
 
     // Start with the bootstrap scene that will load assets needed for the splash scene
     this.scene.start('SheepMove')
-    this.scene.run('SheepYawn')
   }
 }
 
