@@ -32,8 +32,8 @@ class TestSheepYawnScene extends Phaser.Scene {
     // Checks for space key input
     if (this.yawnKey.isDown && !this.yawnKey.oldDown) {
       console.log('Space key is being pressed')
-      this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
-      this.yawnBlast.setStrokeStyle(2)
+      // this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
+      // this.yawnBlast.setStrokeStyle(2)
     } else {
       // this.yawnBlast.destroy()
     }
