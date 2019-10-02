@@ -22,6 +22,11 @@ class TestSheepYawnScene extends TestSheepMove {
       console.log('Space key is being pressed')
     }
   }
+
+  create () {
+    let yawnBlast = this.add.ellipse(this.x, this.y, 10, 10)
+    yawnBlast.setFillStyle()
+  }
 }
 
 // Expose the class TestSheepYawnScene to other files
