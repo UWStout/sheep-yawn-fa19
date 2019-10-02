@@ -24,6 +24,9 @@ class TestSheepMove extends Phaser.Scene {
 
     this.physics.add.existing(this.player)
 
+    this.player.body.collideWorldBounds = true
+    this.player.body.setSize(50, 105, 20, 20)
+
     // Setup the key objects
     this.setupKeyboard()
 

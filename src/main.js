@@ -62,7 +62,8 @@ class Game extends Phaser.Game {
       physics: {
         default: 'arcade',
         arcade: {
-          gravity: { y: 0.0 }
+          gravity: { y: 0.0 },
+          debug: __DEV__
         }
       }
     })
@@ -84,6 +85,6 @@ class Game extends Phaser.Game {
 
 // This code executes once every time the containing webpage (index.html) is loaded.
 // It creates a single instace of the Game class (defined above) and attaches it to
-// the global object 'window.'  It also causes Game's constructor to run, kicking
+// the global object 'window.' It also causes Game's constructor to run, kicking
 // off the logic of the ENTIRE game.
 window.game = new Game()
