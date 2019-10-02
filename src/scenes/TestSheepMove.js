@@ -27,7 +27,7 @@ class TestSheepMove extends Phaser.Scene {
     // Setup the key objects
     this.setupKeyboard()
 
-    // this.scene.run('SheepYawn')
+    this.scene.run('SheepYawn', { player: this.player })
 
     if (__DEV__) {
       this.debugDraw.bringToTop()

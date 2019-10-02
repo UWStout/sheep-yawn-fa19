@@ -2,8 +2,18 @@
 import Phaser from 'phaser'
 
 class TestSheepYawnScene extends Phaser.Scene {
+  init (data) {
+    if (data && data.player) {
+      this.player = data.player
+    }
+  }
+
+  // Creates ellipse for yawn blast
   create () {
     this.setupKeyboard()
+    // let yawnBlast = this.add.ellipse()
+    // let yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
+    // yawnBlast.setStrokeStyle(2)
   }
 
   // Sets up keyboard, so space can be used
@@ -22,12 +32,11 @@ class TestSheepYawnScene extends Phaser.Scene {
     // Checks for space key input
     if (this.yawnKey.isDown && !this.yawnKey.oldDown) {
       console.log('Space key is being pressed')
+      this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
+      this.yawnBlast.setStrokeStyle(2)
+    } else {
+      // this.yawnBlast.destroy()
     }
-  }
-
-  create () {
-    let yawnBlast = this.add.ellipse(this.x, this.y, 10, 10)
-    yawnBlast.setFillStyle()
   }
 }
 
