@@ -22,6 +22,8 @@ class TestSheepMove extends Phaser.Scene {
 
     this.add.existing(this.player)
 
+    this.physics.enable(this.player, Phaser.Physics.ARCADE) // stuck here
+
     // Setup the key objects
     this.setupKeyboard()
 
@@ -31,9 +33,35 @@ class TestSheepMove extends Phaser.Scene {
   }
 
   setupKeyboard () {
+    // Setup WASD and arrow keys
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+    this.upKey.oldDown = false
+    this.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
+    this.leftKey.oldDown = false
+    this.downKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+    this.downKey.oldDown = false
+    this.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+    this.rightKey.oldDown = false
   }
 
   update (time, delta) {
+    if (this.cursors.up.isDown || this.upKey.isDown)
+    {
+      this.player.setVelocityY(160)
+    }
+    else if (this.cursors.left.isDown || this.leftKey.isDown)
+    {
+      this.player.setVelocityX(-160)
+    }
+    else if (this.cursors.down.isDown || this.downKey.isDown)
+    {
+      this.player.setVelocityY(-160)
+    }
+    else if (this.cursors.right.isDown || this.rightKey.isDown)
+    {
+      this.player.setVelocityX(160)
+    }
   }
 
   render () {

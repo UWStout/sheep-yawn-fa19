@@ -9,8 +9,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'sheepImage')
     this.key = 'Woolhemina-main'
     this.name = 'Woolhemina-main'
-  }
-  
+  } 
 }
 // Expose the MainPlayer class to other files
 export default Woolhemina
