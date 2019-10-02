@@ -22,8 +22,12 @@ class TestSheepMove extends Phaser.Scene {
 
     this.add.existing(this.player)
 
+    this.physics.add.existing(this.player)
+
     // Setup the key objects
     this.setupKeyboard()
+
+    // this.scene.run('SheepYawn')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -31,9 +35,38 @@ class TestSheepMove extends Phaser.Scene {
   }
 
   setupKeyboard () {
+    // Setup WASD and arrow keys
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+    this.upKey.oldDown = false
+    this.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
+    this.leftKey.oldDown = false
+    this.downKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+    this.downKey.oldDown = false
+    this.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+    this.rightKey.oldDown = false
   }
 
   update (time, delta) {
+    const velocity = { x: 0.0, y: 0.0 }
+    if (this.cursors.up.isDown || this.upKey.isDown)
+    {
+      velocity.y -= 160
+    }
+    if (this.cursors.left.isDown || this.leftKey.isDown)
+    {
+      velocity.x -= 160
+    }
+    if (this.cursors.down.isDown || this.downKey.isDown)
+    {
+      velocity.y += 160
+    }
+    if (this.cursors.right.isDown || this.rightKey.isDown)
+    {
+      velocity.x += 160
+    }
+
+    this.player.body.velocity.set(velocity.x, velocity.y)
   }
 
   render () {

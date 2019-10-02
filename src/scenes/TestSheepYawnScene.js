@@ -1,9 +1,11 @@
-import TestSheepMove from './TestSheepMove'
-
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
-class TestSheepYawnScene extends TestSheepMove {
+class TestSheepYawnScene extends Phaser.Scene {
+  create () {
+    this.setupKeyboard()
+  }
+
   // Sets up keyboard, so space can be used
   // for yawn mechanic
   setupKeyboard () {
