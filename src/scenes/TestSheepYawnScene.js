@@ -53,6 +53,9 @@ class TestSheepYawnScene extends Phaser.Scene {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
       this.yawnBlast.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
+      if (this.yawnBlast.scale > 10.8) {
+        this.yawnBlast.setScale(10)
+      }
     }
   }
 }
