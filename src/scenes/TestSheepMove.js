@@ -19,7 +19,6 @@ class TestSheepMove extends Phaser.Scene {
       x: 100,
       y: 100
     })
-
     this.add.existing(this.player)
 
     this.physics.add.existing(this.player)
@@ -31,6 +30,7 @@ class TestSheepMove extends Phaser.Scene {
     this.setupKeyboard()
 
     this.scene.run('SheepYawn', { player: this.player })
+    this.scene.moveAbove('SheepYawn', 'SheepMove')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -39,7 +39,7 @@ class TestSheepMove extends Phaser.Scene {
 
   setupKeyboard () {
     // Setup WASD and arrow keys
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys()
     this.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
     this.upKey.oldDown = false
     this.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
