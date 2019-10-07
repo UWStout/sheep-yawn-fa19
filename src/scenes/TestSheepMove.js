@@ -3,14 +3,16 @@
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
-// Import the main player sprite
+// Import the sprites
 import Woolhemina from '..//sprites/Woolhemina'
+import Tree from '..//sprites/Tree'
 
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
 
   preload () {
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
+    this.load.image('treeImage', 'assets/images/testTreeAsset1.png')
   }
 
   create () {
@@ -19,13 +21,28 @@ class TestSheepMove extends Phaser.Scene {
       x: 100,
       y: 100
     })
+    this.testTree = new Tree({
+      scene: this,
+      x: 200,
+      y: 300
+    })
 
+    // add Woolhemina and set physics
     this.add.existing(this.player)
-
     this.physics.add.existing(this.player)
-
     this.player.body.collideWorldBounds = true
     this.player.body.setSize(50, 105, 20, 20)
+
+    // add test tree and set physics
+    this.add.existing(this.testTree)
+    this.physics.add.existing(this.testTree)
+    this.testTree.body.setSize(256, 256, 0, 0)
+    // this.testTree = this.physics.add.staticGroup()
+    this.testTree.body.setImmovable(true)
+    this.testTree.body.allowGravity = false
+
+    this.physics.add.collider(this.player, this.testTree)
+    // this.game.physics.arcade.collide(this.player, this.testTree)
 
     // Setup the key objects
     this.setupKeyboard()
