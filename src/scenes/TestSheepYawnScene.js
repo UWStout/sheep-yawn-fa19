@@ -8,7 +8,11 @@ class TestSheepYawnScene extends Phaser.Scene {
       this.player = data.player
     }
 
+    // Default yawn circumfrance increase size
     this._yawn_scale = 1.0
+
+    //
+    this._yawn_size_check = 1.5
   }
 
   // Creates ellipse for yawn blast
@@ -47,16 +51,17 @@ class TestSheepYawnScene extends Phaser.Scene {
 
   // Updates once per frame
   update (time, delta) {
-    // Moves sheep yawn circle with player when arrowkeys/wsad keys are 
+    // Moves sheep yawn circle with player when arrowkeys/wsad keys are
     // pressed
-    if (this.yawnBlast) {
+    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
       this.yawnBlast.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
-      if (this.yawnBlast.scale > 10.8) {
-        this.yawnBlast.setScale(10)
-      }
     }
+
+    // if (this.yawnBlast.scale === this._yawn_size_check) {
+    //   this.yawnBlast.setStrokeStyle(8)
+    // }
   }
 }
 
