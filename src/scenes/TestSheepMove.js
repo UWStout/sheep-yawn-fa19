@@ -18,8 +18,8 @@ class TestSheepMove extends Phaser.Scene {
   create () {
     this.player = new Woolhemina({
       scene: this,
-      x: 100,
-      y: 100
+      x: 400,
+      y: 350
     })
     this.testTree = new Tree({
       scene: this,
@@ -47,7 +47,8 @@ class TestSheepMove extends Phaser.Scene {
     // Setup the key objects
     this.setupKeyboard()
 
-    // this.scene.run('SheepYawn')
+    this.scene.run('SheepYawn', { player: this.player })
+    this.scene.moveAbove('SheepYawn', 'SheepMove')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -56,7 +57,7 @@ class TestSheepMove extends Phaser.Scene {
 
   setupKeyboard () {
     // Setup WASD and arrow keys
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys()
     this.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
     this.upKey.oldDown = false
     this.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
