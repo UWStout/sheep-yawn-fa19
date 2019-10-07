@@ -11,7 +11,8 @@ class TestSheepYawnScene extends Phaser.Scene {
     // Default yawn circumfrance increase size
     this._yawn_scale = 1.0
 
-    //
+    // Sets amount that the yawn circle can increase
+    // To
     this._yawn_size_check = 1.5
   }
 
@@ -51,17 +52,26 @@ class TestSheepYawnScene extends Phaser.Scene {
 
   // Updates once per frame
   update (time, delta) {
-    // Moves sheep yawn circle with player when arrowkeys/wsad keys are
-    // pressed
-    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
+    // Moves sheep yawn circle with player when
+    // arrowkeys/wsad keys are pressed
+    if (this.yawnBlast) {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
-      this.yawnBlast.setScale(this._yawn_scale)
-      this._yawn_scale += 0.01
     }
 
-    // if (this.yawnBlast.scale === this._yawn_size_check) {
-    //   this.yawnBlast.setStrokeStyle(8)
-    // }
+    // Increases circumferance of circle
+    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
+      this.yawnBlast.setScale(this._yawn_scale)
+      this._yawn_scale += 0.01
+      console.log(this.yawnBlast.scale)
+    }
+
+    // Increases thickness of stroke for the circle
+    // To indicate the max circumferance has been
+    // achieved
+    if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
+      console.log('point has been found')
+      this.yawnBlast.setStrokeStyle(4)
+    }
   }
 }
 
