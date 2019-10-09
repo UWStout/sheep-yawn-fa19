@@ -5,6 +5,7 @@ import Phaser from 'phaser'
 
 // Import the sprites
 import Woolhemina from '..//sprites/Woolhemina'
+import Woolf from '..//sprites/Woolf'
 import Tree from '..//sprites/Tree'
 
 class TestSheepMove extends Phaser.Scene {
@@ -13,6 +14,7 @@ class TestSheepMove extends Phaser.Scene {
   preload () {
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
     this.load.image('treeImage', 'assets/images/testTreeAsset1.png')
+    this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
   }
 
   create () {
@@ -24,6 +26,11 @@ class TestSheepMove extends Phaser.Scene {
     this.testTree = new Tree({
       scene: this,
       x: 200,
+      y: 300
+    })
+    this.testWoolf = new Woolf({
+      scene: this,
+      x: 500,
       y: 300
     })
 
@@ -40,6 +47,9 @@ class TestSheepMove extends Phaser.Scene {
     // this.testTree = this.physics.add.staticGroup()
     this.testTree.body.setImmovable(true)
     this.testTree.body.allowGravity = false
+
+    // Adds woolf enemy to scene
+    this.add.existing(this.testWoolf)
 
     this.physics.add.collider(this.player, this.testTree)
     // this.game.physics.arcade.collide(this.player, this.testTree)
