@@ -58,7 +58,7 @@ class TestSheepMove extends Phaser.Scene {
     // Adds woolf enemy to scene and set up physics
     this.add.existing(this.testWoolf)
     this.physics.add.existing(this.testWoolf)
-    this.testWoolf.body.setSize(250, 215, 0, 0)
+    this.testWoolf.body.setSize(250, 180, true)
     // this.testWoolf = this.physics.add.staticGroup()
     this.testWoolf.body.setImmovable(true)
     this.testWoolf.body.allowGravity = false
