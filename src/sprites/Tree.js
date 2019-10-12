@@ -9,7 +9,8 @@ class Tree extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'treeImage')
     this.key = 'tree'
     this.name = 'tree'
-  } 
+  }
 }
+
 // Expose the MainPlayer class to other files
 export default Tree

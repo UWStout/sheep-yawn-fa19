@@ -11,12 +11,24 @@ import Tree from '..//sprites/Tree'
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
 
-  // Grabs images and other material needed for the scene before any
-  // Functions are runned
+  // Grabs images and other material needed for
+  // The scene before any functions are runned
   preload () {
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
     this.load.image('treeImage', 'assets/images/testTreeAsset1.png')
     this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
+
+    // Default health for enemies
+    this._default_woolf_health = 90
+    this._default_boar_health = 60
+    this._default_bat_health = 30
+
+    // Default yawn circumfrance increase size
+    this._yawn_scale = 1.0
+
+    // Sets amount that the yawn circle can increase
+    // To
+    this._yawn_size_check = 1.5
   }
 
   // Creates objects and other items used within the scene
@@ -70,8 +82,8 @@ class TestSheepMove extends Phaser.Scene {
     // Setup the key objects
     this.setupKeyboard()
 
-    this.scene.run('SheepYawn', { player: this.player })
-    this.scene.moveAbove('SheepYawn', 'SheepMove')
+    // this.scene.run('SheepYawn', { player: this.player })
+    // this.scene.moveAbove('SheepYawn', 'SheepMove')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -89,36 +101,77 @@ class TestSheepMove extends Phaser.Scene {
     this.downKey.oldDown = false
     this.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
     this.rightKey.oldDown = false
+
+    // Setup 'space' key for interaction
+    this.yawnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+    this.yawnKey.on('down', this.createYawnBlast, this)
+    this.yawnKey.on('up', this.destroyYwanBlash, this)
+    this.yawnKey.oldDown = false
+  }
+
+  // Creates sheep yawn circle
+  createYawnBlast () {
+    // Destroys previous sheep yawn circles if they exist
+    if (this.yawnBlast) { this.yawnBlast.destroy() }
+    console.log('Space key is being pressed')
+    this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
+    this.yawnBlast.setStrokeStyle(2)
+    this._yawn_scale = 1.0
+  }
+
+  // Destroys sheep yawn circle if space key is not being pressed and
+  // Yawn blast circle already exists
+  destroyYwanBlash () {
+    console.log('Space key released')
+    if (this.yawnBlast) {
+      this.yawnBlast.destroy()
+    }
   }
 
   update (time, delta) {
     const velocity = { x: 0.0, y: 0.0 }
-    if (this.cursors.up.isDown || this.upKey.isDown)
-    {
+    if (this.cursors.up.isDown || this.upKey.isDown) {
       velocity.y -= 160
       velocity.x = 0
     }
-    if (this.cursors.down.isDown || this.downKey.isDown)
-    {
+    if (this.cursors.down.isDown || this.downKey.isDown) {
       velocity.y += 160
       velocity.x = 0
     }
-    if (this.cursors.right.isDown || this.rightKey.isDown)
-    {
+    if (this.cursors.right.isDown || this.rightKey.isDown) {
       velocity.x += 160
       velocity.y = 0
     }
-    if (this.cursors.left.isDown || this.leftKey.isDown)
-    {
+    if (this.cursors.left.isDown || this.leftKey.isDown) {
       velocity.x -= 160
       velocity.y = 0
     }
 
     this.player.body.velocity.set(velocity.x, velocity.y)
+  
+    // Moves sheep yawn circle with player when
+    // arrowkeys/wsad keys are pressed
+    if (this.yawnBlast) {
+      this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
+    }
+
+    // Increases circumferance of circle
+    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
+      this.yawnBlast.setScale(this._yawn_scale)
+      this._yawn_scale += 0.01
+      console.log(this.yawnBlast.scale)
+    }
+
+    // Increases thickness of stroke for the circle
+    // To indicate the max circumferance has been
+    // achieved
+    if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
+      console.log('point has been found')
+      this.yawnBlast.setStrokeStyle(4)
+    }
   }
 
-  render () {
-  }
+  render () { }
 }
 
 // Expose the class TestSheepMove to other files

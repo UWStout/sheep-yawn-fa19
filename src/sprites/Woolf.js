@@ -9,7 +9,7 @@ class Woolf extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'woolfImage')
     this.key = 'woolf'
     this.name = 'woolf'
-  } 
+  }
 }
 
 // Expose the MainPlayer class to other files
