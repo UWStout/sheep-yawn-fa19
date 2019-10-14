@@ -113,7 +113,7 @@ class TestSheepMove extends Phaser.Scene {
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
-    console.log('Space key is being pressed')
+    // console.log('Space key is being pressed')
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
@@ -131,7 +131,7 @@ class TestSheepMove extends Phaser.Scene {
   // Destroys sheep yawn circle if space key is not being pressed and
   // Yawn blast circle already exists
   destroyYwanBlash () {
-    console.log('Space key released')
+    // console.log('Space key released')
     if (this.yawnBlast) {
       this.yawnBlast.destroy()
     }
@@ -159,16 +159,22 @@ class TestSheepMove extends Phaser.Scene {
     this.player.body.velocity.set(velocity.x, velocity.y)
 
     // Moves sheep yawn circle with player when
-    // arrowkeys/wsad keys are pressed
+    // Arrowkeys/wsad keys are pressed
+    // Calculates distance between the yawn blast
+    // Circle and enemy
     if (this.yawnBlast) {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
+      // this._distance_of_woolf = Phaser.Math.Distance.Squared(this.yawnBlast.x, this.yawnBlast.y, this.testWoolf.x, this.testWoolf.y)
+      // this._distance_of_circle =
+      // console.log('Distance:')
+      // console.log(this._distance_of_woolf)
     }
 
     // Increases circumferance of circle
     if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
       this.yawnBlast.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
-      console.log(this.yawnBlast.scale)
+      // console.log(this.yawnBlast.scale)
     }
 
     // Increases thickness of stroke for the circle
