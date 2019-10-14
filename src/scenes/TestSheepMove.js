@@ -109,7 +109,7 @@ class TestSheepMove extends Phaser.Scene {
     this.yawnKey.oldDown = false
   }
 
-  // Creates sheep yawn circle
+  // Creates sheep yawn circle, add physics and setup collider
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
@@ -117,6 +117,15 @@ class TestSheepMove extends Phaser.Scene {
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
+
+    //   // Set up physics and collider
+    //   this.physics.add.existing(this.yawnBlast)
+    //   this.yawnBlast.body.setSize(this.player.x, this.player.y + 40, true)
+    //   // this.yawnBlast = this.physics.add.staticGroup()
+    //   this.yawnBlast.body.setImmovable(true)
+    //   this.yawnBlast.body.allowGravity = false
+
+    //   this.physics.add.collider(this.player, this.testWoolf)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
@@ -148,7 +157,7 @@ class TestSheepMove extends Phaser.Scene {
     }
 
     this.player.body.velocity.set(velocity.x, velocity.y)
-  
+
     // Moves sheep yawn circle with player when
     // arrowkeys/wsad keys are pressed
     if (this.yawnBlast) {
