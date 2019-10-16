@@ -161,8 +161,6 @@ class TestSheepMove extends Phaser.Scene {
 
     // Moves sheep yawn circle with player when
     // Arrowkeys/wsad keys are pressed
-    // Calculates distance between the yawn blast
-    // Circle and enemy
     if (this.yawnBlast) {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
     }
