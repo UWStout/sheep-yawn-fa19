@@ -118,14 +118,15 @@ class TestSheepMove extends Phaser.Scene {
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    //   // Set up physics and collider
-    //   this.physics.add.existing(this.yawnBlast)
     //   this.yawnBlast.body.setSize(this.player.x, this.player.y + 40, true)
     //   // this.yawnBlast = this.physics.add.staticGroup()
     //   this.yawnBlast.body.setImmovable(true)
     //   this.yawnBlast.body.allowGravity = false
 
-    //   this.physics.add.collider(this.player, this.testWoolf)
+    // Set up physics and collider
+    this.physics.add.existing(this.yawnBlast)
+    this.yawnBlast.setCircle(100)
+    this.physics.add.collider(this.yawnBlast)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
@@ -164,10 +165,6 @@ class TestSheepMove extends Phaser.Scene {
     // Circle and enemy
     if (this.yawnBlast) {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
-      // this._distance_of_woolf = Phaser.Math.Distance.Squared(this.yawnBlast.x, this.yawnBlast.y, this.testWoolf.x, this.testWoolf.y)
-      // this._distance_of_circle =
-      // console.log('Distance:')
-      // console.log(this._distance_of_woolf)
     }
 
     // Increases circumferance of circle
@@ -182,7 +179,7 @@ class TestSheepMove extends Phaser.Scene {
     // achieved
     if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
       console.log('point has been found')
-      this.yawnBlast.setStrokeStyle(4)
+      this.yawnBlast.setStrokeStyle(4.7)
     }
   }
 
