@@ -58,8 +58,6 @@ class TestSheepMove extends Phaser.Scene {
     this.testWoolf.body.setImmovable(true)
     this.testWoolf.body.allowGravity = false
 
-    // To check if Woolhemina is moving up and down
-    let movingVertical = false
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
     this.physics.add.existing(this.player)
@@ -126,22 +124,18 @@ class TestSheepMove extends Phaser.Scene {
     if (this.cursors.up.isDown || this.upKey.isDown) {
       velocity.y -= 160
       velocity.x = 0
-      this.movingUp = true
     }
     if (this.cursors.down.isDown || this.downKey.isDown) {
       velocity.y += 160
       velocity.x = 0
-      this.movingUp = false
     }
     if (this.cursors.right.isDown || this.rightKey.isDown) {
       velocity.x += 160
       velocity.y = 0
-      this.movingUp = false
     }
     if (this.cursors.left.isDown || this.leftKey.isDown) {
       velocity.x -= 160
       velocity.y = 0
-      this.movingUp = false
     }
 
     this.player.body.velocity.set(velocity.x, velocity.y)
@@ -150,7 +144,7 @@ class TestSheepMove extends Phaser.Scene {
     this.depthCheck(this.testTree)
 
     // Moves sheep yawn circle with player when
-    // Arrowkeys/wsad keys are pressed
+    // Arrowkeys/wasd keys are pressed
     if (this.yawnBlast) {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
     }
@@ -204,6 +198,11 @@ class TestSheepMove extends Phaser.Scene {
       this.player.depth = myTree.depth - 1
       // Might be behind or to the side of the tree
       // console.log('1) is it behind?')
+      // console.log('Look sheep y' + (this.player.body.position.y + this.PlayerHeight))
+      // console.log('Looky height' + myTree.y + 114)
+      if (this.player.body.position.y < (myTree.y + 114)) {
+        this.testTree.body.setOffset(85, 236)
+      }
       if ((this.player.x > (myTree.x + myTree.height / 2)) || (this.player.x > (myTree.x + myTree.height / 2))) {
       // not behind tree
       // top left, top right, bottom left, bottom right
@@ -219,20 +218,35 @@ class TestSheepMove extends Phaser.Scene {
       // console.log('4 below or collide with tree?')
       this.player.depth = myTree.depth + 1
       myTree.setAlpha(1, 1, 1, 1)
-      this.sheepFootPos = this.player.body.position.y + this.PlayerHeight
+      this.sheepFootPosY = this.player.body.position.y + this.PlayerHeight
+      this.sheepFootPosX = this.player.body.position.x
       this.testTreeTopCollide = myTree.body.position.y - this.halfTreeBodyHeight
       this.testTreeBottomCollide = myTree.body.position.y + this.TreeBodyHeight
-      // console.log('sheepFootPos' + this.sheepFootPos)
+      // console.log('sheepFootPos' + this.sheepFootPosY)
       // console.log('bottom' + this.testTreeBottomCollide)
       // console.log('top' + this.testTreeTopCollide)
-      if ((this.sheepFootPos < this.testTreeBottomCollide) && (this.sheepFootPos > this.testTreeTopCollide) && this.movingUp === false) {
+      if ((this.sheepFootPosY < this.testTreeBottomCollide) && (this.sheepFootPosY > this.testTreeTopCollide)) {
         // console.log('5 can collide with tree stump')
         // allow the player to collide with the tree stump
         myTree.body.enable = true
         this.physics.add.collider(this.player, myTree)
+      }
+      if (this.sheepFootPosY > this.testTreeBottomCollide) {
+        if (this.sheepFootPosX > myTree.body.position.x + 50 || this.sheepFootPosX < myTree.body.position.x - 50) {
+          // console.log('to the side of the tree')
+          this.testTree.body.setOffset(85, 150)
+        }
+        // console.log('Look! y ' + this.sheepFootPosY)
+        if (this.sheepFootPosY < myTree.body.position.x) {
+          // console.log('collision at tree base')
+          this.testTree.body.setOffset(85, 236)
+        }
+        myTree.body.enable = true
       } else {
-        // console.log('6 can walk through tree stump')
-        myTree.body.enable = false
+        // console.log('7 above tree trunk')
+        // console.log('7 sheepFootPos x' + this.sheepFootPosX)
+        myTree.body.enable = true
+        this.testTree.body.setOffset(85, 236)
       }
     }
   }
