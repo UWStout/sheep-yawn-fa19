@@ -105,7 +105,7 @@ class TestSheepMove extends Phaser.Scene {
     // Setup 'space' key for interaction
     this.yawnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     this.yawnKey.on('down', this.createYawnBlast, this)
-    this.yawnKey.on('up', this.destroyYwanBlash, this)
+    this.yawnKey.on('up', this.destroyYawnBlast, this)
     this.yawnKey.oldDown = false
   }
 
@@ -131,7 +131,7 @@ class TestSheepMove extends Phaser.Scene {
 
   // Destroys sheep yawn circle if space key is not being pressed and
   // Yawn blast circle already exists
-  destroyYwanBlash () {
+  destroyYawnBlast () {
     // console.log('Space key released')
     if (this.yawnBlast) {
       this.yawnBlast.destroy()
