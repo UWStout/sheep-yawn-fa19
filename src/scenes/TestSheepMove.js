@@ -5,17 +5,36 @@ import Phaser from 'phaser'
 
 // Import the sprites
 import Woolhemina from '..//sprites/Woolhemina'
+import Woolf from '..//sprites/Woolf'
 import Tree from '..//sprites/Tree'
 
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
 
+  // Grabs images and other material needed for
+  // The scene before any functions are runned
   preload () {
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
     this.load.image('treeImage', 'assets/images/testTreeAsset1.png')
+    this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
+
+    // Default health for enemies
+    this._default_woolf_health = 90
+    this._default_boar_health = 60
+    this._default_bat_health = 30
+
+    // Default yawn circumfrance increase size
+    this._yawn_scale = 1.0
+
+    // Sets amount that the yawn circle can increase
+    // To
+    this._yawn_size_check = 1.5
   }
 
+  // Creates objects and other items used within the scene
+  // Not immeditally added to scene
   create () {
+<<<<<<< HEAD
     /** 
     var graphics = this.add.graphics({ fillStyle: { color: 0x2266aa } })
     const point3 = new Phaser.Geom.Point(400, 428)// bottom
@@ -25,20 +44,33 @@ class TestSheepMove extends Phaser.Scene {
     const point1 = new Phaser.Geom.Point(500, 419)// foot
     graphics.fillPointShape(point1, 3)
     */
+=======
+    // Creation of sheep character (Main Character)
+>>>>>>> 5a9f160b4b403915e73781d4da8e52fa6ca5762e
     this.player = new Woolhemina({
       scene: this,
       x: 400,
       y: 350
     })
+    // Creation of obstical, tree
     this.testTree = new Tree({
       scene: this,
       x: 200,
       y: 300
     })
+<<<<<<< HEAD
     
     let movingVertical = false
+=======
+    // Creation of enemy, Woolf
+    this.testWoolf = new Woolf({
+      scene: this,
+      x: 600,
+      y: 300
+    })
+>>>>>>> 5a9f160b4b403915e73781d4da8e52fa6ca5762e
 
-    // add Woolhemina and set physics
+    // add Woolhemina to scene and set physics
     this.add.existing(this.player)
     this.physics.add.existing(this.player)
     this.player.body.collideWorldBounds = true
@@ -48,7 +80,7 @@ class TestSheepMove extends Phaser.Scene {
     // set Woolhemina's depth
     this.player.depth = this.player.y
 
-    // add test tree and set physics
+    // add test tree to scene and set physics
     this.add.existing(this.testTree)
     this.physics.add.existing(this.testTree)
     // tree is 256 by 256
@@ -61,13 +93,26 @@ class TestSheepMove extends Phaser.Scene {
     // set tree depth
     this.testTree.depth = this.testTree.y + this.testTree.height / 2
 
+    // Adds woolf enemy to scene and set up physics
+    this.add.existing(this.testWoolf)
+    this.physics.add.existing(this.testWoolf)
+    this.testWoolf.body.setSize(250, 180, true)
+    // this.testWoolf = this.physics.add.staticGroup()
+    this.testWoolf.body.setImmovable(true)
+    this.testWoolf.body.allowGravity = false
+
     this.physics.add.collider(this.player, this.testTree)
+<<<<<<< HEAD
+=======
+    this.physics.add.collider(this.player, this.testWoolf)
+    // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
+>>>>>>> 5a9f160b4b403915e73781d4da8e52fa6ca5762e
 
     // Setup the key objects
     this.setupKeyboard()
 
-    this.scene.run('SheepYawn', { player: this.player })
-    this.scene.moveAbove('SheepYawn', 'SheepMove')
+    // this.scene.run('SheepYawn', { player: this.player })
+    // this.scene.moveAbove('SheepYawn', 'SheepMove')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -85,36 +130,68 @@ class TestSheepMove extends Phaser.Scene {
     this.downKey.oldDown = false
     this.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
     this.rightKey.oldDown = false
+
+    // Setup 'space' key for interaction
+    this.yawnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+    this.yawnKey.on('down', this.createYawnBlast, this)
+    this.yawnKey.on('up', this.destroyYwanBlash, this)
+    this.yawnKey.oldDown = false
+  }
+
+  // Creates sheep yawn circle, add physics and setup collider
+  createYawnBlast () {
+    // Destroys previous sheep yawn circles if they exist
+    if (this.yawnBlast) { this.yawnBlast.destroy() }
+    // console.log('Space key is being pressed')
+    this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
+    this.yawnBlast.setStrokeStyle(2)
+    this._yawn_scale = 1.0
+
+    //   this.yawnBlast.body.setSize(this.player.x, this.player.y + 40, true)
+    //   // this.yawnBlast = this.physics.add.staticGroup()
+    //   this.yawnBlast.body.setImmovable(true)
+    //   this.yawnBlast.body.allowGravity = false
+
+    // Set up physics and collider
+    this.physics.add.existing(this.yawnBlast)
+    this.yawnBlast.setCircle(100)
+    this.physics.add.collider(this.yawnBlast)
+  }
+
+  // Destroys sheep yawn circle if space key is not being pressed and
+  // Yawn blast circle already exists
+  destroyYwanBlash () {
+    // console.log('Space key released')
+    if (this.yawnBlast) {
+      this.yawnBlast.destroy()
+    }
   }
 
   update (time, delta) {
     const velocity = { x: 0.0, y: 0.0 }
-    if (this.cursors.up.isDown || this.upKey.isDown)
-    {
+    if (this.cursors.up.isDown || this.upKey.isDown) {
       velocity.y -= 160
       velocity.x = 0
       this.movingVertical = true
     }
-    if (this.cursors.down.isDown || this.downKey.isDown)
-    {
+    if (this.cursors.down.isDown || this.downKey.isDown) {
       velocity.y += 160
       velocity.x = 0
       this.movingVertical = true
     }
-    if (this.cursors.right.isDown || this.rightKey.isDown)
-    {
+    if (this.cursors.right.isDown || this.rightKey.isDown) {
       velocity.x += 160
       velocity.y = 0
       this.movingVertical = false
     }
-    if (this.cursors.left.isDown || this.leftKey.isDown)
-    {
+    if (this.cursors.left.isDown || this.leftKey.isDown) {
       velocity.x -= 160
       velocity.y = 0
       this.movingVertical = false
     }
 
     this.player.body.velocity.set(velocity.x, velocity.y)
+<<<<<<< HEAD
     this.player.depth = this.player.y + this.player.height / 2
 
     this.depthCheck(this.testTree)
@@ -163,9 +240,34 @@ class TestSheepMove extends Phaser.Scene {
       }      
     }  
   }
+=======
+>>>>>>> 5a9f160b4b403915e73781d4da8e52fa6ca5762e
 
-  render () {
+    // Moves sheep yawn circle with player when
+    // Arrowkeys/wsad keys are pressed
+    // Calculates distance between the yawn blast
+    // Circle and enemy
+    if (this.yawnBlast) {
+      this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
+    }
+
+    // Increases circumferance of circle
+    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
+      this.yawnBlast.setScale(this._yawn_scale)
+      this._yawn_scale += 0.01
+      // console.log(this.yawnBlast.scale)
+    }
+
+    // Increases thickness of stroke for the circle
+    // To indicate the max circumferance has been
+    // achieved
+    if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
+      console.log('point has been found')
+      this.yawnBlast.setStrokeStyle(4.7)
+    }
   }
+
+  render () { }
 }
 
 // Expose the class TestSheepMove to other files
