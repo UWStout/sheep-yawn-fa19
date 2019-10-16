@@ -179,14 +179,9 @@ class TestSheepMove extends Phaser.Scene {
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    //   this.yawnBlast.body.setSize(this.player.x, this.player.y + 40, true)
-    //   this.yawnBlast = this.physics.add.staticGroup()
-    //   this.yawnBlast.body.setImmovable(true)
-    //   this.yawnBlast.body.allowGravity = false
-
     // Set up physics and collider
     this.physics.add.existing(this.yawnBlast)
-    // this.yawnBlast.setCircle(100)
+    this.yawnBlast.body.setCircle(50, 0.5)
     this.physics.add.collider(this.yawnBlast)
   }
 
@@ -196,6 +191,10 @@ class TestSheepMove extends Phaser.Scene {
     // console.log('Space key released')
     if (this.yawnBlast) {
       this.yawnBlast.destroy()
+      //
+      // if (checkOverlap(this.yawnBlast, this.testWoolf)) {
+
+      // }
     }
   }
 
