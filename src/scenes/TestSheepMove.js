@@ -87,6 +87,8 @@ class TestSheepMove extends Phaser.Scene {
     this.physics.add.collider(this.player, this.testWoolf)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
 
+    this.woolfHealth = this._default_woolf_health
+
     // Setup the key objects
     this.setupKeyboard()
 
@@ -177,40 +179,46 @@ class TestSheepMove extends Phaser.Scene {
     this.physics.add.existing(this.yawnBlast)
     this.yawnBlast.body.setCircle(50, 0.5)
     this.physics.add.collider(this.yawnBlast)
-    this.physics.add.overlap(this.yawnBlast, this.testWoolf, this.loseHealth, null, this)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
   // Yawn blast circle already exists
   destroyYawnBlast () {
-    // console.log('Space key released')
     if (this.yawnBlast) {
-      this.yawnBlast.destroy()
-      //
-      // if (checkOverlap(this.yawnBlast, this.testWoolf)) {
+      if (this.testWoolf) {
+        // Damage if overlapping
+        this.physics.world.overlap(
+          this.yawnBlast, this.testWoolf,
+          this.loseHealth, null, this)
+      }
 
-      // }
+      // Destroy
+      this.yawnBlast.destroy()
+      this.yawnBlast = null
     }
   }
 
   // Reduces health of enemy when caught in yawn
   // Blast circle
   loseHealth (yawnCircle, woolfy) {
-    // // Reduces health when space key is released
-    // if (destroyYawnBlast()) {
-    //   // Takes off 5 health for yawn circle is not
-    //   // At full power
-    //   if (this.yawnBlast.scale < this._yawn_size_check) {
-    //     this.woolfHealth = this._default_woolf_health - 5
-    //   } else { // Takes off 10 points for full power
-    //     this.woolfHealth = this._default_woolf_health - 10
-    //   }
-    // }
+    console.log('Losing health')
+    this.holderHealth = 0
+    // Reduces health when space key is released
+    if (this.yawnBlast.scale < this._yawn_size_check) {
+      this.woolfHealth -= 5
+      console.log('Before max:')
+      console.log(this.woolfHealth)
+    } else { // Takes off 10 points for full power
+      this.woolfHealth -= 10
+      console.log('After max:')
+      console.log(this.woolfHealth)
+    }
 
-    // // Destroy enemy when zero health is left
-    // if (this.woolfHealth <= 0) {
-    //   this.woolfy.destroy()
-    // }
+    // Destroy enemy when zero health is left
+    if (this.woolfHealth <= 0) {
+      this.testWoolf.destroy()
+      this.testWoolf = null
+    }
   }
 
   depthCheck (myTree) {
