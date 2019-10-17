@@ -201,15 +201,14 @@ class TestSheepMove extends Phaser.Scene {
   // Reduces health of enemy when caught in yawn
   // Blast circle
   loseHealth (yawnCircle, woolfy) {
-    console.log('Losing health')
-    this.holderHealth = 0
+    // console.log('Losing health')
     // Reduces health when space key is released
     if (this.yawnBlast.scale < this._yawn_size_check) {
-      this.woolfHealth -= 5
+      this.reduceHealthBy5()
       console.log('Before max:')
       console.log(this.woolfHealth)
     } else { // Takes off 10 points for full power
-      this.woolfHealth -= 10
+      this.reduceHealthBy10()
       console.log('After max:')
       console.log(this.woolfHealth)
     }
@@ -219,6 +218,16 @@ class TestSheepMove extends Phaser.Scene {
       this.testWoolf.destroy()
       this.testWoolf = null
     }
+  }
+
+  // Takes off 5 points of damage from total health
+  reduceHealthBy5 () {
+    this.woolfHealth -= 5
+  }
+
+  // Takes off 10 points of damage from total health
+  reduceHealthBy10 () {
+    this.woolfHealth -= 10
   }
 
   depthCheck (myTree) {
