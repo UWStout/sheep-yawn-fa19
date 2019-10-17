@@ -84,7 +84,6 @@ class TestSheepMove extends Phaser.Scene {
 
     // set collision
     this.physics.add.collider(this.player, this.testTree)
-    
     this.physics.add.collider(this.player, this.testWoolf)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
 
@@ -173,10 +172,12 @@ class TestSheepMove extends Phaser.Scene {
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    // Set up physics and collider
+    // Set up physics, collider, and overlap collider
+    // with enemies
     this.physics.add.existing(this.yawnBlast)
     this.yawnBlast.body.setCircle(50, 0.5)
     this.physics.add.collider(this.yawnBlast)
+    this.physics.add.overlap(this.yawnBlast, this.testWoolf, this.loseHealth, null, this)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
@@ -190,6 +191,26 @@ class TestSheepMove extends Phaser.Scene {
 
       // }
     }
+  }
+
+  // Reduces health of enemy when caught in yawn
+  // Blast circle
+  loseHealth (yawnCircle, woolfy) {
+    // // Reduces health when space key is released
+    // if (destroyYawnBlast()) {
+    //   // Takes off 5 health for yawn circle is not
+    //   // At full power
+    //   if (this.yawnBlast.scale < this._yawn_size_check) {
+    //     this.woolfHealth = this._default_woolf_health - 5
+    //   } else { // Takes off 10 points for full power
+    //     this.woolfHealth = this._default_woolf_health - 10
+    //   }
+    // }
+
+    // // Destroy enemy when zero health is left
+    // if (this.woolfHealth <= 0) {
+    //   this.woolfy.destroy()
+    // }
   }
 
   depthCheck (myTree) {
