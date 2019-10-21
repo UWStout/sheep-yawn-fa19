@@ -50,6 +50,7 @@ class TestSheepMove extends Phaser.Scene {
       x: 600,
       y: 300
     })
+
     // Adds woolf enemy to scene and set up physics
     this.add.existing(this.testWoolf)
     this.physics.add.existing(this.testWoolf)
@@ -87,7 +88,7 @@ class TestSheepMove extends Phaser.Scene {
     this.physics.add.collider(this.player, this.testWoolf)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
 
-    this.woolfHealth = this._default_woolf_health
+    // this.woolfHealth = this._default_woolf_health
 
     // Setup the key objects
     this.setupKeyboard()
@@ -228,6 +229,28 @@ class TestSheepMove extends Phaser.Scene {
   // Takes off 10 points of damage from total health
   reduceHealthBy10 () {
     this.woolfHealth -= 10
+  }
+
+  // General enemy class that will be used for inheritance
+  Enemy (health) {
+    // Set up enemy's health
+    this.genHealth = health
+  }
+
+  //
+  WoolfEnemy (health) {
+    health = this._default_woolf_health
+    console.log(health)
+  }
+
+  //
+  BoarEnemy () {
+
+  }
+
+  //
+  BatEnemy () {
+
   }
 
   depthCheck (myTree) {
