@@ -269,16 +269,15 @@ class TestSheepMove extends Phaser.Scene {
       if (this.player.body.position.y < (myTree.y + 114)) {
         myTree.body.setOffset(120, 300)
       }
-      if ((this.player.x > (myTree.x + myTree.height / 2)) || (this.player.x < (myTree.x - myTree.height / 2))) { // change to width //error
+      if (((this.player.x > (myTree.x + myTree.width / 2)) || (this.player.x < (myTree.x - myTree.width / 2))) || (this.player.y + (this.player.height / 2)) < (myTree.y - (myTree.height / 2))) {
       // not behind tree
       // top left, top right, bottom left, bottom right
         // console.log('2 not behind tree')
         myTree.setAlpha(1, 1, 1, 1)
       } else {
         // behind tree
-        // console.log('3 behind tree')
-        // top left, top right, bottom left, bottom right
-        myTree.setAlpha(0, 0, 1, 1)
+        console.log('Look ' + this.player.y)
+        myTree.setAlpha(0.2, 0.2, 1, 1)
       }
     } else {
       // console.log('4 below or collide with tree?')
