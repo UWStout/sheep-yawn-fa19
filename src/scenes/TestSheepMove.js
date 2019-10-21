@@ -116,6 +116,8 @@ class TestSheepMove extends Phaser.Scene {
     this.physics.add.collider(this.player, this.testWoolf)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
 
+    this.woolfHealth = this._default_woolf_health
+
     // Setup the key objects
     this.setupKeyboard()
 
@@ -202,24 +204,60 @@ class TestSheepMove extends Phaser.Scene {
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    //   this.yawnBlast.body.setSize(this.player.x, this.player.y + 40, true)
-    //   this.yawnBlast = this.physics.add.staticGroup()
-    //   this.yawnBlast.body.setImmovable(true)
-    //   this.yawnBlast.body.allowGravity = false
-
-    // Set up physics and collider
+    // Set up physics, collider, and overlap collider
+    // with enemies
     this.physics.add.existing(this.yawnBlast)
-    // this.yawnBlast.setCircle(100)
+    this.yawnBlast.body.setCircle(50, 0.5)
     this.physics.add.collider(this.yawnBlast)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
   // Yawn blast circle already exists
   destroyYawnBlast () {
-    // console.log('Space key released')
     if (this.yawnBlast) {
+      if (this.testWoolf) {
+        // Damage if overlapping
+        this.physics.world.overlap(
+          this.yawnBlast, this.testWoolf,
+          this.loseHealth, null, this)
+      }
+
+      // Destroy
       this.yawnBlast.destroy()
+      this.yawnBlast = null
     }
+  }
+
+  // Reduces health of enemy when caught in yawn
+  // Blast circle
+  loseHealth (yawnCircle, woolfy) {
+    // console.log('Losing health')
+    // Calls reduceHealthBy5 function
+    if (this.yawnBlast.scale < this._yawn_size_check) {
+      this.reduceHealthBy5()
+      // console.log('Before max:')
+      // console.log(this.woolfHealth)
+    } else { // Calls reduceHealthBy10 function
+      this.reduceHealthBy10()
+      // console.log('After max:')
+      // console.log(this.woolfHealth)
+    }
+
+    // Destroy enemy when zero health is left
+    if (this.woolfHealth <= 0) {
+      this.testWoolf.destroy()
+      this.testWoolf = null
+    }
+  }
+
+  // Takes off 5 points of damage from total health
+  reduceHealthBy5 () {
+    this.woolfHealth -= 5
+  }
+
+  // Takes off 10 points of damage from total health
+  reduceHealthBy10 () {
+    this.woolfHealth -= 10
   }
 
   depthCheck (myTree) {
