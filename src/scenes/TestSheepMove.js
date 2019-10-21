@@ -7,6 +7,7 @@ import Phaser from 'phaser'
 import Woolhemina from '..//sprites/Woolhemina'
 import Woolf from '..//sprites/Woolf'
 import Tree from '..//sprites/Tree'
+import WoolfEnemy from '../sprites/WoolfEnemy'
 
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
@@ -62,14 +63,26 @@ class TestSheepMove extends Phaser.Scene {
       x: 600,
       y: 300
     })
+    //
+    this.testWoolf2 = new WoolfEnemy({
+      scene: this,
+      x: 900,
+      y: 500,
+      health: 90
+    })
 
     // Adds woolf enemy to scene and set up physics
-    this.add.existing(this.testWoolf)
-    this.physics.add.existing(this.testWoolf)
-    this.testWoolf.body.setSize(250, 180, true)
+    // this.add.existing(this.testWoolf)
+    this.add.existing(this.testWoolf2)
+    // this.physics.add.existing(this.testWoolf)
+    this.physics.add.existing(this.testWoolf2)
+    // this.testWoolf.body.setSize(250, 180, true)
+    this.testWoolf2.body.setSize(250, 180, true)
     // this.testWoolf = this.physics.add.staticGroup()
-    this.testWoolf.body.setImmovable(true)
-    this.testWoolf.body.allowGravity = false
+    // this.testWoolf.body.setImmovable(true)
+    this.testWoolf2.body.setImmovable(true)
+    // this.testWoolf.body.allowGravity = false
+    this.testWoolf2.body.allowGravity = false
 
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
@@ -80,6 +93,10 @@ class TestSheepMove extends Phaser.Scene {
     this.halfPlayerHeight = this.PlayerHeight / 2
     // set Woolhemina's depth
     this.player.depth = this.player.y
+
+    // this.testWolfEnemy = new Enemy({
+    //   imageKey: 'wolfImage'
+    // })
 
     // add oak tree to scene and set physics
     this.add.existing(this.oakTree)
@@ -113,8 +130,8 @@ class TestSheepMove extends Phaser.Scene {
 */
     // set collision
     this.physics.add.collider(this.player, this.oakTree)
-    // this.physics.add.collider(this.player, this.pineTree)  
-    this.physics.add.collider(this.player, this.testWoolf)
+    // this.physics.add.collider(this.player, this.pineTree)
+    this.physics.add.collider(this.player, this.testWoolf2)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
 
     // this.woolfHealth = this._default_woolf_health
@@ -216,10 +233,10 @@ class TestSheepMove extends Phaser.Scene {
   // Yawn blast circle already exists
   destroyYawnBlast () {
     if (this.yawnBlast) {
-      if (this.testWoolf) {
+      if (this.testWoolf2) {
         // Damage if overlapping
         this.physics.world.overlap(
-          this.yawnBlast, this.testWoolf,
+          this.yawnBlast, this.testWoolf2,
           this.loseHealth, null, this)
       }
 
@@ -246,8 +263,8 @@ class TestSheepMove extends Phaser.Scene {
 
     // Destroy enemy when zero health is left
     if (this.woolfHealth <= 0) {
-      this.testWoolf.destroy()
-      this.testWoolf = null
+      this.testWoolf2.destroy()
+      this.testWoolf2 = null
     }
   }
 
@@ -261,27 +278,28 @@ class TestSheepMove extends Phaser.Scene {
     this.woolfHealth -= 10
   }
 
-  // General enemy class that will be used for inheritance
-  Enemy (health) {
-    // Set up enemy's health
-    this.genHealth = health
-  }
+  // // General enemy class that will be used for inheritance
+  // class Enemy extends {
+  //   constructor(health)
+  //   // Set up enemy's health
+  //   this.genHealth = health
+  // }
 
-  //
-  WoolfEnemy (health) {
-    health = this._default_woolf_health
-    console.log(health)
-  }
+  // //
+  // WoolfEnemy extends Enemy {
+  //   health = this._defa ult_woolf_health
+  //   console.log(health)
+  // }
 
-  //
-  BoarEnemy () {
+  // //
+  // BoarEnemy () {
 
-  }
+  // }
 
-  //
-  BatEnemy () {
+  // //
+  // BatEnemy () {
 
-  }
+  // }
 
   depthCheck (myTree) {
     if (myTree.depth > this.player.depth) {
