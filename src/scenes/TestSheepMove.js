@@ -35,7 +35,7 @@ class TestSheepMove extends Phaser.Scene {
   // Not immediately added to scene
   create () {
     // tile sprite
-    this.tileOne = this.add.tileSprite(400, 300, 1500, 1000, 'tile1')
+    this.tileOne = this.add.tileSprite(400, 300, 3000, 1000, 'tile1')
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
       scene: this,
