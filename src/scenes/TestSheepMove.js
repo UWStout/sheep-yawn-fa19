@@ -8,6 +8,7 @@ import Woolhemina from '..//sprites/Woolhemina'
 import Woolf from '..//sprites/Woolf'
 import Tree from '..//sprites/Tree'
 import WoolfEnemy from '../sprites/WoolfEnemy'
+import Enemy from '..//sprites/Enemy'
 
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
@@ -252,19 +253,21 @@ class TestSheepMove extends Phaser.Scene {
     // console.log('Losing health')
     // Calls reduceHealthBy5 function
     if (this.yawnBlast.scale < this._yawn_size_check) {
-      this.reduceHealthBy5()
+      // WoolfEnemy.takeDamage(5)
+      // this.reduceHealthBy5()
       // console.log('Before max:')
       // console.log(this.woolfHealth)
     } else { // Calls reduceHealthBy10 function
-      this.reduceHealthBy10()
+      // WoolfEnemy.takeDamage(10)
+      // this.reduceHealthBy10()
       // console.log('After max:')
       // console.log(this.woolfHealth)
     }
 
     // Destroy enemy when zero health is left
     if (this.woolfHealth <= 0) {
-      this.testWoolf2.destroy()
-      this.testWoolf2 = null
+      // this.testWoolf2.destroy()
+      // this.testWoolf2 = null
     }
   }
 
@@ -277,29 +280,6 @@ class TestSheepMove extends Phaser.Scene {
   reduceHealthBy10 () {
     this.woolfHealth -= 10
   }
-
-  // // General enemy class that will be used for inheritance
-  // class Enemy extends {
-  //   constructor(health)
-  //   // Set up enemy's health
-  //   this.genHealth = health
-  // }
-
-  // //
-  // WoolfEnemy extends Enemy {
-  //   health = this._defa ult_woolf_health
-  //   console.log(health)
-  // }
-
-  // //
-  // BoarEnemy () {
-
-  // }
-
-  // //
-  // BatEnemy () {
-
-  // }
 
   depthCheck (myTree) {
     if (myTree.depth > this.player.depth) {
