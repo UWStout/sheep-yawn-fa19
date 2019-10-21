@@ -11,11 +11,13 @@ import Tree from '..//sprites/Tree'
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
 
-  // Grabs images and other material needed for the scene before any functions are ran
+  // Grabs images and other material needed for the scene before any functions run
   preload () {
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
-    this.load.image('treeImage', 'assets/images/testTreeAsset1.png')
+    this.load.image('treeImage', 'assets/images/asset_oakTree.png')
+    this.load.image('pineImage', 'assets/images/pineTree_256.png')
     this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
+    this.load.image('tile1', 'assets/images/Tile_01.png')
 
     // Default health for enemies
     this._default_woolf_health = 90
@@ -32,18 +34,28 @@ class TestSheepMove extends Phaser.Scene {
   // Creates objects and other items used within the scene
   // Not immediately added to scene
   create () {
+    // tile sprite
+    this.tileOne = this.add.tileSprite(400, 300, 1500, 1000, 'tile1')
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
       scene: this,
       x: 400,
       y: 350
     })
-    // Creation of test tree
-    this.testTree = new Tree({
+    // Creation of oak tree
+    this.oakTree = new Tree({
       scene: this,
       x: 200,
       y: 300
     })
+    /*
+    // Creation of pine tree
+    this.pineTree = new Tree({
+      scene: this,
+      x: 500,
+      y: 600
+    })
+    */
     // Creation of enemy, Woolf
     this.testWoolf = new Woolf({
       scene: this,
@@ -68,23 +80,39 @@ class TestSheepMove extends Phaser.Scene {
     // set Woolhemina's depth
     this.player.depth = this.player.y
 
-    // add test tree to scene and set physics
-    this.add.existing(this.testTree)
-    this.physics.add.existing(this.testTree)
-    // tree is 256 by 256
-    this.TreeBodyHeight = 20
-    this.testTree.body.setSize(85, this.TreeBodyHeight, 0, 0)
-    this.halfTreeBodyHeight = this.TreeBodyHeight / 2
-    this.testTree.body.setOffset(85, 236)
-    this.testTree.body.setImmovable(true)
-    this.testTree.body.allowGravity = false
-    this.testTree.body.enable = true
+    // add oak tree to scene and set physics
+    this.add.existing(this.oakTree)
+    this.physics.add.existing(this.oakTree)
+    this.oakTree.setTexture('treeImage')
+    this.oakTree.treeHeight = 20
+    this.oakTree.treeWidth = 85
+    this.oakTree.body.setSize(this.oakTree.treeWidth, this.oakTree.treeHeight, 0)
+    this.oakTree.body.setOffset(120, 300)
+    this.oakTree.body.setImmovable(true)
+    this.oakTree.body.allowGravity = false
+    this.oakTree.body.enable = true
     // set tree depth
-    this.testTree.depth = this.testTree.y + this.testTree.height / 2
+    this.oakTree.depth = this.oakTree.y + this.oakTree.height / 2
 
+    /*
+    // add pine tree to scene and set physics  //working on this
+    this.add.existing(this.pineTree)
+    this.physics.add.existing(this.pineTree)
+    this.pineTree.setTexture('pineImage')
+    // pine tree
+    this.pineTree.treeHeight = 20
+    this.pineTree.treeWidth = 85
+    this.pineTree.body.setSize(this.pineTree.treeWidth, this.pineTree.treeHeight, 0)
+    this.pineTree.body.setOffset(120, 300)
+    this.pineTree.body.setImmovable(true)
+    this.pineTree.body.allowGravity = false
+    this.pineTree.body.enable = true
+    // set tree depth
+    this.pineTree.depth = this.pineTree.y + this.pineTree.height / 2
+*/
     // set collision
-    this.physics.add.collider(this.player, this.testTree)
-    
+    this.physics.add.collider(this.player, this.oakTree)
+    // this.physics.add.collider(this.player, this.pineTree)  
     this.physics.add.collider(this.player, this.testWoolf)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
 
@@ -141,7 +169,8 @@ class TestSheepMove extends Phaser.Scene {
     this.player.body.velocity.set(velocity.x, velocity.y)
     this.player.depth = this.player.y + this.player.height / 2
 
-    this.depthCheck(this.testTree)
+    this.depthCheck(this.oakTree)
+    // this.depthCheck(this.pineTree)
 
     // Moves sheep yawn circle with player when
     // Arrowkeys/wasd keys are pressed
@@ -199,16 +228,14 @@ class TestSheepMove extends Phaser.Scene {
       this.player.depth = myTree.depth - 1
       // Might be behind or to the side of the tree
       // console.log('1) is it behind?')
-      // console.log('Look sheep y' + (this.player.body.position.y + this.PlayerHeight))
-      // console.log('Looky height' + myTree.y + 114)
       if (this.player.body.position.y < (myTree.y + 114)) {
-        this.testTree.body.setOffset(85, 236)
+        myTree.body.setOffset(120, 300)
       }
-      if ((this.player.x > (myTree.x + myTree.height / 2)) || (this.player.x > (myTree.x + myTree.height / 2))) {
+      if ((this.player.x > (myTree.x + myTree.height / 2)) || (this.player.x < (myTree.x - myTree.height / 2))) { // change to width //error
       // not behind tree
       // top left, top right, bottom left, bottom right
         // console.log('2 not behind tree')
-        this.testTree.setAlpha(1, 1, 1, 1)
+        myTree.setAlpha(1, 1, 1, 1)
       } else {
         // behind tree
         // console.log('3 behind tree')
@@ -221,8 +248,8 @@ class TestSheepMove extends Phaser.Scene {
       myTree.setAlpha(1, 1, 1, 1)
       this.sheepFootPosY = this.player.body.position.y + this.PlayerHeight
       this.sheepFootPosX = this.player.body.position.x
-      this.testTreeTopCollide = myTree.body.position.y - this.halfTreeBodyHeight
-      this.testTreeBottomCollide = myTree.body.position.y + this.TreeBodyHeight
+      this.testTreeTopCollide = myTree.body.position.y - (myTree.treeHeight / 2)
+      this.testTreeBottomCollide = myTree.body.position.y + (myTree.treeHeight)
       // console.log('sheepFootPos' + this.sheepFootPosY)
       // console.log('bottom' + this.testTreeBottomCollide)
       // console.log('top' + this.testTreeTopCollide)
@@ -235,19 +262,18 @@ class TestSheepMove extends Phaser.Scene {
       if (this.sheepFootPosY > this.testTreeBottomCollide) {
         if (this.sheepFootPosX > myTree.body.position.x + 50 || this.sheepFootPosX < myTree.body.position.x - 50) {
           // console.log('to the side of the tree')
-          this.testTree.body.setOffset(85, 150)
+          myTree.body.setOffset(120, 215)
         }
-        // console.log('Look! y ' + this.sheepFootPosY)
         if (this.sheepFootPosY < myTree.body.position.x) {
           // console.log('collision at tree base')
-          this.testTree.body.setOffset(85, 236)
+          myTree.body.setOffset(120, 300)
         }
         myTree.body.enable = true
       } else {
         // console.log('7 above tree trunk')
         // console.log('7 sheepFootPos x' + this.sheepFootPosX)
         myTree.body.enable = true
-        this.testTree.body.setOffset(85, 236)
+        myTree.body.setOffset(120, 300)
       }
     }
   }

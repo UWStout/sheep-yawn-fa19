@@ -9,6 +9,8 @@ class Tree extends Phaser.GameObjects.Sprite {
     super(scene, x, y, 'treeImage')
     this.key = 'tree'
     this.name = 'tree'
+    this.treeHeight = 0
+    this.treeWidth = 0
   }
 }
 
