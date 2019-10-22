@@ -8,9 +8,6 @@ import Phaser from 'phaser'
 class HUD extends Phaser.Scene {
   // Initialize the stage and any simple settings
   init () {
-    // // Set the background color
-    // this.cameras.main.backgroundColor = '#7f7f7f'
-
     // If running as a packaged app, go to full screen right away
     if (__NWJS__) {
       let canvas = this.sys.game.canvas
@@ -27,16 +24,34 @@ class HUD extends Phaser.Scene {
     this._default_time = 150
 
     // Show message that fonts are loading
-    let text = this.add.text(80, 32, 'Countdown: ' + this._default_time,
-      { font: '16px Arial', fill: '#0xff0000', align: 'center' })
-    text.setOrigin(0.5, 0.5)
-  }
+    this.timeText = this.add.text(80, 32, 'Till Dawn: ' + this._default_time,
+      { font: '16px Roboto Condensed', fontStyle: 'bold', fill: '#0xff0000', align: 'center' })
+    this.timeText.setOrigin(0.5, 0.5)
 
-  // Each 1000 ms call onEvent
-  // this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
+    // Each 1000 ms calls countDown
+    this.time.addEvent({ delay: 1000, callback: this.countDown, callbackScope: this, loop: true })
+  }
 
   formatTime (seconds) {
 
+  }
+
+  // Decreases time 1 sec at a time
+  countDown () {
+    this._default_time -= 1
+    this.timeText.text = ('Till Dawn: ' + this._default_time)
+  }
+
+  // Calls once per frame
+  update () {
+    // if (this.text) {
+    //   console.log('were in.')
+    //   this.countDown()
+    // }
+
+    this.countDown()
+
+    // this.text.text = 'Event.progress: ' +
   }
 }
 
