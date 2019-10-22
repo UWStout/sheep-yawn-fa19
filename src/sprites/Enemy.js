@@ -18,7 +18,8 @@ class Enemy extends Phaser.GameObjects.Sprite {
   // Decreases health by a value determined later
   takeDamage (value) {
     this.genHealth -= value
-    console.log('loss of life')
+    // console.log('loss of life')
+    // console.log(this.genHealth)
     // Calls event check when health is equal or less to zero
     if (this.genHealth <= 0) {
       this.emit('die')

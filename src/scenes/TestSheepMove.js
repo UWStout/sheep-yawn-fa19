@@ -253,12 +253,12 @@ class TestSheepMove extends Phaser.Scene {
     // console.log('Losing health')
     // Calls reduceHealthBy5 function
     if (this.yawnBlast.scale < this._yawn_size_check) {
-      // WoolfEnemy.takeDamage(5)
+      this.testWoolf2.takeDamage(5)
       // this.reduceHealthBy5()
       // console.log('Before max:')
       // console.log(this.woolfHealth)
     } else { // Calls reduceHealthBy10 function
-      // WoolfEnemy.takeDamage(10)
+      this.testWoolf2.takeDamage(10)
       // this.reduceHealthBy10()
       // console.log('After max:')
       // console.log(this.woolfHealth)
