@@ -5,10 +5,9 @@ import Phaser from 'phaser'
 
 // Import the sprites
 import Woolhemina from '..//sprites/Woolhemina'
-import Woolf from '..//sprites/Woolf'
+import WoolfEnemy from '..//sprites/WoolfEnemy'
 import Tree from '..//sprites/Tree'
-import WoolfEnemy from '../sprites/WoolfEnemy'
-import Enemy from '..//sprites/Enemy'
+// import HUD from './HUD'
 
 class TestSheepMove extends Phaser.Scene {
   init (data) { }
@@ -34,7 +33,8 @@ class TestSheepMove extends Phaser.Scene {
   }
 
   // Creates objects and other items used within the scene
-  // Not immediately added to scene
+  // Not immediately added to scene, unless add/addExisting
+  // Is stated
   create () {
     // tile sprite
     this.tileOne = this.add.tileSprite(400, 300, 3000, 1000, 'tile1')
@@ -59,12 +59,6 @@ class TestSheepMove extends Phaser.Scene {
     })
     */
     // Creation of enemy, Woolf
-    this.testWoolf = new Woolf({
-      scene: this,
-      x: 600,
-      y: 300
-    })
-    //
     this.testWoolf2 = new WoolfEnemy({
       scene: this,
       x: 900,
@@ -73,16 +67,10 @@ class TestSheepMove extends Phaser.Scene {
     })
 
     // Adds woolf enemy to scene and set up physics
-    // this.add.existing(this.testWoolf)
     this.add.existing(this.testWoolf2)
-    // this.physics.add.existing(this.testWoolf)
     this.physics.add.existing(this.testWoolf2)
-    // this.testWoolf.body.setSize(250, 180, true)
     this.testWoolf2.body.setSize(250, 180, true)
-    // this.testWoolf = this.physics.add.staticGroup()
-    // this.testWoolf.body.setImmovable(true)
     this.testWoolf2.body.setImmovable(true)
-    // this.testWoolf.body.allowGravity = false
     this.testWoolf2.body.allowGravity = false
 
     // add Woolhemina to scene and set physics
@@ -114,7 +102,8 @@ class TestSheepMove extends Phaser.Scene {
     this.oakTree.depth = this.oakTree.y + this.oakTree.height / 2
 
     /*
-    // add pine tree to scene and set physics  //working on this
+    // add pine tree to scene and set physics
+    //working on this
     this.add.existing(this.pineTree)
     this.physics.add.existing(this.pineTree)
     this.pineTree.setTexture('pineImage')
@@ -133,9 +122,7 @@ class TestSheepMove extends Phaser.Scene {
     this.physics.add.collider(this.player, this.oakTree)
     // this.physics.add.collider(this.player, this.pineTree)
     this.physics.add.collider(this.player, this.testWoolf2)
-    // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
-
-    // this.woolfHealth = this._default_woolf_health
+    // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf2)
 
     // Setup the key objects
     this.setupKeyboard()
@@ -143,6 +130,8 @@ class TestSheepMove extends Phaser.Scene {
     // old version before scenes were merged
     // this.scene.run('SheepYawn', { player: this.player })
     // this.scene.moveAbove('SheepYawn', 'SheepMove')
+    this.scene.run('HUDScene')
+    // this.scene.moveAbove('HUDScene', 'SheepMove')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -216,7 +205,7 @@ class TestSheepMove extends Phaser.Scene {
 
   // Creates sheep yawn circle, add physics and setup collider
   createYawnBlast () {
-  // Destroys previous sheep yawn circles if they exist
+    // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
     // console.log('Space key is being pressed')
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
@@ -250,35 +239,11 @@ class TestSheepMove extends Phaser.Scene {
   // Reduces health of enemy when caught in yawn
   // Blast circle
   loseHealth (yawnCircle, woolfy) {
-    // console.log('Losing health')
-    // Calls reduceHealthBy5 function
     if (this.yawnBlast.scale < this._yawn_size_check) {
       this.testWoolf2.takeDamage(5)
-      // this.reduceHealthBy5()
-      // console.log('Before max:')
-      // console.log(this.woolfHealth)
     } else { // Calls reduceHealthBy10 function
       this.testWoolf2.takeDamage(10)
-      // this.reduceHealthBy10()
-      // console.log('After max:')
-      // console.log(this.woolfHealth)
     }
-
-    // Destroy enemy when zero health is left
-    if (this.woolfHealth <= 0) {
-      // this.testWoolf2.destroy()
-      // this.testWoolf2 = null
-    }
-  }
-
-  // Takes off 5 points of damage from total health
-  reduceHealthBy5 () {
-    this.woolfHealth -= 5
-  }
-
-  // Takes off 10 points of damage from total health
-  reduceHealthBy10 () {
-    this.woolfHealth -= 10
   }
 
   depthCheck (myTree) {
