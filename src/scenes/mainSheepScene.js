@@ -4,9 +4,10 @@
 import Phaser from 'phaser'
 
 // Import the sprites
-import Woolhemina from '../sprites/Woolhemina'
-import Woolf from '../sprites/Woolf'
-import Tree from '../sprites/Tree'
+import Woolhemina from '..//sprites/Woolhemina'
+import WoolfEnemy from '..//sprites/WoolfEnemy'
+import Tree from '..//sprites/Tree'
+// import HUD from './HUD'
 
 class mainSheepScene extends Phaser.Scene {
   init (data) { }
@@ -32,7 +33,8 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   // Creates objects and other items used within the scene
-  // Not immediately added to scene
+  // Not immediately added to scene, unless add/addExisting
+  // Is stated
   create () {
     // tile sprite
     this.tileOne = this.add.tileSprite(400, 300, 3000, 1000, 'tile1')
@@ -60,18 +62,19 @@ class mainSheepScene extends Phaser.Scene {
     */
     
     // Creation of enemy, Woolf
-    this.testWoolf = new Woolf({
+    this.testWoolf2 = new WoolfEnemy({
       scene: this,
-      x: 600,
-      y: 300
+      x: 900,
+      y: 500,
+      health: 90
     })
+
     // Adds woolf enemy to scene and set up physics
-    this.add.existing(this.testWoolf)
-    this.physics.add.existing(this.testWoolf)
-    this.testWoolf.body.setSize(250, 180, true)
-    // this.testWoolf = this.physics.add.staticGroup()
-    this.testWoolf.body.setImmovable(true)
-    this.testWoolf.body.allowGravity = false
+    this.add.existing(this.testWoolf2)
+    this.physics.add.existing(this.testWoolf2)
+    this.testWoolf2.body.setSize(250, 180, true)
+    this.testWoolf2.body.setImmovable(true)
+    this.testWoolf2.body.allowGravity = false
 
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
@@ -82,6 +85,10 @@ class mainSheepScene extends Phaser.Scene {
     this.halfPlayerHeight = this.PlayerHeight / 2
     // set Woolhemina's depth
     this.player.depth = this.player.y
+
+    // this.testWolfEnemy = new Enemy({
+    //   imageKey: 'wolfImage'
+    // })
 
     // add oak tree to scene and set physics
     this.add.existing(this.oakTree)
@@ -102,6 +109,10 @@ class mainSheepScene extends Phaser.Scene {
 
     /*
     // add pine tree to scene and set physics
+<<<<<<< HEAD:src/scenes/mainSheepScene.js
+=======
+    //working on this
+>>>>>>> 03f4be7db19840b8aed88a7fd761c25b66c4ddc3:src/scenes/TestSheepMove.js
     this.add.existing(this.pineTree)
     this.physics.add.existing(this.pineTree)
     this.pineTree.setTexture('pineImage')
@@ -121,14 +132,15 @@ class mainSheepScene extends Phaser.Scene {
     */
     // set collision
     this.physics.add.collider(this.player, this.oakTree)
-    this.physics.add.collider(this.player, this.pineTree)
-    this.physics.add.collider(this.player, this.testWoolf)
-    // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
-
-    this.woolfHealth = this._default_woolf_health
+    // this.physics.add.collider(this.player, this.pineTree)
+    this.physics.add.collider(this.player, this.testWoolf2)
+    // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf2)
 
     // Setup the key objects
     this.setupKeyboard()
+
+    // Runs HUD scene above MainSheepScene
+    this.scene.run('HUDScene')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -189,27 +201,24 @@ class mainSheepScene extends Phaser.Scene {
     if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
       this.yawnBlast.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
-      // console.log(this.yawnBlast.scale)
     }
 
     // Increases thickness of stroke for the circle
     // To indicate the max circumferance has been achieved
     if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
-      // console.log('point has been found')
       this.yawnBlast.setStrokeStyle(4.7)
     }
   }
 
   // Creates sheep yawn circle, add physics and setup collider
   createYawnBlast () {
-  // Destroys previous sheep yawn circles if they exist
+    // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
-    // console.log('Space key is being pressed')
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    // Set up physics, collider, and overlap collider with enemies
+    // Set up physics, collider
     this.physics.add.existing(this.yawnBlast)
     this.yawnBlast.body.setCircle(50, 0.5)
     this.physics.add.collider(this.yawnBlast)
@@ -218,50 +227,27 @@ class mainSheepScene extends Phaser.Scene {
   // Destroys sheep yawn circle if space key is not being pressed and
   // Yawn blast circle already exists
   destroyYawnBlast () {
+    // Does yawn blast exist?
     if (this.yawnBlast) {
-      if (this.testWoolf) {
-        // Damage if overlapping
+      // Does Woolf enemy exist?
+      if (this.testWoolf2) {
+        // Check for overlap with enemy and yawnBlast
+        // Call loseHealth if so
         this.physics.world.overlap(
-          this.yawnBlast, this.testWoolf,
+          this.yawnBlast, this.testWoolf2,
           this.loseHealth, null, this)
       }
-
-      // Destroy
-      this.yawnBlast.destroy()
-      this.yawnBlast = null
     }
   }
 
   // Reduces health of enemy when caught in yawn
   // Blast circle
   loseHealth (yawnCircle, woolfy) {
-    // console.log('Losing health')
-    // Calls reduceHealthBy5 function
     if (this.yawnBlast.scale < this._yawn_size_check) {
-      this.reduceHealthBy5()
-      // console.log('Before max:')
-      // console.log(this.woolfHealth)
+      this.testWoolf2.takeDamage(5)
     } else { // Calls reduceHealthBy10 function
-      this.reduceHealthBy10()
-      // console.log('After max:')
-      // console.log(this.woolfHealth)
+      this.testWoolf2.takeDamage(10)
     }
-
-    // Destroy enemy when zero health is left
-    if (this.woolfHealth <= 0) {
-      this.testWoolf.destroy()
-      this.testWoolf = null
-    }
-  }
-
-  // Takes off 5 points of damage from total health
-  reduceHealthBy5 () {
-    this.woolfHealth -= 5
-  }
-
-  // Takes off 10 points of damage from total health
-  reduceHealthBy10 () {
-    this.woolfHealth -= 10
   }
 
   depthCheck (myTree) {
