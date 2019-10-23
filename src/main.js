@@ -9,7 +9,7 @@ import PhaserDebugDrawPlugin from 'phaser-plugin-debug-draw'
 import UIPlugin from '../plugins/rexrainbow/rexuiplugin.min'
 
 // Import the scenes used in our game
-import BootScene from './scenes/Boot' // A bootstraping loader that loads the assets need by ... the loader!
+// import BootScene from './scenes/Boot' // A bootstraping loader that loads the assets need by ... the loader!
 // import SplashScene from './scenes/Splash' // A fancy loading splash screen for loading more assets
 // import TestScene from './scenes/TestScene' // The main game level for testing
 import TestSheepMove from './scenes/TestSheepMove'
@@ -82,7 +82,7 @@ class Game extends Phaser.Game {
     // this.scene.add('PauseMenu', PauseMenuScene, false)
 
     // Start with the bootstrap scene that will load assets needed for the splash scene
-    this.scene.start('HUDScene')
+    this.scene.start('SheepMove')
   }
 }
 

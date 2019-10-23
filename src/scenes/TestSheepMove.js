@@ -130,8 +130,9 @@ class TestSheepMove extends Phaser.Scene {
     // old version before scenes were merged
     // this.scene.run('SheepYawn', { player: this.player })
     // this.scene.moveAbove('SheepYawn', 'SheepMove')
+    
+    // Runs HUD scene above MainSheepScene
     this.scene.run('HUDScene')
-    // this.scene.moveAbove('HUDScene', 'SheepMove')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -192,13 +193,11 @@ class TestSheepMove extends Phaser.Scene {
     if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
       this.yawnBlast.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
-      // console.log(this.yawnBlast.scale)
     }
 
     // Increases thickness of stroke for the circle
     // To indicate the max circumferance has been achieved
     if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
-      // console.log('point has been found')
       this.yawnBlast.setStrokeStyle(4.7)
     }
   }
@@ -207,13 +206,11 @@ class TestSheepMove extends Phaser.Scene {
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
-    // console.log('Space key is being pressed')
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    // Set up physics, collider, and overlap collider
-    // with enemies
+    // Set up physics, collider
     this.physics.add.existing(this.yawnBlast)
     this.yawnBlast.body.setCircle(50, 0.5)
     this.physics.add.collider(this.yawnBlast)
@@ -222,17 +219,16 @@ class TestSheepMove extends Phaser.Scene {
   // Destroys sheep yawn circle if space key is not being pressed and
   // Yawn blast circle already exists
   destroyYawnBlast () {
+    // Does yawn blast exist?
     if (this.yawnBlast) {
+      // Does Woolf enemy exist?
       if (this.testWoolf2) {
-        // Damage if overlapping
+        // Check for overlap with enemy and yawnBlast
+        // Call loseHealth if so
         this.physics.world.overlap(
           this.yawnBlast, this.testWoolf2,
           this.loseHealth, null, this)
       }
-
-      // Destroy
-      this.yawnBlast.destroy()
-      this.yawnBlast = null
     }
   }
 
