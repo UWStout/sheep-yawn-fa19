@@ -4,18 +4,18 @@
 import Phaser from 'phaser'
 
 // Import the sprites
-import Woolhemina from '..//sprites/Woolhemina'
-import Woolf from '..//sprites/Woolf'
-import Tree from '..//sprites/Tree'
+import Woolhemina from '../sprites/Woolhemina'
+import Woolf from '../sprites/Woolf'
+import Tree from '../sprites/Tree'
 
-class TestSheepMove extends Phaser.Scene {
+class mainSheepScene extends Phaser.Scene {
   init (data) { }
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
     this.load.image('treeImage', 'assets/images/asset_oakTree.png')
-    this.load.image('pineImage', 'assets/images/pineTree_256.png')
+    this.load.image('pineImage', 'assets/images/asset_pineTree.png')
     this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
     this.load.image('tile1', 'assets/images/Tile_01.png')
 
@@ -36,6 +36,7 @@ class TestSheepMove extends Phaser.Scene {
   create () {
     // tile sprite
     this.tileOne = this.add.tileSprite(400, 300, 3000, 1000, 'tile1')
+    this.tileOne.setTileScale(0.5, 0.5)
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
       scene: this,
@@ -48,14 +49,16 @@ class TestSheepMove extends Phaser.Scene {
       x: 200,
       y: 300
     })
+    
     /*
     // Creation of pine tree
     this.pineTree = new Tree({
       scene: this,
-      x: 500,
-      y: 600
+      x: 600,
+      y: 350
     })
     */
+    
     // Creation of enemy, Woolf
     this.testWoolf = new Woolf({
       scene: this,
@@ -87,7 +90,10 @@ class TestSheepMove extends Phaser.Scene {
     this.oakTree.treeHeight = 20
     this.oakTree.treeWidth = 85
     this.oakTree.body.setSize(this.oakTree.treeWidth, this.oakTree.treeHeight, 0)
-    this.oakTree.body.setOffset(120, 300)
+    this.oakTree.offsetX = 120
+    this.oakTree.offsetY = 300
+    this.oakTree.offsetChange = 215
+    this.oakTree.body.setOffset(this.oakTree.offsetX, this.oakTree.offsetY)
     this.oakTree.body.setImmovable(true)
     this.oakTree.body.allowGravity = false
     this.oakTree.body.enable = true
@@ -95,24 +101,27 @@ class TestSheepMove extends Phaser.Scene {
     this.oakTree.depth = this.oakTree.y + this.oakTree.height / 2
 
     /*
-    // add pine tree to scene and set physics  //working on this
+    // add pine tree to scene and set physics
     this.add.existing(this.pineTree)
     this.physics.add.existing(this.pineTree)
     this.pineTree.setTexture('pineImage')
-    // pine tree
+    this.pineTree.setDisplaySize(306, 330)
     this.pineTree.treeHeight = 20
-    this.pineTree.treeWidth = 85
+    this.pineTree.treeWidth = 65
     this.pineTree.body.setSize(this.pineTree.treeWidth, this.pineTree.treeHeight, 0)
-    this.pineTree.body.setOffset(120, 300)
+    this.pineTree.offsetX = 65
+    this.pineTree.offsetY = 180
+    this.pineTree.offsetChange = 95
+    this.pineTree.body.setOffset(this.pineTree.offsetX, this.pineTree.offsetY)
     this.pineTree.body.setImmovable(true)
     this.pineTree.body.allowGravity = false
     this.pineTree.body.enable = true
     // set tree depth
     this.pineTree.depth = this.pineTree.y + this.pineTree.height / 2
-*/
+    */
     // set collision
     this.physics.add.collider(this.player, this.oakTree)
-    // this.physics.add.collider(this.player, this.pineTree)  
+    this.physics.add.collider(this.player, this.pineTree)
     this.physics.add.collider(this.player, this.testWoolf)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf)
 
@@ -120,10 +129,6 @@ class TestSheepMove extends Phaser.Scene {
 
     // Setup the key objects
     this.setupKeyboard()
-
-    // old version before scenes were merged
-    // this.scene.run('SheepYawn', { player: this.player })
-    // this.scene.moveAbove('SheepYawn', 'SheepMove')
 
     if (__DEV__) {
       this.debugDraw.bringToTop()
@@ -175,7 +180,7 @@ class TestSheepMove extends Phaser.Scene {
     // this.depthCheck(this.pineTree)
 
     // Moves sheep yawn circle with player when
-    // Arrowkeys/wasd keys are pressed
+    // Arrow keys/wasd keys are pressed
     if (this.yawnBlast) {
       this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
     }
@@ -204,8 +209,7 @@ class TestSheepMove extends Phaser.Scene {
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    // Set up physics, collider, and overlap collider
-    // with enemies
+    // Set up physics, collider, and overlap collider with enemies
     this.physics.add.existing(this.yawnBlast)
     this.yawnBlast.body.setCircle(50, 0.5)
     this.physics.add.collider(this.yawnBlast)
@@ -267,7 +271,7 @@ class TestSheepMove extends Phaser.Scene {
       // Might be behind or to the side of the tree
       // console.log('1) is it behind?')
       if (this.player.body.position.y < (myTree.y + 114)) {
-        myTree.body.setOffset(120, 300)
+        myTree.body.setOffset(myTree.offsetX, myTree.offsetY)
       }
       if (((this.player.x > (myTree.x + myTree.width / 2)) || (this.player.x < (myTree.x - myTree.width / 2))) || (this.player.y + (this.player.height / 2)) < (myTree.y - (myTree.height / 2))) {
       // not behind tree
@@ -276,7 +280,7 @@ class TestSheepMove extends Phaser.Scene {
         myTree.setAlpha(1, 1, 1, 1)
       } else {
         // behind tree
-        console.log('Look ' + this.player.y)
+        // console.log('Look ' + this.player.y)
         myTree.setAlpha(0.2, 0.2, 1, 1)
       }
     } else {
@@ -299,18 +303,18 @@ class TestSheepMove extends Phaser.Scene {
       if (this.sheepFootPosY > this.testTreeBottomCollide) {
         if (this.sheepFootPosX > myTree.body.position.x + 50 || this.sheepFootPosX < myTree.body.position.x - 50) {
           // console.log('to the side of the tree')
-          myTree.body.setOffset(120, 215)
+          myTree.body.setOffset(myTree.offsetX, myTree.offsetChange)
         }
         if (this.sheepFootPosY < myTree.body.position.x) {
           // console.log('collision at tree base')
-          myTree.body.setOffset(120, 300)
+          myTree.body.setOffset(myTree.offsetX, myTree.offsetY)
         }
         myTree.body.enable = true
       } else {
         // console.log('7 above tree trunk')
         // console.log('7 sheepFootPos x' + this.sheepFootPosX)
         myTree.body.enable = true
-        myTree.body.setOffset(120, 300)
+        myTree.body.setOffset(myTree.offsetX, myTree.offsetY)
       }
     }
   }
@@ -319,4 +323,4 @@ class TestSheepMove extends Phaser.Scene {
 }
 
 // Expose the class TestSheepMove to other files
-export default TestSheepMove
+export default mainSheepScene

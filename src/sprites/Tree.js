@@ -11,6 +11,9 @@ class Tree extends Phaser.GameObjects.Sprite {
     this.name = 'tree'
     this.treeHeight = 0
     this.treeWidth = 0
+    this.offsetX = 0
+    this.offsetY = 0
+    this.offsetChange = 0
   }
 }
 
