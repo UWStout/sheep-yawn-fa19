@@ -51,7 +51,6 @@ class mainSheepScene extends Phaser.Scene {
       x: 200,
       y: 300
     })
-    
     /*
     // Creation of pine tree
     this.pineTree = new Tree({
@@ -60,7 +59,6 @@ class mainSheepScene extends Phaser.Scene {
       y: 350
     })
     */
-    
     // Creation of enemy, Woolf
     this.testWoolf2 = new WoolfEnemy({
       scene: this,
@@ -109,10 +107,6 @@ class mainSheepScene extends Phaser.Scene {
 
     /*
     // add pine tree to scene and set physics
-<<<<<<< HEAD:src/scenes/mainSheepScene.js
-=======
-    //working on this
->>>>>>> 03f4be7db19840b8aed88a7fd761c25b66c4ddc3:src/scenes/TestSheepMove.js
     this.add.existing(this.pineTree)
     this.physics.add.existing(this.pineTree)
     this.pineTree.setTexture('pineImage')
@@ -238,6 +232,9 @@ class mainSheepScene extends Phaser.Scene {
           this.loseHealth, null, this)
       }
     }
+    // Destroy
+    this.yawnBlast.destroy()
+    this.yawnBlast = null
   }
 
   // Reduces health of enemy when caught in yawn
