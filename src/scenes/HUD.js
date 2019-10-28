@@ -24,8 +24,8 @@ class HUD extends Phaser.Scene {
     this._default_time = 150
 
     // Show message that fonts are loading
-    this.timeText = this.add.text(80, 32, 'Till Dawn: ' + this.formatTime(this._default_time),
-      { font: '16px Roboto Condensed', fontStyle: 'bold', fill: '#0xff0000', align: 'center' })
+    this.timeText = this.add.text(150, 32, 'Until Dawn: ' + this.formatTime(this._default_time),
+      { font: '30px Roboto Condensed', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.timeText.setOrigin(0.5, 0.5)
 
     // Each 1000 ms calls countDown
@@ -52,7 +52,7 @@ class HUD extends Phaser.Scene {
   countDown () {
     if (this._default_time > 0) {
       this._default_time -= 1
-      this.timeText.text = ('Till Dawn: ' + this.formatTime(this._default_time))
+      this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
       this.timeText.destroy()
       this.gameOverText = this.add.text(

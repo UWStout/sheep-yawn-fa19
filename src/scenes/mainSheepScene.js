@@ -48,7 +48,7 @@ class mainSheepScene extends Phaser.Scene {
   // Is stated
   create () {
     // tile sprite
-    this.tileOne = this.add.tileSprite(400, 300, 3000, 1000, 'tile1')
+    this.tileOne = this.add.tileSprite(400, 300, 1500 * 6, 800 * 6, 'tile1')
     this.tileOne.setTileScale(0.5, 0.5)
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
@@ -96,6 +96,12 @@ class mainSheepScene extends Phaser.Scene {
     // set Woolhemina's depth
     this.player.depth = this.player.y
 
+    // camera to follow Woolhemina
+    this.cameras.main.setBounds(0, 0, 1500 * 3, 800 * 3)
+    this.physics.world.setBounds(0, 0, 1500 * 3, 800 * 3)
+
+    this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
+    
     // this.testWolfEnemy = new Enemy({
     //   imageKey: 'wolfImage'
     // })
@@ -203,7 +209,7 @@ class mainSheepScene extends Phaser.Scene {
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
     if (this.yawnBlast) {
-      this.yawnBlast.setPosition(this.player.x, this.player.y + 40)
+      this.yawnBlast.setPosition(this.player.x, this.player.y)
     }
 
     // Increases circumferance of circle
@@ -226,7 +232,7 @@ class mainSheepScene extends Phaser.Scene {
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
-    this.yawnBlast = this.add.ellipse(this.player.x, this.player.y + 40, 100, 100, 0xff0000, 0.3)
+    this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
