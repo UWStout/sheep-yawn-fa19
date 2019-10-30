@@ -296,6 +296,7 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz)
   }
 
+  // Increases YawnBlast radius
   increaseYawnRadiusByZzz (obj1, obj2) {
     // Checks for Zzzs to exist
     if (this.zzzGroup) {
