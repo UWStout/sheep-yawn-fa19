@@ -24,7 +24,7 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('pineImage', 'assets/images/asset_pineTree.png')
     this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
     this.load.image('tile1', 'assets/images/Tile_01.png')
-    this.load.image('zzzImage', 'assests/Test Art/dummyAsset_Z.png')
+    this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
 
     // No longer needed
     // Used in reference of what was set for each health amount
@@ -47,7 +47,7 @@ class mainSheepScene extends Phaser.Scene {
   // Not immediately added to scene, unless add/addExisting
   // Is stated
   create () {
-    // tile sprite
+    // Creation of background tile sprite
     this.tileOne = this.add.tileSprite(400, 300, 1500 * 6, 800 * 6, 'tile1')
     this.tileOne.setTileScale(0.5, 0.5)
     // Creation of sheep character (Main Character)
@@ -75,7 +75,8 @@ class mainSheepScene extends Phaser.Scene {
       scene: this,
       x: 900,
       y: 500,
-      health: 90,
+      // health: 90, Fix
+      health: 5,
       zzzAmount: 15
     })
 
@@ -101,7 +102,7 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, 1500 * 3, 800 * 3)
 
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
-    
+
     // this.testWolfEnemy = new Enemy({
     //   imageKey: 'wolfImage'
     // })
@@ -273,23 +274,38 @@ class mainSheepScene extends Phaser.Scene {
 
   // Creates circle around enemy
   // Adds Zzzs to circle's path
-  zzzDrop (enemyX, enemyY) {
-    // // console.log('X: ' + enemyX + 'Y: ' + enemyY)
-    // // Creation of Zzz sprite
-    // this.Zzz = new Zzz({
-    //   scene: this,
-    //   x: enemyX,
-    //   y: enemyY
-    // })
+  zzzDrop (enemyX, enemyY, amountOfZs) {
+    // Creation of Zzz sprite
+    this.Zzz = new Zzz({
+      scene: this,
+      x: enemyX,
+      y: enemyY
+    })
 
-    // // Adds circle to scene
-    // this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 10, 260, 150)
+    // Adds circle to scene
+    this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
 
-    // // Sets up holder for zzz sprites
-    // this.zzzGroup = this.add.group(this.Zzz, { frameQuantity: this.zzzAmount })
+    // Sets up holder for zzz sprites
+    this.zzzGroup = this.physics.add.group({ key: 'zzzImage', frameQuantity: amountOfZs })
 
-    // // Places Zzz's on ellipse path
-    // Phaser.Actions.PlaceOnEllipse(this.zzzGroup.getChildren(), this.enemyEllipse)
+    // Places Zzz's on ellipse path
+    Phaser.Actions.PlaceOnEllipse(this.zzzGroup.getChildren(), this.enemyEllipse)
+
+    // Checks for overlap with player character and Zzzs
+    // Calls increaseYawnRadiusByZzz when true
+    this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz)
+  }
+
+  increaseYawnRadiusByZzz (obj1, obj2) {
+    // Checks for Zzzs to exist
+    if (this.zzzGroup) {
+      // Delete Zzz based on which object its hiding in
+      if (obj1 === this.player) {
+        obj2.destroy()
+      } else {
+        obj1.destroy()
+      }
+    }
   }
 
   depthCheck (myTree) {

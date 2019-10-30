@@ -10,6 +10,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
 
     // Initialize enemy's characteristics
     this.genHealth = health
+    this.zzzCount = zzzAmount
 
     // Event check for when health is equal to zero
     this.on('die', this.die, this)
@@ -30,11 +31,11 @@ class Enemy extends Phaser.GameObjects.Sprite {
   // Destroies enemy
   die () {
     if (this.scene.zzzDrop) {
-      // console.log('Am I inside zzzDrop check?')
-      this.scene.zzzDrop(this.x, this.y)
+      // console.log(this.zCount)
+      this.scene.zzzDrop(this.x, this.y, this.zzzCount)
     }
 
-    // this.destroy()
+    this.destroy()
   }
 }
 
