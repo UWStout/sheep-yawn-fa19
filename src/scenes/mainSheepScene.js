@@ -282,7 +282,7 @@ class mainSheepScene extends Phaser.Scene {
       y: enemyY
     })
 
-    // Adds circle to scene
+    // Adustds circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
 
     // Sets up holder for zzz sprites
@@ -298,12 +298,16 @@ class mainSheepScene extends Phaser.Scene {
 
   // Increases YawnBlast radius
   increaseYawnRadiusByZzz (obj1, obj2) {
+    console.log('We inside overlap check')
     // Checks for Zzzs to exist
     if (this.zzzGroup) {
+      console.log('Help this isnt working :<')
       // Delete Zzz based on which object its hiding in
       if (obj1 === this.player) {
+        console.log('a')
         obj2.destroy()
       } else {
+        console.log('b')
         obj1.destroy()
       }
     }
