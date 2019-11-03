@@ -10,10 +10,15 @@ import Tree from '..//sprites/Tree'
 import Oak from '..//sprites/Oak'
 import Pine from '..//sprites/Pine'
 import FirePit from '..//sprites/FirePit'
+import Zzz from '..//sprites/Zzz'
+import Enemy from '../sprites/Enemy'
 // import HUD from './HUD'
 
 class mainSheepScene extends Phaser.Scene {
   init (data) { }
+
+  // ==================================================
+  // Preload
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
@@ -23,7 +28,10 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('pineImage', 'assets/images/asset_pineTree.png')
     this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
     this.load.image('tile1', 'assets/images/Tile_01.png')
+    this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
 
+    // No longer needed
+    // Used in reference of what was set for each health amount
     // Default health for enemies
     this._default_woolf_health = 90
     this._default_boar_health = 60
@@ -40,6 +48,9 @@ class mainSheepScene extends Phaser.Scene {
     this._scene_width = 800 * 6
     this._scene_height = 800 * 6
   }
+
+  // ==================================================
+  // Create
 
   // Creates objects and other items used within the scene
   // Not immediately added to scene, unless add/addExisting Is stated
@@ -78,7 +89,9 @@ class mainSheepScene extends Phaser.Scene {
       scene: this,
       x: 900,
       y: 500,
-      health: 10 // change this later, quick 10 for testign
+      health: 10, // change this later, quick 10 for testing
+      // health: 90, Fix
+      zzzAmount: 15
     })
 
     // Adds woolf enemy to scene and set up physics
@@ -103,7 +116,7 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, 800 * 3, 800 * 3)
 
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
-    
+
     // this.testWolfEnemy = new Enemy({
     //   imageKey: 'wolfImage'
     // })
@@ -217,6 +230,9 @@ class mainSheepScene extends Phaser.Scene {
     this.yawnKey.oldDown = false
   }
 
+  // ==================================================
+  // Update
+
   update (time, delta) {
     const velocity = { x: 0.0, y: 0.0 }
     if (this.cursors.up.isDown || this.upKey.isDown) {
@@ -259,6 +275,9 @@ class mainSheepScene extends Phaser.Scene {
     if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
       this.yawnBlast.setStrokeStyle(4.7)
     }
+
+    // // call zzzDrop function
+    // this.zzzDrop()
   }
 
   // Creates sheep yawn circle, add physics and setup collider
@@ -300,6 +319,43 @@ class mainSheepScene extends Phaser.Scene {
       this.testWoolf2.takeDamage(5)
     } else { // Calls reduceHealthBy10 function
       this.testWoolf2.takeDamage(10)
+    }
+  }
+
+  // Creates circle around enemy
+  // Adds Zzzs to circle's path
+  zzzDrop (enemyX, enemyY, amountOfZs) {
+    // Creation of Zzz sprite
+    this.Zzz = new Zzz({
+      scene: this,
+      x: enemyX,
+      y: enemyY
+    })
+
+    // Adds circle to scene
+    this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
+
+    // Sets up holder for zzz sprites
+    this.zzzGroup = this.physics.add.group({ key: 'zzzImage', frameQuantity: amountOfZs })
+
+    // Places Zzz's on ellipse path
+    Phaser.Actions.PlaceOnEllipse(this.zzzGroup.getChildren(), this.enemyEllipse)
+
+    // Checks for overlap with player character and Zzzs
+    // Calls increaseYawnRadiusByZzz when true
+    this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz)
+  }
+
+  // Increases YawnBlast radius
+  increaseYawnRadiusByZzz (obj1, obj2) {
+    // Checks for Zzzs to exist
+    if (this.zzzGroup) {
+      // Delete Zzz based on which object its hiding in
+      if (obj1 === this.player) {
+        obj2.destroy()
+      } else {
+        obj1.destroy()
+      }
     }
   }
 

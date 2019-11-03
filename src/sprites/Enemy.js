@@ -4,12 +4,13 @@
 import Phaser from 'phaser'
 
 class Enemy extends Phaser.GameObjects.Sprite {
-  constructor ({ scene, x, y, imageKey, health }) {
+  constructor ({ scene, x, y, imageKey, health, zzzAmount }) {
     // Grabs items needed from Phaser.GameObjects.Sprite
     super(scene, x, y, imageKey)
 
     // Initialize enemy's characteristics
     this.genHealth = health
+    this.zzzCount = zzzAmount
 
     // Event check for when health is equal to zero
     this.on('die', this.die, this)
@@ -26,8 +27,14 @@ class Enemy extends Phaser.GameObjects.Sprite {
     }
   }
 
+  // Calls zzzDrop function when health is zero
   // Destroies enemy
   die () {
+    if (this.scene.zzzDrop) {
+      // console.log(this.zCount)
+      this.scene.zzzDrop(this.x, this.y, this.zzzCount)
+    }
+
     this.destroy()
   }
 }

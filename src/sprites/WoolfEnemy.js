@@ -5,9 +5,9 @@ import Enemy from './Enemy'
 
 class WoolfEnemy extends Enemy {
   // Initalization
-  constructor ({ scene, x, y, health }) {
+  constructor ({ scene, x, y, health, zzzAmount }) {
     // Grabs items needed from Enemy class
-    super({ scene, x, y, imageKey: 'woolfImage', health })
+    super({ scene, x, y, imageKey: 'woolfImage', health, zzzAmount })
     this.key = 'woolf'
     this.name = 'woolf'
   }
