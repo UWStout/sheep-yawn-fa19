@@ -7,6 +7,8 @@ import Phaser from 'phaser'
 import Woolhemina from '..//sprites/Woolhemina'
 import WoolfEnemy from '..//sprites/WoolfEnemy'
 import Tree from '..//sprites/Tree'
+import Oak from '..//sprites/Oak'
+import Pine from '..//sprites/Pine'
 import FirePit from '..//sprites/FirePit'
 // import HUD from './HUD'
 
@@ -34,29 +36,32 @@ class mainSheepScene extends Phaser.Scene {
 
     // Sets amount that the yawn circle can increase
     this._yawn_size_check = 1.5
+
+    this._scene_width = 800 * 6
+    this._scene_height = 800 * 6
   }
 
   // Creates objects and other items used within the scene
   // Not immediately added to scene, unless add/addExisting Is stated
   create () {
     // tile sprite
-    this.tileOne = this.add.tileSprite(400, 300, 1500 * 6, 800 * 6, 'tile1')
+    this.tileOne = this.add.tileSprite(400, 300, this._scene_width, this._scene_height, 'tile1')
     this.tileOne.setTileScale(0.5, 0.5)
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
       scene: this,
-      x: 400,
-      y: 350
+      x: 1185,
+      y: 1170
     })
     // Creation of oak tree
-    this.oakTree = new Tree({
+    this.oakTree = new Tree({ // change this to oak class
       scene: this,
       x: 200,
       y: 300
     })
 
     // Creation of pine tree
-    this.pineTree = new Tree({
+    this.pineTree = new Tree({ // change this to pine class
       scene: this,
       x: 600,
       y: 350
@@ -64,8 +69,8 @@ class mainSheepScene extends Phaser.Scene {
   
     this.firePit = new FirePit({
       scene: this,
-      x: 200,
-      y: 800
+      x: 1185,
+      y: 1500
     })
 
     // Creation of enemy, Woolf
@@ -73,7 +78,7 @@ class mainSheepScene extends Phaser.Scene {
       scene: this,
       x: 900,
       y: 500,
-      health: 90
+      health: 10 // change this later, quick 10 for testign
     })
 
     // Adds woolf enemy to scene and set up physics
@@ -94,14 +99,17 @@ class mainSheepScene extends Phaser.Scene {
     this.player.depth = this.player.y
 
     // camera to follow Woolhemina
-    this.cameras.main.setBounds(0, 0, 1500 * 3, 800 * 3)
-    this.physics.world.setBounds(0, 0, 1500 * 3, 800 * 3)
+    this.cameras.main.setBounds(0, 0, 800 * 3, 800 * 3)
+    this.physics.world.setBounds(0, 0, 800 * 3, 800 * 3)
 
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
     
     // this.testWolfEnemy = new Enemy({
     //   imageKey: 'wolfImage'
     // })
+
+
+    // TODO: turn this into a loop that uses an array of pines and oaks
 
     // add oak tree to scene and set physics
     this.add.existing(this.oakTree)
@@ -126,7 +134,6 @@ class mainSheepScene extends Phaser.Scene {
     this.add.existing(this.pineTree)
     this.physics.add.existing(this.pineTree)
     this.pineTree.setTexture('pineImage')
-    // this.pineTree.setDisplaySize(306, 330)
     this.pineTree.treeHeight = 30
     this.pineTree.treeWidth = 105
     this.pineTree.body.setSize(this.pineTree.treeWidth, this.pineTree.treeHeight, 0)
@@ -142,7 +149,7 @@ class mainSheepScene extends Phaser.Scene {
     // set tree depth
     this.pineTree.depth = this.pineTree.y + this.pineTree.height / 2
     
-    // add fire pit tree to scene and set physics
+    // add fire pit to scene and set physics
     this.add.existing(this.firePit)
     this.physics.add.existing(this.firePit)
     this.firePit.setTexture('FirePitImage')
@@ -178,7 +185,6 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.firePit)
     this.physics.add.collider(this.player, this.firePitTop)
     this.physics.add.collider(this.player, this.firePitTop2)
-    this.physics.add.collider(this.player, this.firePitRight)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf2)
 
     // Setup the key objects
