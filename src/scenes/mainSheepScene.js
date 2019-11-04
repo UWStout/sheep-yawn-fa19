@@ -33,16 +33,17 @@ class mainSheepScene extends Phaser.Scene {
     // No longer needed
     // Used in reference of what was set for each health amount
     // Default health for enemies
-    this._default_woolf_health = 90
-    this._default_boar_health = 60
-    this._default_bat_health = 30
+    this._default_woolf_health = 90 // Zzzs 15
+    this._default_boar_health = 60 // Zzzs 10
+    this._default_bat_health = 30 // Zzzs 5
 
     this._sheep_Velocity = 300
 
     // Default yawn circumferance increase size
     this._yawn_scale = 1.0
 
-    // Sets amount that the yawn circle can increase
+    // Sets amount that the yawn circle can increase to
+    // Increased when Zzz objects are picked up
     this._yawn_size_check = 1.5
 
     this._scene_width = 800 * 6
@@ -343,19 +344,18 @@ class mainSheepScene extends Phaser.Scene {
 
     // Checks for overlap with player character and Zzzs
     // Calls increaseYawnRadiusByZzz when true
-    this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz)
+    this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz, null, this)
   }
 
   // Increases YawnBlast radius
   increaseYawnRadiusByZzz (obj1, obj2) {
-    console.log('We inside overlap check')
     // Checks for Zzzs to exist
     if (this.zzzGroup) {
-      console.log('Help this isnt working :<')
       // Delete Zzz based on which object its hiding in
       if (obj1 === this.player) {
         console.log('a')
         obj2.destroy()
+        this._yawn_size_check += 0.02
       } else {
         console.log('b')
         obj1.destroy()
