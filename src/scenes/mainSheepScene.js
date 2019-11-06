@@ -29,6 +29,7 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
     this.load.image('tile1', 'assets/images/Tile_01.png')
     this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
+    this.load.spritesheet('runleftFront', 'assets/images/woolhemina_run_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
 
     // No longer needed
     // Used in reference of what was set for each health amount
@@ -78,7 +79,7 @@ class mainSheepScene extends Phaser.Scene {
       x: 600,
       y: 350
     })
-  
+
     this.firePit = new FirePit({
       scene: this,
       x: 1185,
@@ -122,7 +123,6 @@ class mainSheepScene extends Phaser.Scene {
     //   imageKey: 'wolfImage'
     // })
 
-
     // TODO: turn this into a loop that uses an array of pines and oaks
 
     // add oak tree to scene and set physics
@@ -162,7 +162,7 @@ class mainSheepScene extends Phaser.Scene {
     this.pineTree.body.enable = true
     // set tree depth
     this.pineTree.depth = this.pineTree.y + this.pineTree.height / 2
-    
+
     // add fire pit to scene and set physics
     this.add.existing(this.firePit)
     this.physics.add.existing(this.firePit)
@@ -251,6 +251,7 @@ class mainSheepScene extends Phaser.Scene {
     if (this.cursors.left.isDown || this.leftKey.isDown) {
       velocity.x -= this._sheep_Velocity
       velocity.y = 0
+      this.player.anims.play('runLeftFront')
     }
 
     this.player.body.velocity.set(velocity.x, velocity.y)
