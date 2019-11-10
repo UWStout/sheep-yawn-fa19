@@ -12,11 +12,10 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
 
     // Calls desired functions
     this.setupAnimations()
-    this.anims.play('runLeft')
   }
 
+  // Creates animations for Woolhemina
   setupAnimations () {
-    // Add animations
     // run left anim of Woolhemina
     this.scene.anims.create({
       key: 'runLeft',

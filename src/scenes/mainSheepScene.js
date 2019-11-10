@@ -60,6 +60,7 @@ class mainSheepScene extends Phaser.Scene {
     // tile sprite
     this.tileOne = this.add.tileSprite(400, 300, this._scene_width, this._scene_height, 'tile1')
     this.tileOne.setTileScale(0.5, 0.5)
+
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
       scene: this,
@@ -251,7 +252,10 @@ class mainSheepScene extends Phaser.Scene {
     if (this.cursors.left.isDown || this.leftKey.isDown) {
       velocity.x -= this._sheep_Velocity
       velocity.y = 0
-      this.player.anims.play('runLeftFront')
+      // this.player.playAnim('runLeft')
+      if (this.player.anims.getCurrentKey() !== 'runLeft') {
+        this.player.anims.play('runLeft')
+      }
     }
 
     this.player.body.velocity.set(velocity.x, velocity.y)
@@ -276,6 +280,7 @@ class mainSheepScene extends Phaser.Scene {
     // To indicate the max circumferance has been achieved
     if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
       this.yawnBlast.setStrokeStyle(4.7)
+      console.log('Yawn Circle H: ' + this.yawnBlast.displayHeight + 'Yawn Circle W: ' + this.yawnBlast.displayWidth)
     }
 
     // // call zzzDrop function
