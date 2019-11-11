@@ -4,9 +4,9 @@
 import Phaser from 'phaser'
 
 class Tree extends Phaser.GameObjects.Sprite {
-  constructor ({ scene, x, y }) {
+  constructor (scene, x, y, imageKey) {
     // Initialize object basics
-    super(scene, x, y, 'treeImage')
+    super(scene, x, y, imageKey)
     this.key = 'tree'
     this.name = 'tree'
     this.treeHeight = 0

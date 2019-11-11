@@ -10,6 +10,7 @@ import Tree from '..//sprites/Tree'
 import Oak from '..//sprites/Oak'
 import Pine from '..//sprites/Pine'
 import FirePit from '..//sprites/FirePit'
+import MapTile from '..//sprites/MapTile'
 import Zzz from '..//sprites/Zzz'
 import Enemy from '../sprites/Enemy'
 // import HUD from './HUD'
@@ -29,6 +30,7 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
     this.load.image('tile1', 'assets/images/Tile_01.png')
     this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
+    this.load.image('mapTile', 'assets/images/DummyBoundary.png')
 
     // No longer needed
     // Used in reference of what was set for each health amount
@@ -37,6 +39,7 @@ class mainSheepScene extends Phaser.Scene {
     this._default_boar_health = 60
     this._default_bat_health = 30
 
+    this._woolf_Velocity = 100
     this._sheep_Velocity = 300
 
     // Default yawn circumferance increase size
@@ -45,8 +48,8 @@ class mainSheepScene extends Phaser.Scene {
     // Sets amount that the yawn circle can increase
     this._yawn_size_check = 1.5
 
-    this._scene_width = 800 * 6
-    this._scene_height = 800 * 6
+    this._scene_width = 820 * 7
+    this._scene_height = 820 * 7
   }
 
   // ==================================================
@@ -56,7 +59,7 @@ class mainSheepScene extends Phaser.Scene {
   // Not immediately added to scene, unless add/addExisting Is stated
   create () {
     // tile sprite
-    this.tileOne = this.add.tileSprite(400, 300, this._scene_width, this._scene_height, 'tile1')
+    this.tileOne = this.add.tileSprite(0, 0, this._scene_width, this._scene_height, 'tile1')
     this.tileOne.setTileScale(0.5, 0.5)
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
@@ -64,20 +67,61 @@ class mainSheepScene extends Phaser.Scene {
       x: 1185,
       y: 1170
     })
-    // Creation of oak tree
-    this.oakTree = new Tree({ // change this to oak class
-      scene: this,
-      x: 200,
-      y: 300
-    })
 
-    // Creation of pine tree
-    this.pineTree = new Tree({ // change this to pine class
-      scene: this,
-      x: 600,
-      y: 350
-    })
-  
+    this.LeftBoundaryArray = []
+    this.RightBoundaryArray = []
+    this.TopBoundaryArray = []
+    this.BottomBoundaryArray = []
+    
+    for (let i = 0; i < 11; i++) {
+      this['TopTile' + i] = new MapTile({ scene: this, x: (145 + (255 * i)), y: 140 })
+      this.TopBoundaryArray.push(this['TopTile' + i])
+      this['TopTile' + i].setTexture('mapTile')
+      this['TopTile' + i].setScale(0.5)
+    }
+
+    for (let i = 0; i < 9; i++) {
+      this['BottomTile' + i] = new MapTile({ scene: this, x: 255 + (145 + (255 * i)), y: 2692 })
+      this.BottomBoundaryArray.push(this['BottomTile' + i])
+      this['BottomTile' + i].setTexture('mapTile')
+      this['BottomTile' + i].setScale(0.5)
+    }
+
+    for (let i = 0; i < 10; i++) {
+      this['RightTile' + i] = new MapTile({ scene: this, x: 2695, y: 145 + (255 * i) + 252 }) // working on this
+      this.RightBoundaryArray.push(this['RightTile' + i])
+      this['RightTile' + i].setTexture('mapTile')
+      this['RightTile' + i].setScale(0.5)
+    }
+
+    for (let i = 0; i < 10; i++) {
+      this['LeftTile' + i] = new MapTile({ scene: this, x: 145, y: 145 + (255 * i) + 252 })
+      this.LeftBoundaryArray.push(this['LeftTile' + i])
+      this['LeftTile' + i].setTexture('mapTile')
+      this['LeftTile' + i].setScale(0.5)
+    }
+
+    this.OakArray = []
+    // Creation of oak trees
+    for (let i = 0; i < (Math.floor(Math.random() * (20 - 10 + 1)) + 10); i += 3) {
+      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this['OakTree' + i] = new Oak({ scene: this, x: this.xpos, y: this.ypos })
+      this.OakArray.push(this['OakTree' + i])
+      // if ((this.xpos > 1100 && this.xpos < 1748) || (this.ypos > 1100 && this.ypos)) // TODO Kendra will use this to create clearing in center
+    }
+    this.OakArrayLength = this.OakArray.length
+
+    this.PineArray = []
+    // Creation of pine trees
+    for (let i = 0; i < (Math.floor(Math.random() * (20 - 10 + 1)) + 10); i += 3) {
+      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this['PineTree' + i] = new Pine({ scene: this, x: this.xpos, y: this.ypos })
+      this.PineArray.push(this['PineTree' + i])
+    }
+    this.PineArrayLength = this.PineArray.length
+
     this.firePit = new FirePit({
       scene: this,
       x: 1185,
@@ -87,8 +131,8 @@ class mainSheepScene extends Phaser.Scene {
     // Creation of enemy, Woolf
     this.testWoolf2 = new WoolfEnemy({
       scene: this,
-      x: 900,
-      y: 500,
+      x: 1000,
+      y: 1000,
       health: 10, // change this later, quick 10 for testing
       // health: 90, Fix
       zzzAmount: 15
@@ -111,9 +155,12 @@ class mainSheepScene extends Phaser.Scene {
     // set Woolhemina's depth
     this.player.depth = this.player.y
 
+    // timed event to make enemy AI move
+    this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.testWoolf2), callbackScope: this, loop: true });
+
     // camera to follow Woolhemina
-    this.cameras.main.setBounds(0, 0, 800 * 3, 800 * 3)
-    this.physics.world.setBounds(0, 0, 800 * 3, 800 * 3)
+    this.cameras.main.setBounds(0, 0, 710 * 4, 710 * 4)
+    this.physics.world.setBounds(0, 0, 800 * 7, 800 * 7)
 
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
 
@@ -121,47 +168,72 @@ class mainSheepScene extends Phaser.Scene {
     //   imageKey: 'wolfImage'
     // })
 
+    // border map tiles
+    for (let i = 0; i < this.TopBoundaryArray.length; i++) {
+      this.add.existing(this.TopBoundaryArray[i])
+      this.physics.add.existing(this.TopBoundaryArray[i])
+      this.TopBoundaryArray[i].body.setImmovable(true)
+      this.TopBoundaryArray[i].body.allowGravity = false
+      this.TopBoundaryArray[i].body.enable = true
+      this['TopTile' + i].body.setSize(0, 0, 20, 20)
+      this.physics.add.collider(this.player, this.TopBoundaryArray[i])
+    }
+    for (let i = 0; i < this.BottomBoundaryArray.length; i++) {
+      this.add.existing(this.BottomBoundaryArray[i])
+      this.physics.add.existing(this.BottomBoundaryArray[i])
+      this.BottomBoundaryArray[i].body.setImmovable(true)
+      this.BottomBoundaryArray[i].body.allowGravity = false
+      this.BottomBoundaryArray[i].body.enable = true
+      this['BottomTile' + i].body.setSize(0, 0, 20, 20)
+      this.physics.add.collider(this.player, this.BottomBoundaryArray[i])
+    }
+    for (let i = 0; i < this.RightBoundaryArray.length; i++) {
+      this.add.existing(this.RightBoundaryArray[i])
+      this.physics.add.existing(this.RightBoundaryArray[i])
+      this.RightBoundaryArray[i].body.setImmovable(true)
+      this.RightBoundaryArray[i].body.allowGravity = false
+      this.RightBoundaryArray[i].body.enable = true
+      this['RightTile' + i].body.setSize(0, 0, 20, 20)
+      this.physics.add.collider(this.player, this.RightBoundaryArray[i])
+    }
+    for (let i = 0; i < this.LeftBoundaryArray.length; i++) {
+      this.add.existing(this.LeftBoundaryArray[i])
+      this.physics.add.existing(this.LeftBoundaryArray[i])
+      this.LeftBoundaryArray[i].body.setImmovable(true)
+      this.LeftBoundaryArray[i].body.allowGravity = false
+      this.LeftBoundaryArray[i].body.enable = true
+      this['LeftTile' + i].body.setSize(0, 0, 20, 20)
+      this.physics.add.collider(this.player, this.LeftBoundaryArray[i])
+    }
 
-    // TODO: turn this into a loop that uses an array of pines and oaks
-
-    // add oak tree to scene and set physics
-    this.add.existing(this.oakTree)
-    this.physics.add.existing(this.oakTree)
-    this.oakTree.setTexture('treeImage')
-    this.oakTree.treeHeight = 20
-    this.oakTree.treeWidth = 85
-    this.oakTree.body.setSize(this.oakTree.treeWidth, this.oakTree.treeHeight, 0)
-    this.oakTree.offsetX = 120
-    this.oakTree.offsetY = 300
-    this.oakTree.offsetChange = 215
-    this.oakTree.inFrontValue = 50
-    this.oakTree.name = 'oak'
-    this.oakTree.body.setOffset(this.oakTree.offsetX, this.oakTree.offsetY)
-    this.oakTree.body.setImmovable(true)
-    this.oakTree.body.allowGravity = false
-    this.oakTree.body.enable = true
-    // set tree depth
-    this.oakTree.depth = this.oakTree.y + this.oakTree.height / 2
-
-    // add pine tree to scene and set physics
-    this.add.existing(this.pineTree)
-    this.physics.add.existing(this.pineTree)
-    this.pineTree.setTexture('pineImage')
-    this.pineTree.treeHeight = 30
-    this.pineTree.treeWidth = 105
-    this.pineTree.body.setSize(this.pineTree.treeWidth, this.pineTree.treeHeight, 0)
-    this.pineTree.offsetX = 110
-    this.pineTree.offsetY = 300
-    this.pineTree.offsetChange = 215
-    this.pineTree.inFrontValue = 60
-    this.pineTree.name = 'pine'
-    this.pineTree.body.setOffset(this.pineTree.offsetX, this.pineTree.offsetY)
-    this.pineTree.body.setImmovable(true)
-    this.pineTree.body.allowGravity = false
-    this.pineTree.body.enable = true
-    // set tree depth
-    this.pineTree.depth = this.pineTree.y + this.pineTree.height / 2
+    for (let i = 0; i < this.OakArrayLength; i++) {
+      // add oak trees to scene and set physics
+      this.add.existing(this.OakArray[i])
+      this.physics.add.existing(this.OakArray[i])
+      this.OakArray[i].body.setSize(this.OakArray[i].treeWidth, this.OakArray[i].treeHeight, 0)
+      this.OakArray[i].body.setOffset(this.OakArray[i].offsetX, this.OakArray[i].offsetY)
+      this.OakArray[i].body.setImmovable(true)
+      this.OakArray[i].body.allowGravity = false
+      this.OakArray[i].body.enable = true
+      // set tree depth
+      this.OakArray[i].depth = this.OakArray[i].y + this.OakArray[i].height / 2
+      this.physics.add.collider(this.player, this.OakArray[i])
+    }
     
+    for (let i = 0; i < this.PineArrayLength; i++) {
+      // add pine trees to scene and set physics
+      this.add.existing(this.PineArray[i])
+      this.physics.add.existing(this.PineArray[i])
+      this.PineArray[i].body.setSize(this.PineArray[i].treeWidth, this.PineArray[i].treeHeight, 0)
+      this.PineArray[i].body.setOffset(this.PineArray[i].offsetX, this.PineArray[i].offsetY)
+      this.PineArray[i].body.setImmovable(true)
+      this.PineArray[i].body.allowGravity = false
+      this.PineArray[i].body.enable = true
+      // set tree depth
+      this.PineArray[i].depth = this.PineArray[i].y + this.PineArray[i].height / 2
+      this.physics.add.collider(this.player, this.PineArray[i])
+    }
+
     // add fire pit to scene and set physics
     this.add.existing(this.firePit)
     this.physics.add.existing(this.firePit)
@@ -192,13 +264,11 @@ class mainSheepScene extends Phaser.Scene {
     this.firePit.depth = this.firePit.y + this.firePit.height / 2
 
     // set collision
-    this.physics.add.collider(this.player, this.oakTree)
-    this.physics.add.collider(this.player, this.pineTree)
     this.physics.add.collider(this.player, this.testWoolf2)
     this.physics.add.collider(this.player, this.firePit)
     this.physics.add.collider(this.player, this.firePitTop)
     this.physics.add.collider(this.player, this.firePitTop2)
-    // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf2)
+    // TODO: find a quick way to make all objects collide with all other objects (except trees with trees)?
 
     // Setup the key objects
     this.setupKeyboard()
@@ -255,8 +325,13 @@ class mainSheepScene extends Phaser.Scene {
     this.player.body.velocity.set(velocity.x, velocity.y)
     this.player.depth = this.player.y + this.player.height / 2
 
-    this.depthCheck(this.pineTree)
-    this.depthCheck(this.oakTree)
+    // depth check
+    for (let i = 0; i < this.OakArrayLength; i++) {
+      this.depthCheck(this.OakArray[i])
+    }
+    for (let i = 0; i < this.PineArrayLength; i++) {
+      this.depthCheck(this.PineArray[i])
+    }
 
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
@@ -357,6 +432,10 @@ class mainSheepScene extends Phaser.Scene {
         obj1.destroy()
       }
     }
+  }
+
+  moveEnemy (myEnemy) {
+    myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
   }
 
   depthCheck (myTree) {
