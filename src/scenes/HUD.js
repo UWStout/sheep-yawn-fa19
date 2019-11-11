@@ -55,18 +55,18 @@ class HUD extends Phaser.Scene {
       this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
       this.timeText.destroy()
-      this.gameOverText = this.add.text(
-        centerX(this),
-        centerY(this),
-        'Game Over',
-        {
-          font: '110px Roboto Condensed',
-          fontStyle: 'bold',
-          fill: '#0xff0000',
-          align: 'center'
-        }
-      )
-      this.gameOverText.setOrigin(0.5, 0.5)
+      // this.gameOverText = this.add.text(
+      //   centerX(this),
+      //   centerY(this),
+      //   'Game Over',
+      //   {
+      //     font: '110px Roboto Condensed',
+      //     fontStyle: 'bold',
+      //     fill: '#0xff0000',
+      //     align: 'center'
+      //   }
+      // )
+      // this.gameOverText.setOrigin(0.5, 0.5)
     }
   }
 
