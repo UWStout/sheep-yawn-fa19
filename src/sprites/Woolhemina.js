@@ -56,11 +56,6 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
       repeat: -1
     })
   }
-
-  // Flips animation along the x-axis
-  flipAlongX () {
-    this.x = -1
-  }
 }
 
 // Expose the MainPlayer class to other files
