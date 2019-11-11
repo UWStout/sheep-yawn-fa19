@@ -30,6 +30,10 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('tile1', 'assets/images/Tile_01.png')
     this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
     this.load.spritesheet('runleftFront', 'assets/images/woolhemina_run_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
+    this.load.spritesheet('runUp', 'assets/images/woolhemina_run_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
+    this.load.spritesheet('idleFront', 'assets/images/woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
+    this.load.spritesheet('idleBack', 'assets/images/woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
+
 
     // No longer needed
     // Used in reference of what was set for each health amount
@@ -47,6 +51,11 @@ class mainSheepScene extends Phaser.Scene {
     // Increased when Zzz objects are picked up
     this._yawn_size_check = 1.5
 
+    // Defaulted to false
+    // Checks if sprites need to be flixed by the x-axis
+    this._invert = false
+
+    // Scene's dimensions
     this._scene_width = 800 * 6
     this._scene_height = 800 * 6
   }
@@ -237,24 +246,77 @@ class mainSheepScene extends Phaser.Scene {
 
   update (time, delta) {
     const velocity = { x: 0.0, y: 0.0 }
+
+    // Is up key/keyboard key being pressed?
     if (this.cursors.up.isDown || this.upKey.isDown) {
       velocity.y -= this._sheep_Velocity
       velocity.x = 0
+
+      // Is the sprite inverted?
+      // Turn off if so
+      if (this._invert !== false) {
+        this.player.flipX = false
+      } else { // Turn on
+        this.player.flipX = true
+      }
+
+      // Are we looking at right animation
+      // Play runUp animation if so
+      if (this.player.anims.getCurrentKey() !== 'runUpAnim') {
+        this.player.anims.play('runUpAnim')
+      }
     }
-    if (this.cursors.down.isDown || this.downKey.isDown) {
+    // Is down key/keyboard key being pressed?
+    else if (this.cursors.down.isDown || this.downKey.isDown) {
       velocity.y += this._sheep_Velocity
       velocity.x = 0
+
+      // Updated after reanalysis of controls
     }
-    if (this.cursors.right.isDown || this.rightKey.isDown) {
+    // Is right key/keyboard key being pressed?
+    else if (this.cursors.right.isDown || this.rightKey.isDown) {
       velocity.x += this._sheep_Velocity
       velocity.y = 0
-    }
-    if (this.cursors.left.isDown || this.leftKey.isDown) {
-      velocity.x -= this._sheep_Velocity
-      velocity.y = 0
-      // this.player.playAnim('runLeft')
+      
+      // Flips player character along the x-axis
+      this.player.flipX = true
+
+      // Flip of x-axis of sprite is turned off
+      this._invert = true
+
+      // Are we looking at right animation
+      // Play runLeft animation if so
       if (this.player.anims.getCurrentKey() !== 'runLeft') {
         this.player.anims.play('runLeft')
+      }
+    }
+    // Is left key/keyboard key being pressed?
+    else if (this.cursors.left.isDown || this.leftKey.isDown) {
+      velocity.x -= this._sheep_Velocity
+      velocity.y = 0
+      
+      // Flips player character along the x-axis
+      this.player.flipX = false
+
+      // Flip of x-axis of sprite is turned off
+      this._invert = false
+      
+      // Are we looking at right animation
+      // Play runLeft animation if so
+      if (this.player.anims.getCurrentKey() !== 'runLeft') {
+        this.player.anims.play('runLeft')
+      }
+    } else { // no key is being pressed
+      // Was the last animation the left/right animation?
+      // Run front idle if so
+      if (this.player.anims.getCurrentKey() === 'runLeft') {
+        this.player.anims.play('idleFrontAnim')
+      } 
+
+      // Was the last animation the up animation?
+      // Run back idle if so
+      if (this.player.anims.getCurrentKey() === 'runUpAnim') {
+        this.player.anims.play('idleBackAnim')
       }
     }
 

@@ -25,6 +25,51 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
       frameRate: 16,
       repeat: -1
     })
+
+    // run up anim of Woolhemina
+    this.scene.anims.create({
+      key: 'runUpAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'runUp', { start: 0, stop: 13 }
+      ),
+      frameRate: 16,
+      repeat: -1
+    })
+
+    // run idle front anim of Woolhemina
+    this.scene.anims.create({
+      key: 'idleFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'idleFront', { start: 0, stop: 11 }
+      ),
+      frameRate: 16,
+      repeat: -1
+    })
+
+    // run inital image of Woolhemina
+    this.scene.anims.create({
+      key: 'initalAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'idleFront', { start: 0, stop: 1 }
+      ),
+      frameRate: 16,
+      repeat: 0
+    })
+
+    // run idle back anim of Woolhemina
+    this.scene.anims.create({
+      key: 'idleBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'idleBack', { start: 0, stop: 11 }
+      ),
+      frameRate: 16,
+      repeat: -1
+    })
+  }
+
+  // Flips animation along the x-axis
+  flipAlongX () {
+    this.x = -1
   }
 }
 
