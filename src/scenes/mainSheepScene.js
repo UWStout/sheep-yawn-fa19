@@ -34,7 +34,6 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('idleFront', 'assets/images/woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
     this.load.spritesheet('idleBack', 'assets/images/woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
 
-
     // No longer needed
     // Used in reference of what was set for each health amount
     // Default health for enemies
@@ -211,6 +210,9 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.firePitTop2)
     // this.game.physics.arcade.collide(this.player, this.testTree, this.testWoolf2)
 
+    // Inital animation running of Woolhemina
+    this.player.anims.play('idleFrontAnim')
+
     // Setup the key objects
     this.setupKeyboard()
 
@@ -266,18 +268,20 @@ class mainSheepScene extends Phaser.Scene {
         this.player.anims.play('runUpAnim')
       }
     }
+
     // Is down key/keyboard key being pressed?
-    else if (this.cursors.down.isDown || this.downKey.isDown) {
+    if (this.cursors.down.isDown || this.downKey.isDown) {
       velocity.y += this._sheep_Velocity
       velocity.x = 0
 
       // Updated after reanalysis of controls
     }
+
     // Is right key/keyboard key being pressed?
-    else if (this.cursors.right.isDown || this.rightKey.isDown) {
+    if (this.cursors.right.isDown || this.rightKey.isDown) {
       velocity.x += this._sheep_Velocity
       velocity.y = 0
-      
+
       // Flips player character along the x-axis
       this.player.flipX = true
 
@@ -290,17 +294,18 @@ class mainSheepScene extends Phaser.Scene {
         this.player.anims.play('runLeft')
       }
     }
+
     // Is left key/keyboard key being pressed?
-    else if (this.cursors.left.isDown || this.leftKey.isDown) {
+    if (this.cursors.left.isDown || this.leftKey.isDown) {
       velocity.x -= this._sheep_Velocity
       velocity.y = 0
-      
+
       // Flips player character along the x-axis
       this.player.flipX = false
 
       // Flip of x-axis of sprite is turned off
       this._invert = false
-      
+
       // Are we looking at right animation
       // Play runLeft animation if so
       if (this.player.anims.getCurrentKey() !== 'runLeft') {
@@ -311,7 +316,7 @@ class mainSheepScene extends Phaser.Scene {
       // Run front idle if so
       if (this.player.anims.getCurrentKey() === 'runLeft') {
         this.player.anims.play('idleFrontAnim')
-      } 
+      }
 
       // Was the last animation the up animation?
       // Run back idle if so
