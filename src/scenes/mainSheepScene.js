@@ -267,18 +267,12 @@ class mainSheepScene extends Phaser.Scene {
       if (this.player.anims.getCurrentKey() !== 'runUpAnim') {
         this.player.anims.play('runUpAnim')
       }
-    }
-
-    // Is down key/keyboard key being pressed?
-    if (this.cursors.down.isDown || this.downKey.isDown) {
+    } else if (this.cursors.down.isDown || this.downKey.isDown) { // Is down key/keyboard key being pressed?
       velocity.y += this._sheep_Velocity
       velocity.x = 0
 
       // Updated after reanalysis of controls
-    }
-
-    // Is right key/keyboard key being pressed?
-    if (this.cursors.right.isDown || this.rightKey.isDown) {
+    } else if (this.cursors.right.isDown || this.rightKey.isDown) { // Is right key/keyboard key being pressed?
       velocity.x += this._sheep_Velocity
       velocity.y = 0
 
@@ -293,10 +287,7 @@ class mainSheepScene extends Phaser.Scene {
       if (this.player.anims.getCurrentKey() !== 'runLeft') {
         this.player.anims.play('runLeft')
       }
-    }
-
-    // Is left key/keyboard key being pressed?
-    if (this.cursors.left.isDown || this.leftKey.isDown) {
+    } else if (this.cursors.left.isDown || this.leftKey.isDown) { // Is left key/keyboard key being pressed?
       velocity.x -= this._sheep_Velocity
       velocity.y = 0
 
