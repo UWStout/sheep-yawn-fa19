@@ -114,7 +114,7 @@ class mainSheepScene extends Phaser.Scene {
 
     this.OakArray = []
     // Creation of oak trees
-    for (let i = 0; i < (Math.floor(Math.random() * (20 - 10 + 1)) + 10); i += 3) {
+    for (let i = 0; i < (Math.floor(Math.random() * (10 - 5 + 1)) + 5); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this['OakTree' + i] = new Oak({ scene: this, x: this.xpos, y: this.ypos })
@@ -125,7 +125,7 @@ class mainSheepScene extends Phaser.Scene {
 
     this.PineArray = []
     // Creation of pine trees
-    for (let i = 0; i < (Math.floor(Math.random() * (20 - 10 + 1)) + 10); i += 3) {
+    for (let i = 0; i < (Math.floor(Math.random() * (10 - 5 + 1)) + 5); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this['PineTree' + i] = new Pine({ scene: this, x: this.xpos, y: this.ypos })
@@ -140,21 +140,16 @@ class mainSheepScene extends Phaser.Scene {
     })
 
     // Creation of enemy, Woolf
-    this.testWoolf2 = new WoolfEnemy({
-      scene: this,
-      x: 1000,
-      y: 1000,
-      health: 10, // change this later, quick 10 for testing
-      // health: 90, Fix
-      zzzAmount: 15
-    })
+    this.WoolfArray = []
+    for (let i = 0; i < 5; i++) {
+      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this['Woolf' + i] = new WoolfEnemy({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 15 }) // health is set to 10 for testing (change later)
+      this.WoolfArray.push(this['Woolf' + i])
+    }
+    this.WoolfArrayLength = this.WoolfArray.length
 
-    // Adds woolf enemy to scene and set up physics
-    this.add.existing(this.testWoolf2)
-    this.physics.add.existing(this.testWoolf2)
-    this.testWoolf2.body.setSize(250, 180, true)
-    this.testWoolf2.body.setImmovable(true)
-    this.testWoolf2.body.allowGravity = false
+    console.log('wolf array' + this.WoolfArrayLength)
 
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
@@ -166,18 +161,11 @@ class mainSheepScene extends Phaser.Scene {
     // set Woolhemina's depth
     this.player.depth = this.player.y
 
-    // timed event to make enemy AI move
-    this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.testWoolf2), callbackScope: this, loop: true });
-
     // camera to follow Woolhemina
     this.cameras.main.setBounds(0, 0, 710 * 4, 710 * 4)
     this.physics.world.setBounds(0, 0, 800 * 7, 800 * 7)
 
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05)
-
-    // this.testWolfEnemy = new Enemy({
-    //   imageKey: 'wolfImage'
-    // })
 
     // border map tiles
     for (let i = 0; i < this.TopBoundaryArray.length; i++) {
@@ -273,16 +261,31 @@ class mainSheepScene extends Phaser.Scene {
     this.firePitTop2.body.setOffset(this.firePit.x - 145, this.firePit.y - 50)
     // set fire pit depth
     this.firePit.depth = this.firePit.y + this.firePit.height / 2
-
+ 
     // set collision
-    this.physics.add.collider(this.player, this.testWoolf2)
     this.physics.add.collider(this.player, this.firePit)
     this.physics.add.collider(this.player, this.firePitTop)
     this.physics.add.collider(this.player, this.firePitTop2)
-    // TODO: find a quick way to make all objects collide with all other objects (except trees with trees)?
+
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      // Adds woolf enemy to scene and set up physics
+      this.add.existing(this.WoolfArray[i])
+      this.physics.add.existing(this.WoolfArray[i])
+      this.WoolfArray[i].body.setSize(250, 180, true)
+      this.WoolfArray[i].body.setImmovable(true)
+      this.WoolfArray[i].body.allowGravity = false
+      this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
+    }
+
+    // TODO: find a quick way to make all objects collide with all other objects (except trees with trees)? make sure Woolhemina can't be pushed off scene by wolf
 
     // Inital animation running of Woolhemina
     this.player.anims.play('idleFrontAnim')
+
+    // timed event to make enemy AI move
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+    }
 
     // Setup the key objects
     this.setupKeyboard()
@@ -428,6 +431,58 @@ class mainSheepScene extends Phaser.Scene {
 
     // // call zzzDrop function
     // this.zzzDrop()
+
+    // working on this if wolf collides change direction
+    for (let i = 0; this.i < this.WoolfArrayLength; i++) {
+      for (let k = 0; k < this.WoolfArrayLength; k++) {
+        this.physics.world.overlap(this.WoolfArray[i], this.WoolfArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+      }
+      for (let k = 0; k < this.PineArrayLength; k++) {
+        this.physics.world.overlap(this.PineArray[k], this.WoolfArray[i], this.moveEnemy(this.WoolfArray[i]), null, this)
+      }
+      for (let k = 0; k < this.WoolfArrayLength; k++) {
+        this.physics.world.overlap(this.WoolfArray[i], this.OakArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+      }
+      for (let k = 0; k < this.BottomBoundaryArrayLength; k++) {
+        this.physics.world.overlap(this.WoolfArray[i], this.BottomBoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+      }
+      for (let k = 0; k < this.TopBoundaryArrayLength; k++) {
+        this.physics.world.overlap(this.WoolfArray[i], this.TopBoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+      }
+      for (let k = 0; k < this.RightBoundaryArrayLength; k++) {
+        this.physics.world.overlap(this.WoolfArray[i], this.RightoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+      }
+      for (let k = 0; k < this.LeftBoundaryArrayLength; k++) {
+        this.physics.world.overlap(this.WoolfArray[i], this.LeftBoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+      }
+      this.physics.world.overlap(this.WoolfArray[i], this.firePit, this.moveEnemy(this.WoolfArray[i]), null, this)
+      this.physics.world.overlap(this.WoolfArray[i], this.firePitTop, this.moveEnemy(this.WoolfArray[i]), null, this)
+      this.physics.world.overlap(this.WoolfArray[i], this.firePitTop2, this.moveEnemy(this.WoolfArray[i]), null, this)
+    }
+    /*
+    this.physics.add.collider(this.WoolfArray[i], this.firePit) // find out if order matters...
+      this.physics.add.collider(this.WoolfArray[i], this.firePitTop)
+      this.physics.add.collider(this.WoolfArray[i], this.firePitTop2)
+      for (let k = 0; k < this.PineArrayLength; k++) {
+        this.physics.add.collider(this.WoolfArray[i], this.PineArray[k])
+      }
+      for (let k = 0; k < this.OakArrayLength; k++) {
+        this.physics.add.collider(this.WoolfArray[i], this.OakArray[k])
+      }
+      for (let k = 0; k < this.BottomBoundaryArrayLength; k++) {
+        this.physics.add.collider(this.WoolfArray[i], this.BottomBoundaryArray[k])
+      }
+      for (let k = 0; k < this.TopBoundaryArrayLength; k++) {
+        this.physics.add.collider(this.WoolfArray[i], this.BottomBoundaryArray[k])
+      }
+      for (let k = 0; k < this.LeftBoundaryArrayLength; k++) {
+        this.physics.add.collider(this.WoolfArray[i], this.BottomBoundaryArray[k])
+      }
+      for (let k = 0; k < this.RightBoundaryArrayLength; k++) {
+        this.physics.add.collider(this.WoolfArray[i], this.BottomBoundaryArray[k])
+      }
+    }
+    */
   }
 
   // Creates sheep yawn circle, add physics and setup collider
@@ -450,12 +505,12 @@ class mainSheepScene extends Phaser.Scene {
     // Does yawn blast exist?
     if (this.yawnBlast) {
       // Does Woolf enemy exist?
-      if (this.testWoolf2) {
-        // Check for overlap with enemy and yawnBlast
-        // Call loseHealth if so
-        this.physics.world.overlap(
-          this.yawnBlast, this.testWoolf2,
-          this.loseHealth, null, this)
+      for (let i = 0; i < this.WoolfArrayLength; i++) {
+        if (this.WoolfArray[i]) {
+          // Check for overlap with enemy and yawnBlast
+          // Call loseHealth if so
+          this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this)
+        }
       }
     }
     // Destroy
@@ -465,10 +520,12 @@ class mainSheepScene extends Phaser.Scene {
 
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
-    if (this.yawnBlast.scale < this._yawn_size_check) {
-      this.testWoolf2.takeDamage(5)
-    } else { // Calls reduceHealthBy10 function
-      this.testWoolf2.takeDamage(10)
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      if (this.yawnBlast.scale < this._yawn_size_check) {
+        this.WoolfArray[i].takeDamage(5)
+      } else { // Calls reduceHealthBy10 function
+        this.WoolfArray[i].takeDamage(10)
+      }
     }
   }
 
@@ -514,6 +571,7 @@ class mainSheepScene extends Phaser.Scene {
 
   moveEnemy (myEnemy) {
     myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+    //console.log('does this happen!!')
   }
 
   depthCheck (myTree) {
