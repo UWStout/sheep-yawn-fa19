@@ -340,7 +340,7 @@ class mainSheepScene extends Phaser.Scene {
         this.player.flipX = true
       }
 
-      // Are we looking at right animation
+      // Are we looking at right animation?
       // Play runUp animation if so
       if (this.player.anims.getCurrentKey() !== 'runUpAnim') {
         this.player.anims.play('runUpAnim')
@@ -349,7 +349,19 @@ class mainSheepScene extends Phaser.Scene {
       velocity.y += this._sheep_Velocity
       velocity.x = 0
 
-      // Updated after reanalysis of controls
+      // Is the sprite inverted?
+      // Turn off if so
+      if (this._invert !== false) {
+        this.player.flipX = true
+      } else { // Turn on
+        this.player.flipX = false
+      }
+
+      // Are we looking at right animation?
+      // Play runLeft animation if so
+      if (this.player.anims.getCurrentKey() !== 'runLeft') {
+        this.player.anims.play('runLeft')
+      }
     } else if (this.cursors.right.isDown || this.rightKey.isDown) { // Is right key/keyboard key being pressed?
       velocity.x += this._sheep_Velocity
       velocity.y = 0
