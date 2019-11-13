@@ -37,7 +37,7 @@ class Splash extends Phaser.Scene {
     // The spritesheet for the lever
     this.load.spritesheet('lever', 'assets/images/lever.png', { frameWidth: 32, frameHeight: 32 })
 
-    // The audiosprite with all music and SFX
+    // The audiosprite with all music and SFX (keep this for sounds only need to load once)
     this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
       'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
       'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'

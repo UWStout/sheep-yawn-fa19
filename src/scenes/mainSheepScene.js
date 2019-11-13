@@ -466,7 +466,7 @@ class mainSheepScene extends Phaser.Scene {
       this.physics.world.overlap(this.WoolfArray[i], this.firePitTop, this.moveEnemy(this.WoolfArray[i]), null, this)
       this.physics.world.overlap(this.WoolfArray[i], this.firePitTop2, this.moveEnemy(this.WoolfArray[i]), null, this)
     }
-    /*
+    /* //collision isn't working
     this.physics.add.collider(this.WoolfArray[i], this.firePit) // find out if order matters...
       this.physics.add.collider(this.WoolfArray[i], this.firePitTop)
       this.physics.add.collider(this.WoolfArray[i], this.firePitTop2)
@@ -533,7 +533,7 @@ class mainSheepScene extends Phaser.Scene {
         if (this.WoolfArray[i]) {
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
-          this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this)
+          this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this) // working on this
         }
       }
     }
@@ -544,12 +544,10 @@ class mainSheepScene extends Phaser.Scene {
 
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
-    for (let i = 0; i < this.WoolfArrayLength; i++) {
-      if (this.yawnBlast.scale < this._yawn_size_check) {
-        this.WoolfArray[i].takeDamage(5)
-      } else { // Calls reduceHealthBy10 function
-        this.WoolfArray[i].takeDamage(10)
-      }
+    if (this.yawnBlast.scale < this._yawn_size_check) {
+      woolfy.takeDamage(5)
+    } else { // Calls reduceHealthBy10 function
+      woolfy.takeDamage(10)
     }
   }
 
@@ -563,7 +561,7 @@ class mainSheepScene extends Phaser.Scene {
       y: enemyY
     })
 
-    // Adustds circle to scene
+    // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
 
     // Sets up holder for zzz sprites
@@ -595,7 +593,7 @@ class mainSheepScene extends Phaser.Scene {
 
   moveEnemy (myEnemy) {
     myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
-    //console.log('does this happen!!')
+    // console.log('does this happen!!')
   }
 
   depthCheck (myTree) {
