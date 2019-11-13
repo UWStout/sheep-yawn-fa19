@@ -39,6 +39,8 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('initalYawnBack', 'assets/images/woolhemina_yawnBlast_initial_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('YawnLoopFront', 'assets/images/woolhemina_yawnBlast_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
     this.load.spritesheet('YawnLoopBack', 'assets/images/woolhemina_yawnBlast_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
+    this.load.spritesheet('YawnReleaseFront', 'assets/images/woolhemina_yawnBlast_release_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 15 })
+    this.load.spritesheet('YawnReleaseBack', 'assets/images/woolhemina_yawnBlast_release_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 15 })
 
     // No longer needed
     // Used in reference of what was set for each health amount
@@ -87,7 +89,7 @@ class mainSheepScene extends Phaser.Scene {
     this.RightBoundaryArray = []
     this.TopBoundaryArray = []
     this.BottomBoundaryArray = []
-    
+
     for (let i = 0; i < 11; i++) {
       this['TopTile' + i] = new MapTile({ scene: this, x: (145 + (255 * i)), y: 140 })
       this.TopBoundaryArray.push(this['TopTile' + i])
@@ -425,18 +427,20 @@ class mainSheepScene extends Phaser.Scene {
 
     // Increases circumferance of circle
     if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
-      // // Was the last animation the inital front yawn animation?
-      // // Run front loop yawn if so
-      // if (this.player.anims.getCurrentKey() === 'initalYawnFrontAnim') {
-      //   // this.player.anims.stopOnRepeat('initalYawnFrontAnim')
-      //   this.player.anims.play('yawnLoopFrontAnim')
-      // }
+      // this.player.anims.play('YawnLoopFrontAnim')
 
-      // // Was the last animation the up animation?
-      // // Run back yawn if so
-      // if (this.player.anims.getCurrentKey() === 'initalYawnBackAnim') {
-      //   this.player.anims.play('yawnLoopBackAnim')
-      // }
+      // Was the last animation the inital front yawn animation?
+      // Run front loop yawn if so
+      if (this.player.anims.getCurrentKey() === 'initalYawnFrontAnim' && this.player.anims.currentFrame.index === 6) {
+        // this.player.anims.stopOnRepeat('initalYawnFrontAnim')
+        this.player.anims.play('YawnLoopFrontAnim')
+      }
+
+      // Was the last animation the up animation?
+      // Run back yawn if so
+      if (this.player.anims.getCurrentKey() === 'initalYawnBackAnim' && this.player.anims.currentFrame.index === 6) {
+        this.player.anims.play('YawnLoopBackAnim')
+      }
 
       this.yawnBlast.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
@@ -508,10 +512,6 @@ class mainSheepScene extends Phaser.Scene {
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
-
-    // if (this.player.anims.getCurrentKey !== 'yawnLoopFrontAnim') {
-    //   this.player.anims.play('yawnLoopFrontAnim')
-    // }
 
     // Was the last animation the left/right animation?
     // Run front yawn if so
