@@ -20,7 +20,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'runLeft',
       frames: this.scene.anims.generateFrameNumbers(
-        'runleftFront', { start: 0, stop: 13 }
+        'runleftFront', { start: 0, end: 13 }
       ),
       frameRate: 16,
       repeat: -1
@@ -30,7 +30,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'runUpAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'runUp', { start: 0, stop: 13 }
+        'runUp', { start: 0, end: 13 }
       ),
       frameRate: 16,
       repeat: -1
@@ -40,7 +40,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'idleFrontAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'idleFront', { start: 0, stop: 11 }
+        'idleFront', { start: 0, end: 10 }
       ),
       frameRate: 16,
       repeat: -1
@@ -50,7 +50,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'idleBackAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'idleBack', { start: 0, stop: 11 }
+        'idleBack', { start: 0, end: 10 }
       ),
       frameRate: 16,
       repeat: -1
@@ -60,7 +60,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'initalYawnFrontAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'initalYawnFront', { start: 0, stop: 6 }
+        'initalYawnFront', { start: 0, end: 6 }
       ),
       frameRate: 16,
       repeat: 0
@@ -70,7 +70,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'initalYawnBackAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'initalYawnBack', { start: 0, stop: 6 }
+        'initalYawnBack', { start: 0, end: 6 }
       ),
       frameRate: 16,
       repeat: 0
@@ -78,9 +78,9 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
 
     // Create yawn loop front anim of Woolhemina
     this.scene.anims.create({
-      key: 'yawnLoopFrontAnim',
+      key: 'YawnLoopFrontAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'yawnLoopFront', { start: 0, stop: 5 }
+        'YawnLoopFront', { start: 0, end: 5 }
       ),
       frameRate: 16,
       repeat: -1
@@ -88,12 +88,32 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
 
     // Create yawn loop back anim of Woolhemina
     this.scene.anims.create({
-      key: 'yawnLoopBackAnim',
+      key: 'YawnLoopBackAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'yawnLoopBack', { start: 0, stop: 5 }
+        'YawnLoopBack', { start: 0, end: 5 }
       ),
       frameRate: 16,
       repeat: -1
+    })
+
+    // Create inital yawn back anim of Woolhemina
+    this.scene.anims.create({
+      key: 'YawnReleaseFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'YawnReleaseFront', { start: 0, end: 15 }
+      ),
+      frameRate: 16,
+      repeat: 0
+    })
+
+    // Create inital yawn back anim of Woolhemina
+    this.scene.anims.create({
+      key: 'YawnReleaseBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'YawnReleaseBack', { start: 0, end: 15 }
+      ),
+      frameRate: 16,
+      repeat: 0
     })
   }
 }
