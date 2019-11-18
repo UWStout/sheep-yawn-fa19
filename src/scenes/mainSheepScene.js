@@ -543,6 +543,7 @@ class mainSheepScene extends Phaser.Scene {
 
   // Creates sheep yawn circle, add physics and setup collider
   createYawnBlast () {
+
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
 
@@ -557,9 +558,6 @@ class mainSheepScene extends Phaser.Scene {
     if (this.player.anims.getCurrentKey() === 'idleBackAnim') {
       this.player.anims.play('initalYawnBackAnim')
     }
-
-    this.gameSFX.stop()
-    this.gameSFX.play('YawnBlast', { volume: this.gameSFX.volume })
 
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
@@ -579,7 +577,7 @@ class mainSheepScene extends Phaser.Scene {
       // Does Woolf enemy exist?
       for (let i = 0; i < this.WoolfArrayLength; i++) {
         if (this.WoolfArray[i]) {
-          //check to see if the woolf is already asleep
+          // check to see if the woolf is already asleep
           if (this.WoolfArray[i].isAwake == true) {
             console.log('wolf is awake')
           } else if (this.WoolfArray[i].isAwake == false) {
