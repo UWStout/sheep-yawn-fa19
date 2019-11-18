@@ -16,6 +16,10 @@ class HUD extends Phaser.Scene {
         canvas[fullscreen.request]()
       }
     }
+
+    // Create sound sprite for running SFX
+    this.RoosterSFX = this.sound.addAudioSprite('sounds')
+    this.TimeOver = false
   }
 
   // Load all data needed for this game state

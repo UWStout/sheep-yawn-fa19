@@ -4,13 +4,14 @@
 import Phaser from 'phaser'
 
 class Enemy extends Phaser.GameObjects.Sprite {
-  constructor ({ scene, x, y, imageKey, health, zzzAmount }) {
+  constructor ({ scene, x, y, imageKey, health, zzzAmount, isAwake }) {
     // Grabs items needed from Phaser.GameObjects.Sprite
     super(scene, x, y, imageKey)
 
     // Initialize enemy's characteristics
     this.genHealth = health
     this.zzzCount = zzzAmount
+    this.isAwake = true
 
     // Event check for when health is equal to zero
     this.on('die', this.die, this)
@@ -24,6 +25,9 @@ class Enemy extends Phaser.GameObjects.Sprite {
     // Calls event check when health is equal or less to zero
     if (this.genHealth <= 0) {
       this.emit('die')
+      this.isAwake = false
+    } else {
+      this.isAwake = true
     }
   }
 
