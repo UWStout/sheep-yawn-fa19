@@ -3,6 +3,9 @@
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
+// Import the global config file
+import config from '../config'
+
 // Import the sprites
 import Woolhemina from '..//sprites/Woolhemina'
 import WoolfEnemy from '..//sprites/WoolfEnemy'
@@ -40,6 +43,12 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('YawnLoopFront', 'assets/images/woolhemina_yawnBlast_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
     this.load.spritesheet('YawnLoopBack', 'assets/images/woolhemina_yawnBlast_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
 
+    // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
+    this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
+      'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
+      'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
+    ])
+    
     // No longer needed
     // Used in reference of what was set for each health amount
     // Default health for enemies
@@ -72,6 +81,13 @@ class mainSheepScene extends Phaser.Scene {
   // Creates objects and other items used within the scene
   // Not immediately added to scene, unless add/addExisting Is stated
   create () {
+    // Start playing the background music
+    this.music = this.sound.addAudioSprite('sounds')
+    this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
+
+    // Create sound sprite for game sound effects
+    this.gameSFX = this.sound.addAudioSprite('sounds')
+
     // tile sprite
     this.tileOne = this.add.tileSprite(0, 0, this._scene_width, this._scene_height, 'tile1')
     this.tileOne.setTileScale(0.5, 0.5)
@@ -103,7 +119,7 @@ class mainSheepScene extends Phaser.Scene {
     }
 
     for (let i = 0; i < 10; i++) {
-      this['RightTile' + i] = new MapTile({ scene: this, x: 2695, y: 145 + (255 * i) + 252 }) // working on this
+      this['RightTile' + i] = new MapTile({ scene: this, x: 2695, y: 145 + (255 * i) + 252 }) 
       this.RightBoundaryArray.push(this['RightTile' + i])
       this['RightTile' + i].setTexture('mapTile')
       this['RightTile' + i].setScale(0.5)
@@ -332,6 +348,10 @@ class mainSheepScene extends Phaser.Scene {
       velocity.y -= this._sheep_Velocity
       velocity.x = 0
 
+      if (!this.gameSFX.isPlaying) {
+        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      }
+
       // Is the sprite inverted?
       // Turn off if so
       if (this._invert !== false) {
@@ -348,6 +368,10 @@ class mainSheepScene extends Phaser.Scene {
     } else if (this.cursors.down.isDown || this.downKey.isDown) { // Is down key/keyboard key being pressed?
       velocity.y += this._sheep_Velocity
       velocity.x = 0
+
+      if (!this.gameSFX.isPlaying) {
+        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      }
 
       // Is the sprite inverted?
       // Turn off if so
@@ -366,6 +390,10 @@ class mainSheepScene extends Phaser.Scene {
       velocity.x += this._sheep_Velocity
       velocity.y = 0
 
+      if (!this.gameSFX.isPlaying) {
+        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      }
+
       // Flips player character along the x-axis
       this.player.flipX = true
 
@@ -381,6 +409,10 @@ class mainSheepScene extends Phaser.Scene {
       velocity.x -= this._sheep_Velocity
       velocity.y = 0
 
+      if (!this.gameSFX.isPlaying) {
+        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      }
+
       // Flips player character along the x-axis
       this.player.flipX = false
 
@@ -393,6 +425,7 @@ class mainSheepScene extends Phaser.Scene {
         this.player.anims.play('runLeft')
       }
     } else { // no key is being pressed
+      this.gameSFX.stop()
       // Was the last animation the left/right animation?
       // Run front idle if so
       if (this.player.anims.getCurrentKey() === 'runLeft') {
@@ -525,6 +558,9 @@ class mainSheepScene extends Phaser.Scene {
       this.player.anims.play('initalYawnBackAnim')
     }
 
+    this.gameSFX.stop()
+    this.gameSFX.play('YawnBlast', { volume: this.gameSFX.volume })
+
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
@@ -543,9 +579,16 @@ class mainSheepScene extends Phaser.Scene {
       // Does Woolf enemy exist?
       for (let i = 0; i < this.WoolfArrayLength; i++) {
         if (this.WoolfArray[i]) {
+          //check to see if the woolf is already asleep
+          if (this.WoolfArray[i].isAwake == true) {
+            console.log('wolf is awake')
+          } else if (this.WoolfArray[i].isAwake == false) {
+            console.log('wolf is asleep') // delete from array 
+            delete this.WoolfArray[i]
+          }
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
-          this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this) // working on this
+          this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this)
         }
       }
     }
@@ -606,6 +649,10 @@ class mainSheepScene extends Phaser.Scene {
   moveEnemy (myEnemy) {
     myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
     // console.log('does this happen!!')
+  }
+
+  setSFXVolume (newVolume) {
+    this.gameSFX.volume = newVolume
   }
 
   depthCheck (myTree) {

@@ -16,6 +16,10 @@ class HUD extends Phaser.Scene {
         canvas[fullscreen.request]()
       }
     }
+
+    // Create sound sprite for running SFX
+    this.RoosterSFX = this.sound.addAudioSprite('sounds')
+    this.TimeOver = false
   }
 
   // Load all data needed for this game state
@@ -54,36 +58,29 @@ class HUD extends Phaser.Scene {
       this._default_time -= 1
       this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
-      this.timeText.destroy()
-      // this.gameOverText = this.add.text(
-      //   centerX(this),
-      //   centerY(this),
-      //   'Game Over',
-      //   {
-      //     font: '110px Roboto Condensed',
-      //     fontStyle: 'bold',
-      //     fill: '#0xff0000',
-      //     align: 'center'
-      //   }
-      // )
-      // this.gameOverText.setOrigin(0.5, 0.5)
-    }
-  }
-
-  // Creates text to indicate you are out of time
-  outOfTime () {
-    if (this._default_time <= 0.01) {
-      console.log('We have reached zero')
-      console.log(this._default_time)
-      this.cameras.main.backgroundColor = '#7f7f7f'
-      this.cameras.main.alpha(0.7)
+      if (this.TimeOver == false)
+      {
+        this.TimeOver = true
+        this.timeText.destroy()
+        this.gameOverText = this.add.text(
+          centerX(this),
+          centerY(this),
+          'Game Over',
+          {
+            font: '110px Roboto Condensed',
+            fontStyle: 'bold',
+            fill: '#0xff0000',
+            align: 'center'
+          }
+        )
+        this.RoosterSFX.play('RoosterCrow', { volume: 0.6 }) //change this volume later so it can be adjusted
+        this.gameOverText.setOrigin(0.5, 0.5)
+      }
     }
   }
 
   // Calls once per frame
   update () {
-    // this.countDown()
-    // this.outOfTime()
   }
 }
 
