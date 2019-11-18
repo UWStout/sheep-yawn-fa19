@@ -33,7 +33,7 @@ class HUD extends Phaser.Scene {
     this.timeText.setOrigin(0.5, 0.5)
 
     // Each 1000 ms calls countDown
-    // this.time.addEvent({ delay: 900, callback: this.countDown, callbackScope: this, loop: true })
+    this.time.addEvent({ delay: 900, callback: this.countDown, callbackScope: this, loop: true })
   }
 
   // Converts seconds to mins and secs

@@ -16,7 +16,8 @@ export default {
   webfonts: ['Libre Franklin'],
 
   // Sound and music settings
-  MUSIC_VOLUME: 0.5,
+  // MUSIC_VOLUME: 0.5,
+  MUSIC_VOLUME: 0,
   SFX_VOLUME: 0.8,
 
   // Minimum time to display the splash screen
