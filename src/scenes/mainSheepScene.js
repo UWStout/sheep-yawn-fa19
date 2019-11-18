@@ -31,10 +31,10 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('tile1', 'assets/images/Tile_01.png')
     this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
     this.load.image('mapTile', 'assets/images/DummyBoundary.png')
-    this.load.spritesheet('runleftFront', 'assets/images/woolhemina_run_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
-    this.load.spritesheet('runUp', 'assets/images/woolhemina_run_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
-    this.load.spritesheet('idleFront', 'assets/images/woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
-    this.load.spritesheet('idleBack', 'assets/images/woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
+    this.load.spritesheet('runleftFront', 'assets/images/painted_woolhemina_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
+    this.load.spritesheet('runUp', 'assets/images/painted_woolhemina_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
+    this.load.spritesheet('idleFront', 'assets/images/painted_woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
+    this.load.spritesheet('idleBack', 'assets/images/painted_woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
     this.load.spritesheet('initalYawnFront', 'assets/images/woolhemina_yawnBlast_initial_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('initalYawnBack', 'assets/images/woolhemina_yawnBlast_initial_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('YawnLoopFront', 'assets/images/woolhemina_yawnBlast_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
@@ -224,7 +224,7 @@ class mainSheepScene extends Phaser.Scene {
       this.OakArray[i].depth = this.OakArray[i].y + this.OakArray[i].height / 2
       this.physics.add.collider(this.player, this.OakArray[i])
     }
-    
+
     for (let i = 0; i < this.PineArrayLength; i++) {
       // add pine trees to scene and set physics
       this.add.existing(this.PineArray[i])
@@ -267,7 +267,7 @@ class mainSheepScene extends Phaser.Scene {
     this.firePitTop2.body.setOffset(this.firePit.x - 145, this.firePit.y - 50)
     // set fire pit depth
     this.firePit.depth = this.firePit.y + this.firePit.height / 2
- 
+
     // set collision
     this.physics.add.collider(this.player, this.firePit)
     this.physics.add.collider(this.player, this.firePitTop)
