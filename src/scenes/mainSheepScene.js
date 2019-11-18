@@ -432,7 +432,6 @@ class mainSheepScene extends Phaser.Scene {
       // Was the last animation the inital front yawn animation?
       // Run front loop yawn if so
       if (this.player.anims.getCurrentKey() === 'initalYawnFrontAnim' && this.player.anims.currentFrame.index === 6) {
-        // this.player.anims.stopOnRepeat('initalYawnFrontAnim')
         this.player.anims.play('YawnLoopFrontAnim')
       }
 
@@ -451,9 +450,6 @@ class mainSheepScene extends Phaser.Scene {
     if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
       this.yawnBlast.setStrokeStyle(4.7)
     }
-
-    // // call zzzDrop function
-    // this.zzzDrop()
 
     // working on this if wolf collides change direction
     for (let i = 0; this.i < this.WoolfArrayLength; i++) {
@@ -540,6 +536,28 @@ class mainSheepScene extends Phaser.Scene {
   destroyYawnBlast () {
     // Does yawn blast exist?
     if (this.yawnBlast) {
+
+      // Was the last animation the inital front yawn animation?
+      // Run front loop yawn if so
+      if (this.player.anims.getCurrentKey() === 'YawnLoopFrontAnim') {
+        this.player.anims.play('YawnReleaseFrontAnim')
+        // if (this.player.anims.currentFrame.index === 15) {
+        //   console.log('u have reached the end')
+        //   this.player.anims.play('idleFrontAnim')
+        // }
+        // console.log('Frame: ' + this.anims.currentFrame.index)
+      }
+
+      // Was the last animation the up animation?
+      // Run back yawn if so
+      if (this.player.anims.getCurrentKey() === 'YawnLoopBackAnim') {
+        this.player.anims.play('YawnReleaseBackAnim')
+        // if (this.player.anims.currentFrame.index === 15) {
+        //   console.log('u have reached the back end')
+        //   this.player.anims.play('idleBackAnim')
+        // }
+      }
+
       // Does Woolf enemy exist?
       for (let i = 0; i < this.WoolfArrayLength; i++) {
         if (this.WoolfArray[i]) {

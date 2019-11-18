@@ -106,6 +106,10 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
       repeat: 0
     })
 
+    this.on('animationcomplete-YawnReleaseFrontAnim', () => {
+      this.anims.play('idleFrontAnim')
+    }, this)
+
     // Create inital yawn back anim of Woolhemina
     this.scene.anims.create({
       key: 'YawnReleaseBackAnim',
@@ -115,6 +119,10 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
       frameRate: 16,
       repeat: 0
     })
+
+    this.on('animationcomplete-YawnReleaseBackAnim', () => {
+      this.anims.play('idleBackAnim')
+    }, this)
   }
 }
 
