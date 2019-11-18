@@ -33,7 +33,7 @@ class HUD extends Phaser.Scene {
     this.timeText.setOrigin(0.5, 0.5)
 
     // Each 1000 ms calls countDown
-    this.time.addEvent({ delay: 900, callback: this.countDown, callbackScope: this, loop: true })
+    // this.time.addEvent({ delay: 900, callback: this.countDown, callbackScope: this, loop: true })
   }
 
   // Converts seconds to mins and secs
@@ -54,33 +54,26 @@ class HUD extends Phaser.Scene {
 
   // Decreases time 1 sec at a time
   countDown () {
+    // Is there time left on the clock?
+    // Subtract one second
     if (this._default_time > 0) {
       this._default_time -= 1
       this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
-      if (this.TimeOver == false)
-      {
-        this.TimeOver = true
-        this.timeText.destroy()
-        this.gameOverText = this.add.text(
-          centerX(this),
-          centerY(this),
-          'Game Over',
-          {
-            font: '110px Roboto Condensed',
-            fontStyle: 'bold',
-            fill: '#0xff0000',
-            align: 'center'
-          }
-        )
-        this.RoosterSFX.play('RoosterCrow', { volume: 0.6 }) //change this volume later so it can be adjusted
-        this.gameOverText.setOrigin(0.5, 0.5)
-      }
+      this.timeText.destroy()
+      this.gameOverText = this.add.text(
+        centerX(this),
+        centerY(this),
+        'Game Over',
+        {
+          font: '110px Roboto Condensed',
+          fontStyle: 'bold',
+          fill: '#0xff0000',
+          align: 'center'
+        }
+      )
+      this.gameOverText.setOrigin(0.5, 0.5)
     }
-  }
-
-  // Calls once per frame
-  update () {
   }
 }
 
