@@ -554,9 +554,6 @@ class mainSheepScene extends Phaser.Scene {
       this.player.anims.play('initalYawnBackAnim')
     }
 
-    this.gameSFX.stop()
-    this.gameSFX.play('YawnBlast', { volume: this.gameSFX.volume })
-
     this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
