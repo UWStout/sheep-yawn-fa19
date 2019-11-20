@@ -559,6 +559,10 @@ class mainSheepScene extends Phaser.Scene {
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
+    this.gameSFX.stop()
+    this.gameSFX.play('YawnBlast', { volume: this.gameSFX.volume })
+    console.log('yawning')
+
     // Set up physics, collider
     this.physics.add.existing(this.yawnBlast)
     this.yawnBlast.body.setCircle(50, 0.5)
