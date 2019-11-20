@@ -50,7 +50,7 @@ class mainSheepScene extends Phaser.Scene {
       'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
       'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
     ])
-    
+
     // No longer needed
     // Used in reference of what was set for each health amount
     // Default health for enemies
@@ -121,7 +121,7 @@ class mainSheepScene extends Phaser.Scene {
     }
 
     for (let i = 0; i < 10; i++) {
-      this['RightTile' + i] = new MapTile({ scene: this, x: 2695, y: 145 + (255 * i) + 252 }) 
+      this['RightTile' + i] = new MapTile({ scene: this, x: 2695, y: 145 + (255 * i) + 252 })
       this.RightBoundaryArray.push(this['RightTile' + i])
       this['RightTile' + i].setTexture('mapTile')
       this['RightTile' + i].setScale(0.5)
@@ -539,7 +539,6 @@ class mainSheepScene extends Phaser.Scene {
 
   // Creates sheep yawn circle, add physics and setup collider
   createYawnBlast () {
-
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlast) { this.yawnBlast.destroy() }
 
@@ -574,7 +573,6 @@ class mainSheepScene extends Phaser.Scene {
   destroyYawnBlast () {
     // Does yawn blast exist?
     if (this.yawnBlast) {
-
       // Was the last animation the inital front yawn animation?
       // Run front loop yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopFrontAnim') {
@@ -600,10 +598,10 @@ class mainSheepScene extends Phaser.Scene {
       for (let i = 0; i < this.WoolfArrayLength; i++) {
         if (this.WoolfArray[i]) {
           // check to see if the woolf is already asleep
-          if (this.WoolfArray[i].isAwake == true) {
+          if (this.WoolfArray[i].isAwake === true) {
             console.log('wolf is awake')
-          } else if (this.WoolfArray[i].isAwake == false) {
-            console.log('wolf is asleep') // delete from array 
+          } else if (this.WoolfArray[i].isAwake === false) {
+            console.log('wolf is asleep') // delete from array
             delete this.WoolfArray[i]
           }
           // Check for overlap with enemy and yawnBlast
