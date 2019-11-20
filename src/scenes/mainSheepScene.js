@@ -88,7 +88,8 @@ class mainSheepScene extends Phaser.Scene {
     this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
 
     // Create sound sprite for game sound effects
-    this.gameSFX = this.sound.addAudioSprite('sounds')
+    this.footstepsSFX = this.sound.addAudioSprite('sounds')
+    this.yawnSFX = this.sound.addAudioSprite('sounds')
 
     // tile sprite
     this.tileOne = this.add.tileSprite(0, 0, this._scene_width, this._scene_height, 'tile1')
@@ -337,6 +338,18 @@ class mainSheepScene extends Phaser.Scene {
     this.yawnKey.on('down', this.createYawnBlast, this)
     this.yawnKey.on('up', this.destroyYawnBlast, this)
     this.yawnKey.oldDown = false
+
+    this.yawnKey.on('down', () => {
+      if (!this.yawnSFX.isPlaying) {
+        this.yawnSFX.play('YawnBlast')
+      }
+    }, this)
+
+    this.yawnKey.on('up', () => {
+      if (this.yawnSFX.isPlaying) {
+        this.yawnSFX.stop()
+      }
+    }, this)
   }
 
   // ==================================================
@@ -350,8 +363,8 @@ class mainSheepScene extends Phaser.Scene {
       velocity.y -= this._sheep_Velocity
       velocity.x = 0
 
-      if (!this.gameSFX.isPlaying) {
-        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      if (!this.footstepsSFX.isPlaying) {
+        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
       }
 
       // Is the sprite inverted?
@@ -371,8 +384,8 @@ class mainSheepScene extends Phaser.Scene {
       velocity.y += this._sheep_Velocity
       velocity.x = 0
 
-      if (!this.gameSFX.isPlaying) {
-        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      if (!this.footstepsSFX.isPlaying) {
+        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
       }
 
       // Is the sprite inverted?
@@ -392,8 +405,8 @@ class mainSheepScene extends Phaser.Scene {
       velocity.x += this._sheep_Velocity
       velocity.y = 0
 
-      if (!this.gameSFX.isPlaying) {
-        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      if (!this.footstepsSFX.isPlaying) {
+        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
       }
 
       // Flips player character along the x-axis
@@ -411,8 +424,8 @@ class mainSheepScene extends Phaser.Scene {
       velocity.x -= this._sheep_Velocity
       velocity.y = 0
 
-      if (!this.gameSFX.isPlaying) {
-        this.gameSFX.play('running', { volume: this.gameSFX.volume })
+      if (!this.footstepsSFX.isPlaying) {
+        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
       }
 
       // Flips player character along the x-axis
@@ -427,7 +440,7 @@ class mainSheepScene extends Phaser.Scene {
         this.player.anims.play('runLeft')
       }
     } else { // no key is being pressed
-      this.gameSFX.stop()
+      this.footstepsSFX.stop()
       // Was the last animation the left/right animation?
       // Run front idle if so
       if (this.player.anims.getCurrentKey() === 'runLeft') {
@@ -558,9 +571,9 @@ class mainSheepScene extends Phaser.Scene {
     this.yawnBlast.setStrokeStyle(2)
     this._yawn_scale = 1.0
 
-    this.gameSFX.stop()
-    this.gameSFX.play('YawnBlast', { volume: this.gameSFX.volume })
-    console.log('yawning')
+    // this.gameSFX.stop()
+    // this.gameSFX.play('YawnBlast', { volume: this.gameSFX.volume })
+    // console.log('yawning')
 
     // Set up physics, collider
     this.physics.add.existing(this.yawnBlast)
@@ -670,7 +683,7 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   setSFXVolume (newVolume) {
-    this.gameSFX.volume = newVolume
+    this.footstepsSFX.volume = newVolume
   }
 
   depthCheck (myTree) {
