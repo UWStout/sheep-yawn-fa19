@@ -683,6 +683,7 @@ class mainSheepScene extends Phaser.Scene {
     }
   }
 
+  // Moves Enemy around the scene
   moveEnemy (myEnemy) {
     for (let i = 0; i < this.WoolfArrayLength; i++) {
       this.WoolfArray[i].anims.play('woolfLeftRunAnim')
