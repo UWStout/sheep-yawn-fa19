@@ -107,7 +107,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     })
 
     this.on('animationcomplete-YawnReleaseFrontAnim', () => {
-      this.anims.play('idleFrontAnim')
+      this.anims.play('shatteringAnim')
     }, this)
 
     // Create inital yawn back anim of Woolhemina
@@ -123,6 +123,16 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.on('animationcomplete-YawnReleaseBackAnim', () => {
       this.anims.play('idleBackAnim')
     }, this)
+
+    // Create yawnBlast glassBreak anim.
+    this.scene.anims.create({
+      key: 'shatteringAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'breakGlass', { start: 0, end: 3 }
+      ),
+      frameRate: 3,
+      repeat: 0
+    })
   }
 }
 

@@ -25,7 +25,8 @@ class HUD extends Phaser.Scene {
   // Load all data needed for this game state
   preload () {
     // Holds count down's inital time 2:30 min in secs
-    this._default_time = 150
+    // this._default_time = 150
+    this._default_time = 15000000000
 
     // Show message that fonts are loading
     this.timeText = this.add.text(150, 32, 'Until Dawn: ' + this.formatTime(this._default_time),

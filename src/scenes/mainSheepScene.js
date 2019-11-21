@@ -16,6 +16,7 @@ import FirePit from '..//sprites/FirePit'
 import MapTile from '..//sprites/MapTile'
 import Zzz from '..//sprites/Zzz'
 import Enemy from '../sprites/Enemy'
+import YawnCircle from '..//sprites/YawnCircle'
 // import HUD from './HUD'
 
 class mainSheepScene extends Phaser.Scene {
@@ -34,6 +35,7 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('tile1', 'assets/images/Tile_01.png')
     this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
     this.load.image('mapTile', 'assets/images/DummyBoundary.png')
+    this.load.image('yawnBlastCircleImage', 'assets/images/yawnBlast_hemisphereShape.png')
     this.load.spritesheet('runleftFront', 'assets/images/painted_woolhemina_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
     this.load.spritesheet('runUp', 'assets/images/painted_woolhemina_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
     this.load.spritesheet('idleFront', 'assets/images/painted_woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
@@ -44,6 +46,8 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('YawnLoopBack', 'assets/images/woolhemina_yawnBlast_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
     this.load.spritesheet('YawnReleaseFront', 'assets/images/woolhemina_yawnBlast_release_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 15 })
     this.load.spritesheet('YawnReleaseBack', 'assets/images/woolhemina_yawnBlast_release_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 15 })
+    this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
+    this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
 
     // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
     this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
@@ -155,11 +159,19 @@ class mainSheepScene extends Phaser.Scene {
     }
     this.PineArrayLength = this.PineArray.length
 
+    // Creation of firepit
     this.firePit = new FirePit({
       scene: this,
       x: 1185,
       y: 1500
     })
+
+    // Creation of yawnBlastCircle
+    // this.yawnBlastCircle = new YawnCircle({
+    //   scene: this,
+    //   x: 1185,
+    //   y: 1170
+    // })
 
     // Creation of enemy, Woolf
     this.WoolfArray = []
@@ -171,7 +183,7 @@ class mainSheepScene extends Phaser.Scene {
     }
     this.WoolfArrayLength = this.WoolfArray.length
 
-    console.log('wolf array' + this.WoolfArrayLength)
+    // console.log('wolf array' + this.WoolfArrayLength)
 
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
@@ -452,37 +464,40 @@ class mainSheepScene extends Phaser.Scene {
       this.depthCheck(this.PineArray[i])
     }
 
+    // Needs updating
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
-    if (this.yawnBlast) {
-      this.yawnBlast.setPosition(this.player.x, this.player.y)
-    }
+    // if (this.yawnBlast) {
+    //   this.yawnBlast.setPosition(this.player.x, this.player.y)
+    // }
 
+    // Needs updating
     // Increases circumferance of circle
-    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
-      // this.player.anims.play('YawnLoopFrontAnim')
+    // if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
+    //   // this.player.anims.play('YawnLoopFrontAnim')
 
-      // Was the last animation the inital front yawn animation?
-      // Run front loop yawn if so
-      if (this.player.anims.getCurrentKey() === 'initalYawnFrontAnim' && this.player.anims.currentFrame.index === 6) {
-        this.player.anims.play('YawnLoopFrontAnim')
-      }
+    //   // Was the last animation the inital front yawn animation?
+    //   // Run front loop yawn if so
+    //   if (this.player.anims.getCurrentKey() === 'initalYawnFrontAnim' && this.player.anims.currentFrame.index === 6) {
+    //     this.player.anims.play('YawnLoopFrontAnim')
+    //   }
 
-      // Was the last animation the up animation?
-      // Run back yawn if so
-      if (this.player.anims.getCurrentKey() === 'initalYawnBackAnim' && this.player.anims.currentFrame.index === 6) {
-        this.player.anims.play('YawnLoopBackAnim')
-      }
+    //   // Was the last animation the up animation?
+    //   // Run back yawn if so
+    //   if (this.player.anims.getCurrentKey() === 'initalYawnBackAnim' && this.player.anims.currentFrame.index === 6) {
+    //     this.player.anims.play('YawnLoopBackAnim')
+    //   }
 
-      this.yawnBlast.setScale(this._yawn_scale)
-      this._yawn_scale += 0.01
-    }
+    //   this.yawnBlast.setScale(this._yawn_scale)
+    //   this._yawn_scale += 0.01
+    // }
 
+    // Needs updating
     // Increases thickness of stroke for the circle
     // To indicate the max circumferance has been achieved
-    if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
-      this.yawnBlast.setStrokeStyle(4.7)
-    }
+    // if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
+    //   this.yawnBlast.setStrokeStyle(4.7)
+    // }
 
     // working on this if wolf collides change direction
     for (let i = 0; this.i < this.WoolfArrayLength; i++) {
@@ -540,8 +555,7 @@ class mainSheepScene extends Phaser.Scene {
   // Creates sheep yawn circle, add physics and setup collider
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
-    if (this.yawnBlast) { this.yawnBlast.destroy() }
-
+    if (this.yawnBlastCircle) { this.yawnBlastCircle.destroy() }
     // Was the last animation the left/right animation?
     // Run front yawn if so
     if (this.player.anims.getCurrentKey() === 'idleFrontAnim') {
@@ -554,14 +568,14 @@ class mainSheepScene extends Phaser.Scene {
       this.player.anims.play('initalYawnBackAnim')
     }
 
-    this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
-    this.yawnBlast.setStrokeStyle(2)
-    this._yawn_scale = 1.0
+    // this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
+    // this.yawnBlast.setStrokeStyle(2)
+    // this._yawn_scale = 1.0
 
     // Set up physics, collider
-    this.physics.add.existing(this.yawnBlast)
-    this.yawnBlast.body.setCircle(50, 0.5)
-    this.physics.add.collider(this.yawnBlast)
+    // this.physics.add.existing(this.yawnBlastCircle)
+    // this.yawnBlastCircle.body.setCircle(50, 0.5)
+    // this.physics.add.collider(this.yawnBlast)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
@@ -573,21 +587,13 @@ class mainSheepScene extends Phaser.Scene {
       // Run front loop yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopFrontAnim') {
         this.player.anims.play('YawnReleaseFrontAnim')
-        // if (this.player.anims.currentFrame.index === 15) {
-        //   console.log('u have reached the end')
-        //   this.player.anims.play('idleFrontAnim')
-        // }
-        // console.log('Frame: ' + this.anims.currentFrame.index)
+        // this.yawnBlast.anims.play('shatteringAnim')
       }
 
       // Was the last animation the up animation?
       // Run back yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopBackAnim') {
         this.player.anims.play('YawnReleaseBackAnim')
-        // if (this.player.anims.currentFrame.index === 15) {
-        //   console.log('u have reached the back end')
-        //   this.player.anims.play('idleBackAnim')
-        // }
       }
 
       // Does Woolf enemy exist?
@@ -661,6 +667,9 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   moveEnemy (myEnemy) {
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+    }
     myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
     // console.log('does this happen!!')
   }
