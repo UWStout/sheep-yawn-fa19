@@ -10,6 +10,8 @@ class WoolfEnemy extends Enemy {
     super({ scene, x, y, imageKey: 'woolfImage', health, zzzAmount })
     this.key = 'woolf'
     this.name = 'woolf'
+
+    this.setupAnimations()
   }
 
   // Creates animations for woolf
