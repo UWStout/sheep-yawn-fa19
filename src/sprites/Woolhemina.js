@@ -66,6 +66,8 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
       repeat: 0
     })
 
+    // Was the last animation the inital front yawn animation?
+    // Run front loop yawn if so
     this.on('animationcomplete-initalYawnFrontAnim', () => {
       this.anims.play('YawnLoopFrontAnim')
     }, this)
@@ -80,6 +82,8 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
       repeat: 0
     })
 
+    // Was the last animation the inital back yawn animation?
+    // Run back loop yawn if so
     this.on('animationcomplete-initalYawnBackAnim', () => {
       this.anims.play('YawnLoopBackAnim')
     }, this)
@@ -115,8 +119,9 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     })
 
     this.on('animationcomplete-YawnReleaseFrontAnim', () => {
-      // this.anims.play('shatteringAnim')
       this.anims.play('idleFrontAnim')
+      // Run this off of yawnCircle break object/sprite
+      // this.anims.play('shatteringAnim')
     }, this)
 
     // Create inital yawn back anim of Woolhemina
@@ -139,7 +144,7 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
       frames: this.scene.anims.generateFrameNumbers(
         'breakGlass', { start: 0, end: 3 }
       ),
-      frameRate: 3,
+      frameRate: 6,
       repeat: 0
     })
   }

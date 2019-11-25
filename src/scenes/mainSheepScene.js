@@ -171,11 +171,11 @@ class mainSheepScene extends Phaser.Scene {
     })
 
     // Creation of yawnBlastCircle
-    // this.yawnBlastCircle = new YawnCircle({
-    //   scene: this,
-    //   x: 1185,
-    //   y: 1170
-    // })
+    this.yawnBlastCircle = new YawnCircle({
+      scene: this,
+      x: 1185,
+      y: 1170
+    })
 
     // Creation of enemy, Woolf
     this.WoolfArray = []
@@ -481,39 +481,28 @@ class mainSheepScene extends Phaser.Scene {
     }
 
     // Needs updating
+    // Crutial use for Woolhemin'a anims
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
-    if (this.yawnBlast) {
-      this.yawnBlast.setPosition(this.player.x, this.player.y)
+    if (this.yawnBlastCircle) {
+      this.yawnBlastCircle.setPosition(this.player.x, this.player.y)
     }
 
     // Needs updating
+    // Used for Woolhemin'a anims
     // Increases circumferance of circle
-    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
-      // this.player.anims.play('YawnLoopFrontAnim')
-
-      // // Was the last animation the inital front yawn animation?
-      // // Run front loop yawn if so
-      // if (this.player.anims.getCurrentKey() === 'initalYawnFrontAnim' && this.player.anims.currentFrame.index === 6) {
-      //   this.player.anims.play('YawnLoopFrontAnim')
-      // }
-
-      // // Was the last animation the up animation?
-      // // Run back yawn if so
-      // if (this.player.anims.getCurrentKey() === 'initalYawnBackAnim' && this.player.anims.currentFrame.index === 6) {
-      //   this.player.anims.play('YawnLoopBackAnim')
-      // }
-
-      this.yawnBlast.setScale(this._yawn_scale)
-      this._yawn_scale += 0.01
-    }
+    // if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
+    //   this.yawnBlast.setScale(this._yawn_scale)
+    //   this._yawn_scale += 0.01
+    // }
 
     // Needs updating
+    // Used for Woolhemin'a anims
     // Increases thickness of stroke for the circle
     // To indicate the max circumferance has been achieved
-    if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
-      this.yawnBlast.setStrokeStyle(4.7)
-    }
+    // if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
+    //   this.yawnBlast.setStrokeStyle(4.7)
+    // }
 
     // working on this if wolf collides change direction
     for (let i = 0; this.i < this.WoolfArrayLength; i++) {
@@ -571,8 +560,9 @@ class mainSheepScene extends Phaser.Scene {
   // Creates sheep yawn circle, add physics and setup collider
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
-    // if (this.yawnBlastCircle) { this.yawnBlastCircle.destroy() }
-    if (this.yawnBlast) { this.yawnBlast.destroy() }
+    if (this.yawnBlastCircle) { this.yawnBlastCircle.destroy() }
+    // Crutial use for Woolhemin'a anims
+    // if (this.yawnBlast) { this.yawnBlast.destroy() }
     // Was the last animation the left/right animation?
     // Run front yawn if so
     if (this.player.anims.getCurrentKey() === 'idleFrontAnim') {
@@ -585,25 +575,30 @@ class mainSheepScene extends Phaser.Scene {
       this.player.anims.play('initalYawnBackAnim')
     }
 
-    this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
-    this.yawnBlast.setStrokeStyle(2)
-    this._yawn_scale = 1.0
+    // this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
+    // this.yawnBlast.setStrokeStyle(2)
+    // this._yawn_scale = 1.0
 
-    this.gameSFX.stop()
-    this.gameSFX.play('YawnBlast', { volume: this.gameSFX.volume })
+    this.yawnSFX.stop()
+    this.yawnSFX.play('YawnBlast', { volume: this.yawnSFX.volume })
     console.log('yawning')
 
+    // Add yawnblast image to scene
+    this.add.existing(this.yawnBlastCircle)
     // Set up physics, collider
     // this.physics.add.existing(this.yawnBlastCircle)
-    this.yawnBlastCircle.body.setCircle(50, 0.5)
-    this.physics.add.collider(this.yawnBlast)
+    console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
+    // this.yawnBlastCircle.body.setCircle(50, 0.5)
+    // this.physics.add.collider(this.yawnBlast)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
   // Yawn blast circle already exists
   destroyYawnBlast () {
     // Does yawn blast exist?
-    if (this.yawnBlast) {
+    if (this.yawnBlastCircle) {
+    // Crutial use for Woolhemin's animations
+    // if (this.yawnBlast) {
       // Was the last animation the inital front yawn animation?
       // Run front loop yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopFrontAnim') {
@@ -629,18 +624,18 @@ class mainSheepScene extends Phaser.Scene {
           }
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
-          this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this)
+          // this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this)
         }
       }
     }
     // Destroy
-    this.yawnBlast.destroy()
-    this.yawnBlast = null
+    this.yawnBlastCircle.destroy()
+    this.yawnBlastCircle = null
   }
 
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
-    if (this.yawnBlast.scale < this._yawn_size_check) {
+    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
       woolfy.takeDamage(5)
     } else { // Calls reduceHealthBy10 function
       woolfy.takeDamage(10)

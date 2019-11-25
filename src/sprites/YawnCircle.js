@@ -4,7 +4,7 @@
 import Phaser from 'phaser'
 
 class YawnCircle extends Phaser.GameObjects.Sprite {
-  constructor (scene, x, y, imageKey) {
+  constructor ({ scene, x, y }) {
     // Initialize object basics
     super(scene, x, y, 'yawnBlastCircleImage')
     this.key = 'yCircle'
