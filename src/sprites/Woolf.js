@@ -10,6 +10,19 @@ class Woolf extends Phaser.GameObjects.Sprite {
     this.key = 'woolf'
     this.name = 'woolf'
   }
+
+  // Creates animations for Woolhemina
+  // setupAnimations () {
+  //   // Create woolf left run anim.
+  //   this.scene.anims.create({
+  //     key: 'woolfLeftRunAnim',
+  //     frames: this.scene.anims.generateFrameNumbers(
+  //       'woolfLeftRun', { start: 0, end: 11 }
+  //     ),
+  //     frameRate: 16,
+  //     repeat: -1
+  //   })
+  // }
 }
 
 // Expose the MainPlayer class to other files

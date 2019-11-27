@@ -10,6 +10,51 @@ class WoolfEnemy extends Enemy {
     super({ scene, x, y, imageKey: 'woolfImage', health, zzzAmount })
     this.key = 'woolf'
     this.name = 'woolf'
+
+    this.setupAnimations()
+  }
+
+  // Creates animations for woolf
+  setupAnimations () {
+    // Create woolf left run anim.
+    this.scene.anims.create({
+      key: 'woolfLeftRunAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfLeftRun', { start: 0, end: 11 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf right run anim.
+    this.scene.anims.create({
+      key: 'woolfRightRunAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfRightRun', { start: 0, end: 11 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf left run anim.
+    this.scene.anims.create({
+      key: 'woolfLeftIdleAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfLeftIdle', { start: 0, end: 7 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf right run anim.
+    this.scene.anims.create({
+      key: 'woolfRightIdleAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfRightIdle', { start: 0, end: 7 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
   }
 }
 
