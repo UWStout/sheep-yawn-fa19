@@ -170,13 +170,6 @@ class mainSheepScene extends Phaser.Scene {
       y: 1500
     })
 
-    // Creation of yawnBlastCircle
-    this.yawnBlastCircle = new YawnCircle({
-      scene: this,
-      x: 1185,
-      y: 1170
-    })
-
     // Creation of enemy, Woolf
     this.WoolfArray = []
     for (let i = 0; i < 5; i++) {
@@ -561,6 +554,15 @@ class mainSheepScene extends Phaser.Scene {
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlastCircle) { this.yawnBlastCircle.destroy() }
+
+    // Make yawn blast circle
+    // Creation of yawnBlastCircle
+    this.yawnBlastCircle = new YawnCircle({
+      scene: this,
+      x: this.player.x,
+      y: this.player.y
+    })
+
     // Crutial use for Woolhemin'a anims
     // if (this.yawnBlast) { this.yawnBlast.destroy() }
     // Was the last animation the left/right animation?
@@ -585,6 +587,7 @@ class mainSheepScene extends Phaser.Scene {
 
     // Add yawnblast image to scene
     this.add.existing(this.yawnBlastCircle)
+    this.yawnBlastCircle.depth = this.yawnBlastCircle.y + this.yawnBlastCircle.height / 2
     // Set up physics, collider
     // this.physics.add.existing(this.yawnBlastCircle)
     console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
@@ -599,18 +602,24 @@ class mainSheepScene extends Phaser.Scene {
     if (this.yawnBlastCircle) {
     // Crutial use for Woolhemin's animations
     // if (this.yawnBlast) {
-      // Was the last animation the inital front yawn animation?
-      // Run front loop yawn if so
+      // Was the last animation the loop front yawn animation?
+      // Run front release yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopFrontAnim') {
         this.player.anims.play('YawnReleaseFrontAnim')
-        // this.yawnBlast.anims.play('shatteringAnim')
       }
 
-      // Was the last animation the up animation?
-      // Run back yawn if so
+      // Was the last animation the loop back yawn animation?
+      // Run back release yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopBackAnim') {
         this.player.anims.play('YawnReleaseBackAnim')
       }
+
+      this.yawnBlastCircle.anims.play('shatteringAnim')
+      this.yawnBlastCircle.on('animationcomplete-shatteringAnim', () => {
+        // Destroy
+        this.yawnBlastCircle.destroy()
+        this.yawnBlastCircle = null
+      }, this)
 
       // Does Woolf enemy exist?
       for (let i = 0; i < this.WoolfArrayLength; i++) {
@@ -628,9 +637,6 @@ class mainSheepScene extends Phaser.Scene {
         }
       }
     }
-    // Destroy
-    this.yawnBlastCircle.destroy()
-    this.yawnBlastCircle = null
   }
 
   // Reduces health of enemy when caught in yawn blast circle
@@ -646,11 +652,11 @@ class mainSheepScene extends Phaser.Scene {
   // Adds Zzzs to circle's path
   zzzDrop (enemyX, enemyY, amountOfZs) {
     // Creation of Zzz sprite
-    this.Zzz = new Zzz({
-      scene: this,
-      x: enemyX,
-      y: enemyY
-    })
+    // this.Zzz = new Zzz({
+    //   scene: this,
+    //   x: enemyX,
+    //   y: enemyY
+    // })
 
     // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
