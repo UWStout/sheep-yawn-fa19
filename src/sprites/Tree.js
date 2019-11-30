@@ -15,6 +15,7 @@ class Tree extends Phaser.GameObjects.Sprite {
     this.offsetY = 0
     this.offsetChange = 0
     this.inFrontValue = 0
+    this.enemyBehindTree = false
   }
 }
 
