@@ -60,8 +60,7 @@ class HUD extends Phaser.Scene {
       this._default_time -= 1
       this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
-      if (this.TimeOver == false)
-      {
+      if (this.TimeOver === false) {
         this.TimeOver = true
         this.timeText.destroy()
         this.gameOverText = this.add.text(

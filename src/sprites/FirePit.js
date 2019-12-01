@@ -17,5 +17,5 @@ class FirePit extends Phaser.GameObjects.Sprite {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the FirePit class to other files
 export default FirePit

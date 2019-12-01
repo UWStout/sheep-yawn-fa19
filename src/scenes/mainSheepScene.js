@@ -428,6 +428,11 @@ class mainSheepScene extends Phaser.Scene {
     // Runs HUD scene above MainSheepScene
     this.scene.run('HUDScene')
 
+    // if (this.scene.isActive('MainMenu') {
+    //   this.scene.setActive(false)
+    //   this.scene.setVisible(false)
+    // }
+
     if (__DEV__) {
       this.debugDraw.bringToTop()
     }

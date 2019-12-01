@@ -43,5 +43,5 @@ class Enemy extends Phaser.GameObjects.Sprite {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the Enemy class to other files
 export default Enemy

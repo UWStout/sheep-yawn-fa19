@@ -12,5 +12,5 @@ class Zzz extends Phaser.GameObjects.Sprite {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the Zzz class to other files
 export default Zzz

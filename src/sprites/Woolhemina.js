@@ -140,5 +140,5 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the Woolhemina class to other files
 export default Woolhemina
