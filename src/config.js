@@ -8,8 +8,8 @@
  */
 
 export default {
-  gameWidth: 1500, // The width of the game viewport in the browser
-  gameHeight: 800, // The height of the game viewport in the browser
+  gameWidth: 1800, // The width of the game viewport in the browser
+  gameHeight: 900, // The height of the game viewport in the browser 
   localStorageName: 'stoutGDD325', // Prefix for cookie & session storage
 
   // List of webfonts you want to load
