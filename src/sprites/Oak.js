@@ -18,5 +18,5 @@ class Oak extends Tree {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the Oak class to other files
 export default Oak

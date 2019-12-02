@@ -12,5 +12,5 @@ class MapTile extends Phaser.GameObjects.Sprite {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the MapTime class to other files
 export default MapTile

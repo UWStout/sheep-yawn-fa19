@@ -19,5 +19,5 @@ class Tree extends Phaser.GameObjects.Sprite {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the Tree class to other files
 export default Tree

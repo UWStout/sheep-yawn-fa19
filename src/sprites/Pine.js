@@ -18,5 +18,5 @@ class Pine extends Tree {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the Pine class to other files
 export default Pine

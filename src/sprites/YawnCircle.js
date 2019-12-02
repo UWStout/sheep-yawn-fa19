@@ -28,5 +28,5 @@ class YawnCircle extends Phaser.GameObjects.Sprite {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the YawnCircle class to other files
 export default YawnCircle

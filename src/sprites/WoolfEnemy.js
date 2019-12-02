@@ -58,5 +58,5 @@ class WoolfEnemy extends Enemy {
   }
 }
 
-// Expose the MainPlayer class to other files
+// Expose the WoolfEnemy class to other files
 export default WoolfEnemy

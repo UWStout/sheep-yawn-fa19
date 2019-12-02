@@ -499,6 +499,11 @@ class mainSheepScene extends Phaser.Scene {
     // Runs HUD scene above MainSheepScene
     this.scene.run('HUDScene')
 
+    // if (this.scene.isActive('MainMenu') {
+    //   this.scene.setActive(false)
+    //   this.scene.setVisible(false)
+    // }
+
     if (__DEV__) {
       this.debugDraw.bringToTop()
     }
@@ -659,10 +664,10 @@ class mainSheepScene extends Phaser.Scene {
     // Needs updating
     // Used for Woolhemin'a anims
     // Increases circumferance of circle
-    // if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
-    //   this.yawnBlast.setScale(this._yawn_scale)
-    //   this._yawn_scale += 0.01
-    // }
+    if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
+      this.yawnBlastCircle.setScale(this._yawn_scale)
+      this._yawn_scale += 0.01
+    }
 
     // Needs updating
     // Used for Woolhemin'a anims
@@ -674,12 +679,14 @@ class mainSheepScene extends Phaser.Scene {
 
   }
 
-  // Creates sheep yawn circle, add physics and setup collider
+  // Creates sheep yawnBlast circle, add physics
+  // Setup collider, sound, and animations
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlastCircle) { this.yawnBlastCircle.destroy() }
+    // ReSets yawn scale for each yawn
+    this._yawn_scale = 1.0
 
-    // Make yawn blast circle
     // Creation of yawnBlastCircle
     this.yawnBlastCircle = new YawnCircle({
       scene: this,
@@ -687,23 +694,25 @@ class mainSheepScene extends Phaser.Scene {
       y: this.player.y
     })
 
-    // Crucial use for Woolhemin'a anims
+    // Not needed anymore
+    // Crutial use for Woolhemin'a anims
     // if (this.yawnBlast) { this.yawnBlast.destroy() }
+
     // Was the last animation the left/right animation?
-    // Run front yawn if so
+    // Run inital front yawn animation if so
     if (this.player.anims.getCurrentKey() === 'idleFrontAnim') {
       this.player.anims.play('initalYawnFrontAnim')
     }
 
     // Was the last animation the up animation?
-    // Run back yawn if so
+    // Run inital back yawn animation if so
     if (this.player.anims.getCurrentKey() === 'idleBackAnim') {
       this.player.anims.play('initalYawnBackAnim')
     }
 
+    // Not needed
     // this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
     // this.yawnBlast.setStrokeStyle(2)
-    // this._yawn_scale = 1.0
 
     this.yawnSFX.stop()
     this.yawnSFX.play('YawnBlast', { volume: this.yawnSFX.volume })
@@ -711,12 +720,16 @@ class mainSheepScene extends Phaser.Scene {
 
     // Add yawnblast image to scene
     this.add.existing(this.yawnBlastCircle)
+
+    // Set depth of yawnBlast image, so its behind Woolhemina
     this.yawnBlastCircle.depth = this.yawnBlastCircle.y + this.yawnBlastCircle.height / 2
+
     // Set up physics, collider
-    // this.physics.add.existing(this.yawnBlastCircle)
-    console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
-    // this.yawnBlastCircle.body.setCircle(50, 0.5)
-    // this.physics.add.collider(this.yawnBlast)
+    this.physics.add.existing(this.yawnBlastCircle)
+    this.yawnBlastCircle.body.setCircle(63, 70, 60)
+    this.physics.add.collider(this.yawnBlastCircle)
+
+    // console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
@@ -757,7 +770,7 @@ class mainSheepScene extends Phaser.Scene {
           }
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
-          // this.physics.world.overlap(this.yawnBlast, this.WoolfArray[i], this.loseHealth, null, this)
+          this.physics.world.overlap(this.yawnBlastCircle, this.WoolfArray[i], this.loseHealth, null, this)
         }
       }
     }
@@ -765,7 +778,7 @@ class mainSheepScene extends Phaser.Scene {
 
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
-    if (this.yawnBlast && this.yawnBlast.scale < this._yawn_size_check) {
+    if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
       woolfy.takeDamage(5)
     } else { // Calls reduceHealthBy10 function
       woolfy.takeDamage(10)
@@ -828,8 +841,8 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   depthCheckEnemyTree (myTree) { // doesn't work, find a reliable way to see if enemy is actually behind the tree
-      myTree.enemyBehindTree = true
-      console.log('enemy behind tree true ' + myTree.enemyBehindTree)
+    myTree.enemyBehindTree = true
+    console.log('enemy behind tree true ' + myTree.enemyBehindTree)
   }
 
   depthCheck (myTree) {
