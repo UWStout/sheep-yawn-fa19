@@ -48,14 +48,15 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('yawnBlastCircleImage', 'assets/images/yawnBlast_hemisphereShape.png')
     this.load.spritesheet('runleftFront', 'assets/images/painted_woolhemina_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
     this.load.spritesheet('runUp', 'assets/images/painted_woolhemina_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
-    this.load.spritesheet('idleFront', 'assets/images/painted_woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
-    this.load.spritesheet('idleBack', 'assets/images/painted_woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
-    this.load.spritesheet('initalYawnFront', 'assets/images/painted_woolhemina_yawnBlast_initial_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
+    this.load.spritesheet('idleFront', 'assets/images/painted_resized_woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
+    this.load.spritesheet('idleBack', 'assets/images/painted_resized_woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('initalYawnBack', 'assets/images/painted_woolhemina_yawnBlast_initial_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('YawnLoopFront', 'assets/images/painted_woolhemina_yawnBlast_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
     this.load.spritesheet('YawnLoopBack', 'assets/images/painted_woolhemina_yawnBlast_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
     this.load.spritesheet('YawnReleaseFront', 'assets/images/painted_woolhemina_yawnBlast_release_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
     this.load.spritesheet('YawnReleaseBack', 'assets/images/painted_woolhemina_yawnBlast_release_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
+    this.load.spritesheet('KnockbackLeftFront', 'assets/images/painted_woolhemina_surprised_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
+    this.load.spritesheet('KnockbackRightBack', 'assets/images/painted_woolhemina_surprised_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
     this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfRightRun', 'assets/images/painted_woolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
@@ -699,6 +700,7 @@ class mainSheepScene extends Phaser.Scene {
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlastCircle) { this.yawnBlastCircle.destroy() }
+
     // ReSets yawn scale for each yawn
     this._yawn_scale = 1.0
 
@@ -708,10 +710,6 @@ class mainSheepScene extends Phaser.Scene {
       x: this.player.x,
       y: this.player.y
     })
-
-    // Not needed anymore
-    // Crutial use for Woolhemin'a anims
-    // if (this.yawnBlast) { this.yawnBlast.destroy() }
 
     // Was the last animation the left/right animation?
     // Run inital front yawn animation if so
@@ -725,10 +723,6 @@ class mainSheepScene extends Phaser.Scene {
       this.player.anims.play('initalYawnBackAnim')
     }
 
-    // Not needed
-    // this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
-    // this.yawnBlast.setStrokeStyle(2)
-
     this.yawnSFX.stop()
     this.yawnSFX.play('YawnBlast', { volume: this.yawnSFX.volume })
     console.log('yawning')
@@ -741,7 +735,9 @@ class mainSheepScene extends Phaser.Scene {
 
     // Set up physics, collider
     this.physics.add.existing(this.yawnBlastCircle)
-    this.yawnBlastCircle.body.setCircle(63, 70, 60)
+    // this.yawnBlastCircle.body.setCircle(63, 70, 60)
+    // this.yawnBlastCircle.body.setCircle(68, 60, 57)
+    this.yawnBlastCircle.body.setCircle(75, 54, 48.5)
     this.physics.add.collider(this.yawnBlastCircle)
 
     // console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
