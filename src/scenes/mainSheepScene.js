@@ -582,29 +582,17 @@ class mainSheepScene extends Phaser.Scene {
       this.depthCheck(this.PineArray[i])
     }
 
-    // Needs updating
-    // Crutial use for Woolhemin'a anims
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
     if (this.yawnBlastCircle) {
       this.yawnBlastCircle.setPosition(this.player.x, this.player.y)
     }
 
-    // Needs updating
-    // Used for Woolhemin'a anims
     // Increases circumferance of circle
     if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
       this.yawnBlastCircle.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
     }
-
-    // Needs updating
-    // Used for Woolhemin'a anims
-    // Increases thickness of stroke for the circle
-    // To indicate the max circumferance has been achieved
-    // if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
-    //   this.yawnBlast.setStrokeStyle(4.7)
-    // }
 
     // working on this if wolf collides change direction
     // for (let i = 0; this.i < this.WoolfArrayLength; i++) {
