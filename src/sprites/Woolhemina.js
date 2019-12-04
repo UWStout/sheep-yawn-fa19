@@ -137,6 +137,26 @@ class Woolhemina extends Phaser.GameObjects.Sprite {
     this.on('animationcomplete-YawnReleaseBackAnim', () => {
       this.anims.play('idleBackAnim')
     }, this)
+
+    // Create knockBack front anim of Woolhemina
+    this.scene.anims.create({
+      key: 'KnockbackLeftFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'KnockbackLeftFront', { start: 0, end: 24 }
+      ),
+      frameRate: 12,
+      repeat: 0
+    })
+
+    // Create knockBack back anim of Woolhemina
+    this.scene.anims.create({
+      key: 'KnockbackRightBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'KnockbackRightBack', { start: 0, end: 24 }
+      ),
+      frameRate: 12,
+      repeat: 0
+    })
   }
 }
 
