@@ -811,6 +811,14 @@ class mainSheepScene extends Phaser.Scene {
     //   y: enemyY
     // })
 
+    // if (this._invert === true) {
+    //   this.woolfy.anims.play('woolfAsleepBackAnim')
+    // }
+
+    // if (this._invert === false) {
+    //   this.woolfy.anims.play('woolfAsleepFrontAnim')
+    // }
+
     // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
 
@@ -849,7 +857,7 @@ class mainSheepScene extends Phaser.Scene {
       // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
       // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
     }
-    myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
+    // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
   }
 
   setSFXVolume (newVolume) {

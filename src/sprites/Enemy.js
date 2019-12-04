@@ -39,7 +39,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
       this.scene.zzzDrop(this.x, this.y, this.zzzCount)
     }
 
-    this.destroy()
+    // this.destroy()
   }
 }
 
