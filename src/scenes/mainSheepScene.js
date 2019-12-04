@@ -27,6 +27,7 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
+    this.load.image('darkBackground', 'assets/images/DarkBackground.jpg')
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
     this.load.image('treeImage', 'assets/images/asset_oakTree.png')
     this.load.image('FirePitImage', 'assets/images/asset_firePit.png')
@@ -71,12 +72,22 @@ class mainSheepScene extends Phaser.Scene {
     // No longer needed
     // Used in reference of what was set for each health amount
     // Default health for enemies
-    this._default_woolf_health = 90 // Zzzs 15
-    this._default_boar_health = 60 // Zzzs 10
-    this._default_bat_health = 30 // Zzzs 5
+    this._default_baby_woolf_health = 1
+    this._default_woolf_health = 1
+    this._default_mohawk_woolf_health = 5
 
-    this._woolf_Velocity = 30 // change this for future levels
+    this._baby_woolf_Velocity = 10 
+    this._woolf_Velocity = 30
+    this._mohawk_woolf_Velocity = 50
     this._sheep_Velocity = 300
+
+    this.woolfZAmount = 0
+
+    this.numberofBabies = 0
+    this.numberofNormal = 0
+    this.numberofMohawks = 0
+
+    this.levelNumber = 1 // 0 is tutorial (should start at 0 in final version)
 
     // Default yawn circumferance increase size
     this._yawn_scale = 1.0
@@ -374,18 +385,48 @@ class mainSheepScene extends Phaser.Scene {
       y: 1500
     })
 
-    // Creation of enemy, Woolf
-    this.WoolfArray = []
-    for (let i = 0; i < 5; i++) {
-      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-      this['Woolf' + i] = new WoolfEnemy({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 15 }) // health is set to 10 for testing (change later)
-      this.WoolfArray.push(this['Woolf' + i])
-    }
-    this.WoolfArrayLength = this.WoolfArray.length
+    // if (WoolfEnemy.WoolfType === 'baby')
+    // {
+    //   this.woolfZAmount = 5
+    // }
+    // else if (WoolfEnemy.WoolfType === 'woolf')
+    // {
+    //   this.woolfZAmount = 10
+    // }
+    // else if (WoolfEnemy.WoolfType === 'mohawk')
+    // {
+    //   this.woolfZAmount = 15
+    // }
 
-    // console.log('wolf array' + this.WoolfArrayLength)
-
+    // if (this.levelNumber === 0) {
+    //   this.BabyWoolfArray = []
+    //   for (let i = 0; i < 1; i++) {
+    //     this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450) // change this to specific spot for baby during tutorial
+    //     this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+    //     this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: this.woolfZAmount }) // health is set to 10 for testing (change later)
+    //     this.BabyWoolfArray.push(this['Woolf' + i])
+    //   }
+    //   this.BabyWoolfArrayLength = this.BabyWoolfArray.length
+    // } else if (this.levelNumber === 1) {
+      // run method to find how many types of wolves starts with 10 hits for level 1 and 5 more hits for each level
+      // 1 1 3 5 = 10 level 1
+      // 1 1 1 1 3 3 5 = 15 level 2 
+      // 1 1 1 3 3 3 5 5 = 20 level 3
+      // 1 1 1 1 3 3 3 3 5 5 5 = 25 level 4
+      // 1 1 1 1 1 3 3 3 3 3 5 5 5 = 30
+      // 3 increases each time and 5s and 1s make up for the rest?
+      // this.numberofBabies = 2
+      // this.numberofNormal = 
+      // this.numberofMohawks = 1
+      this.WoolfArray = []
+      for (let i = 0; i < (5 + 1); i++) {
+        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this['Woolf' + i] = new WoolfEnemy({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+        this.WoolfArray.push(this['Woolf' + i])
+      }
+      this.WoolfArrayLength = this.WoolfArray.length // print this out to check
+    // }
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
     this.physics.add.existing(this.player)
@@ -779,9 +820,9 @@ class mainSheepScene extends Phaser.Scene {
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
     if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
-      woolfy.takeDamage(5)
+      woolfy.takeDamage(1)
     } else { // Calls reduceHealthBy10 function
-      woolfy.takeDamage(10)
+      woolfy.takeDamage(1)
     }
   }
 

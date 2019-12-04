@@ -2,6 +2,7 @@
 
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
+import mainSheepScene from '..//scenes/mainSheepScene'
 
 import { centerX, centerY } from '../utils'
 
@@ -25,7 +26,7 @@ class HUD extends Phaser.Scene {
   // Load all data needed for this game state
   preload () {
     // Holds count down's inital time 2:30 min in secs
-    this._default_time = 99999 // 150
+    this._default_time = 150 // 150
 
     // Show message that fonts are loading
     this.timeText = this.add.text(150, 32, 'Until Dawn: ' + this.formatTime(this._default_time),
@@ -36,6 +37,17 @@ class HUD extends Phaser.Scene {
     this.time.addEvent({ delay: 900, callback: this.countDown, callbackScope: this, loop: true })
   }
 
+  create () {
+    let dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.3)
+    // Phaser.Display.Align.In.Center(dark)
+    this.tweens.add({
+      targets: dark,
+      alpha: { value: 0, duration: 150000, ease: 'Power1' },
+      yoyo: true,
+      loop: -1
+    })
+  }
+  
   // Converts seconds to mins and secs
   // Formats conversion into digital time
   formatTime (seconds) {
