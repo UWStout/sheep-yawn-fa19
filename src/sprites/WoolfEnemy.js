@@ -57,6 +57,54 @@ class WoolfEnemy extends Enemy {
       frameRate: 14,
       repeat: -1
     })
+
+    // Create woolf front asleep anim.
+    this.scene.anims.create({
+      key: 'woolfAsleepFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfAsleepFront', { start: 0, end: 14 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    this.on('animationcomplete-woolfAsleepFrontAnim', () => {
+      this.anims.play('woolfSleepLoopFrontAnim')
+    }, this)
+
+    // Create woolf back asleep anim.
+    this.scene.anims.create({
+      key: 'woolfAsleepBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfAsleepBack', { start: 0, end: 14 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    this.on('animationcomplete-woolfAsleepBackAnim', () => {
+      this.anims.play('woolfSleepLoopBackAnim')
+    }, this)
+
+    // Create woolf front loop sleep anim.
+    this.scene.anims.create({
+      key: 'woolfSleepLoopFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfSleepLoopFront', { start: 0, end: 8 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf back sleep anim.
+    this.scene.anims.create({
+      key: 'woolfSleepLoopBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfSleepLoopBack', { start: 0, end: 8 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
   }
 }
 

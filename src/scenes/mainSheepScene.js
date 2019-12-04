@@ -49,19 +49,25 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('yawnBlastCircleImage', 'assets/images/yawnBlast_hemisphereShape.png')
     this.load.spritesheet('runleftFront', 'assets/images/painted_woolhemina_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
     this.load.spritesheet('runUp', 'assets/images/painted_woolhemina_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
-    this.load.spritesheet('idleFront', 'assets/images/painted_woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
-    this.load.spritesheet('idleBack', 'assets/images/painted_woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
+    this.load.spritesheet('idleFront', 'assets/images/painted_resized_woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
+    this.load.spritesheet('idleBack', 'assets/images/painted_resized_woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('initalYawnFront', 'assets/images/painted_woolhemina_yawnBlast_initial_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('initalYawnBack', 'assets/images/painted_woolhemina_yawnBlast_initial_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
     this.load.spritesheet('YawnLoopFront', 'assets/images/painted_woolhemina_yawnBlast_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
     this.load.spritesheet('YawnLoopBack', 'assets/images/painted_woolhemina_yawnBlast_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
     this.load.spritesheet('YawnReleaseFront', 'assets/images/painted_woolhemina_yawnBlast_release_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
     this.load.spritesheet('YawnReleaseBack', 'assets/images/painted_woolhemina_yawnBlast_release_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
+    this.load.spritesheet('KnockbackLeftFront', 'assets/images/painted_woolhemina_surprised_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
+    this.load.spritesheet('KnockbackRightBack', 'assets/images/painted_woolhemina_surprised_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
     this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfRightRun', 'assets/images/painted_woolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfLeftIdle', 'assets/images/painted_woolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
     this.load.spritesheet('woolfRightIdle', 'assets/images/painted_woolf_idle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
+    this.load.spritesheet('woolfAsleepFront', 'assets/images/painted_woolf_fallAsleep_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    this.load.spritesheet('woolfAsleepBack', 'assets/images/painted_woolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    this.load.spritesheet('woolfSleepLoopFront', 'assets/images/painted_woolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    this.load.spritesheet('woolfSleepLoopBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
 
     // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
     this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
@@ -694,30 +700,45 @@ class mainSheepScene extends Phaser.Scene {
       this.depthCheck(this.PineArray[i])
     }
 
-    // Needs updating
-    // Crutial use for Woolhemin'a anims
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
     if (this.yawnBlastCircle) {
       this.yawnBlastCircle.setPosition(this.player.x, this.player.y)
     }
 
-    // Needs updating
-    // Used for Woolhemin'a anims
     // Increases circumferance of circle
     if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
       this.yawnBlastCircle.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
     }
 
-    // Needs updating
-    // Used for Woolhemin'a anims
-    // Increases thickness of stroke for the circle
-    // To indicate the max circumferance has been achieved
-    // if (this.yawnBlast && this.yawnBlast.scale >= this._yawn_size_check) {
-    //   this.yawnBlast.setStrokeStyle(4.7)
+    // working on this if wolf collides change direction
+    // for (let i = 0; this.i < this.WoolfArrayLength; i++) {
+    //   for (let k = 0; k < this.WoolfArrayLength; k++) {
+    //     this.physics.world.overlap(this.WoolfArray[i], this.WoolfArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   }
+    //   for (let k = 0; k < this.PineArrayLength; k++) {
+    //     this.physics.world.overlap(this.PineArray[k], this.WoolfArray[i], this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   }
+    //   for (let k = 0; k < this.WoolfArrayLength; k++) {
+    //     this.physics.world.overlap(this.WoolfArray[i], this.OakArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   }
+    //   for (let k = 0; k < this.BottomBoundaryArrayLength; k++) {
+    //     this.physics.world.overlap(this.WoolfArray[i], this.BottomBoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   }
+    //   for (let k = 0; k < this.TopBoundaryArrayLength; k++) {
+    //     this.physics.world.overlap(this.WoolfArray[i], this.AllTilesArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   }
+    //   for (let k = 0; k < this.RightBoundaryArrayLength; k++) {
+    //     this.physics.world.overlap(this.WoolfArray[i], this.RightoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   }
+    //   for (let k = 0; k < this.LeftBoundaryArrayLength; k++) {
+    //     this.physics.world.overlap(this.WoolfArray[i], this.LeftBoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   }
+    //   this.physics.world.overlap(this.WoolfArray[i], this.firePit, this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   this.physics.world.overlap(this.WoolfArray[i], this.firePitTop, this.moveEnemy(this.WoolfArray[i]), null, this)
+    //   this.physics.world.overlap(this.WoolfArray[i], this.firePitTop2, this.moveEnemy(this.WoolfArray[i]), null, this)
     // }
-
   }
 
   // Creates sheep yawnBlast circle, add physics
@@ -725,6 +746,7 @@ class mainSheepScene extends Phaser.Scene {
   createYawnBlast () {
     // Destroys previous sheep yawn circles if they exist
     if (this.yawnBlastCircle) { this.yawnBlastCircle.destroy() }
+
     // ReSets yawn scale for each yawn
     this._yawn_scale = 1.0
 
@@ -734,10 +756,6 @@ class mainSheepScene extends Phaser.Scene {
       x: this.player.x,
       y: this.player.y
     })
-
-    // Not needed anymore
-    // Crutial use for Woolhemin'a anims
-    // if (this.yawnBlast) { this.yawnBlast.destroy() }
 
     // Was the last animation the left/right animation?
     // Run inital front yawn animation if so
@@ -751,10 +769,6 @@ class mainSheepScene extends Phaser.Scene {
       this.player.anims.play('initalYawnBackAnim')
     }
 
-    // Not needed
-    // this.yawnBlast = this.add.ellipse(this.player.x, this.player.y, 100, 100, 0xff0000, 0.3)
-    // this.yawnBlast.setStrokeStyle(2)
-
     this.yawnSFX.stop()
     this.yawnSFX.play('YawnBlast', { volume: this.yawnSFX.volume })
     console.log('yawning')
@@ -767,7 +781,9 @@ class mainSheepScene extends Phaser.Scene {
 
     // Set up physics, collider
     this.physics.add.existing(this.yawnBlastCircle)
-    this.yawnBlastCircle.body.setCircle(63, 70, 60)
+    // this.yawnBlastCircle.body.setCircle(63, 70, 60)
+    // this.yawnBlastCircle.body.setCircle(68, 60, 57)
+    this.yawnBlastCircle.body.setCircle(75, 54, 48.5)
     this.physics.add.collider(this.yawnBlastCircle)
 
     // console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
