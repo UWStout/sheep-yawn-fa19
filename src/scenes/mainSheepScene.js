@@ -82,7 +82,7 @@ class mainSheepScene extends Phaser.Scene {
     this._default_woolf_health = 1
     this._default_mohawk_woolf_health = 5
 
-    this._baby_woolf_Velocity = 10 
+    this._baby_woolf_Velocity = 10
     this._woolf_Velocity = 30
     this._mohawk_woolf_Velocity = 50
     this._sheep_Velocity = 300
@@ -391,16 +391,11 @@ class mainSheepScene extends Phaser.Scene {
       y: 1500
     })
 
-    // if (WoolfEnemy.WoolfType === 'baby')
-    // {
+    // if (WoolfEnemy.WoolfType === 'baby') {
     //   this.woolfZAmount = 5
-    // }
-    // else if (WoolfEnemy.WoolfType === 'woolf')
-    // {
+    // } else if (WoolfEnemy.WoolfType === 'woolf') {
     //   this.woolfZAmount = 10
-    // }
-    // else if (WoolfEnemy.WoolfType === 'mohawk')
-    // {
+    // } else if (WoolfEnemy.WoolfType === 'mohawk') {
     //   this.woolfZAmount = 15
     // }
 
@@ -414,24 +409,24 @@ class mainSheepScene extends Phaser.Scene {
     //   }
     //   this.BabyWoolfArrayLength = this.BabyWoolfArray.length
     // } else if (this.levelNumber === 1) {
-      // run method to find how many types of wolves starts with 10 hits for level 1 and 5 more hits for each level
-      // 1 1 3 5 = 10 level 1
-      // 1 1 1 1 3 3 5 = 15 level 2 
-      // 1 1 1 3 3 3 5 5 = 20 level 3
-      // 1 1 1 1 3 3 3 3 5 5 5 = 25 level 4
-      // 1 1 1 1 1 3 3 3 3 3 5 5 5 = 30
-      // 3 increases each time and 5s and 1s make up for the rest?
-      // this.numberofBabies = 2
-      // this.numberofNormal = 
-      // this.numberofMohawks = 1
-      this.WoolfArray = []
-      for (let i = 0; i < (5 + 1); i++) {
-        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-        this['Woolf' + i] = new WoolfEnemy({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
-        this.WoolfArray.push(this['Woolf' + i])
-      }
-      this.WoolfArrayLength = this.WoolfArray.length // print this out to check
+    // run method to find how many types of wolves starts with 10 hits for level 1 and 5 more hits for each level
+    // 1 1 3 5 = 10 level 1
+    // 1 1 1 1 3 3 5 = 15 level 2
+    // 1 1 1 3 3 3 5 5 = 20 level 3
+    // 1 1 1 1 3 3 3 3 5 5 5 = 25 level 4
+    // 1 1 1 1 1 3 3 3 3 3 5 5 5 = 30
+    // 3 increases each time and 5s and 1s make up for the rest?
+    // this.numberofBabies = 2
+    // this.numberofNormal =
+    // this.numberofMohawks = 1
+    this.WoolfArray = []
+    for (let i = 0; i < (5 + 1); i++) {
+      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this['Woolf' + i] = new WoolfEnemy({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+      this.WoolfArray.push(this['Woolf' + i])
+    }
+    this.WoolfArrayLength = this.WoolfArray.length // print this out to check
     // }
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
@@ -527,7 +522,7 @@ class mainSheepScene extends Phaser.Scene {
       this.WoolfArray[i].body.setSize(250, 180, true)
       this.WoolfArray[i].body.setImmovable(true)
       this.WoolfArray[i].body.allowGravity = false
-      // this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
+      this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
     }
 
     // TODO: find a quick way to make all objects collide with all other objects (except trees with trees)? make sure Woolhemina can't be pushed off scene by wolf
@@ -689,6 +684,7 @@ class mainSheepScene extends Phaser.Scene {
       }
     }
 
+    // Player Character's velocity and depth set here
     this.player.body.velocity.set(velocity.x, velocity.y)
     this.player.depth = this.player.y + this.player.height / 2
 
@@ -794,8 +790,6 @@ class mainSheepScene extends Phaser.Scene {
   destroyYawnBlast () {
     // Does yawn blast exist?
     if (this.yawnBlastCircle) {
-    // Crucial use for Woolhemin's animations
-    // if (this.yawnBlast) {
       // Was the last animation the loop front yawn animation?
       // Run front release yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopFrontAnim') {
@@ -823,7 +817,7 @@ class mainSheepScene extends Phaser.Scene {
             console.log('wolf is awake')
           } else if (this.WoolfArray[i].isAwake === false) {
             console.log('wolf is asleep') // delete from array
-            delete this.WoolfArray[i]
+            // delete this.WoolfArray[i]
           }
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
@@ -835,10 +829,28 @@ class mainSheepScene extends Phaser.Scene {
 
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
+    // Is the YawnCircle less than full?
+    // reduce health by 1 if so
     if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
-      woolfy.takeDamage(1)
-    } else { // Calls reduceHealthBy10 function
-      woolfy.takeDamage(1)
+      // woolfy.takeDamage(1)
+      console.log('health going down by 5')
+      woolfy.takeDamage(3)
+    } else { // YawnCircle full? Reduce health by 1 if so
+      // woolfy.takeDamage(1)
+      console.log('Health going down by 10')
+      woolfy.takeDamage(3)
+    }
+    // Has the Enemy lost all their health?
+    // Play death anim.s if so
+    if (woolfy.health === 0) {
+      console.log('No more health')
+      if (this._invert === true) {
+        this.woolfy.anims.play('woolfAsleepBackAnim')
+      }
+
+      if (this._invert === false) {
+        this.woolfy.anims.play('woolfAsleepFrontAnim')
+      }
     }
   }
 
@@ -851,14 +863,6 @@ class mainSheepScene extends Phaser.Scene {
     //   x: enemyX,
     //   y: enemyY
     // })
-
-    // if (this._invert === true) {
-    //   this.woolfy.anims.play('woolfAsleepBackAnim')
-    // }
-
-    // if (this._invert === false) {
-    //   this.woolfy.anims.play('woolfAsleepFrontAnim')
-    // }
 
     // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
@@ -892,13 +896,41 @@ class mainSheepScene extends Phaser.Scene {
 
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
-    for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.WoolfArray[i].anims.play('woolfLeftRunAnim')
-      // this.WoolfArray[i].anims.play('woolfRightRunAnim')
-      // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
-      // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
-    }
     // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
+    myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+    console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      // Is enemy moving in negative (left) direction
+      if (myEnemy.body.velocity.x < 0) {
+        console.log('going left')
+        this.WoolfArray[i].flipX = true
+        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          this.player.anims.play('woolfLeftRunAnim')
+        }
+      } else {
+        console.log('going right')
+        this.WoolfArray[i].flipX = false
+        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+        }
+
+        if (myEnemy.body.velocity.y < 0) {
+          console.log('going down')
+          // this.WoolfArray[i].flipX = true
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
+            this.player.anims.play('woolfRightRunAnim')
+          }
+        } else {
+          console.log('going up')
+          // this.WoolfArray[i].flipX = false
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
+            this.WoolfArray[i].anims.play('woolfRightRunAnim')
+          }
+        }
+      }
+        // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
+        // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
+    }
   }
 
   setSFXVolume (newVolume) {
