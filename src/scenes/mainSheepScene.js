@@ -7,16 +7,16 @@ import Phaser from 'phaser'
 import config from '../config'
 
 // Import the sprites
-import Woolhemina from '..//sprites/Woolhemina'
-import WoolfEnemy from '..//sprites/WoolfEnemy'
-import Tree from '..//sprites/Tree'
-import Oak from '..//sprites/Oak'
-import Pine from '..//sprites/Pine'
-import FirePit from '..//sprites/FirePit'
-import MapTile from '..//sprites/MapTile'
-import Zzz from '..//sprites/Zzz'
+import Woolhemina from '../sprites/Woolhemina'
+import WoolfEnemy from '../sprites/WoolfEnemy'
+import Tree from '../sprites/Tree'
+import Oak from '../sprites/Oak'
+import Pine from '../sprites/Pine'
+import FirePit from '../sprites/FirePit'
+import MapTile from '../sprites/MapTile'
+import Zzz from '../sprites/Zzz'
 import Enemy from '../sprites/Enemy'
-import YawnCircle from '..//sprites/YawnCircle'
+import YawnCircle from '../sprites/YawnCircle'
 // import HUD from './HUD'
 
 class mainSheepScene extends Phaser.Scene {
@@ -545,7 +545,6 @@ class mainSheepScene extends Phaser.Scene {
     //   this.scene.setActive(false)
     //   this.scene.setVisible(false)
     // }
-
     if (__DEV__) {
       this.debugDraw.bringToTop()
     }
