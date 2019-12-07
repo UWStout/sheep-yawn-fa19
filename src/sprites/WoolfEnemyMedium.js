@@ -7,11 +7,9 @@ class WoolfEnemyMedium extends Enemy {
   // Initalization
   constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
-    super({ scene, x, y, imageKey: 'woolfImage' })
+    super({ scene, x, y, imageKey: 'woolfImage', health: 3, zzzAmount: 10 })
     this.key = 'woolf'
     this.name = 'woolf'
-    this.Health = 3
-    this.zCount = 10
 
     this.setupAnimations()
   }
@@ -105,6 +103,18 @@ class WoolfEnemyMedium extends Enemy {
       frameRate: 14,
       repeat: -1
     })
+  }
+
+  die (iValue) {
+    if (iValue === true) {
+      this.anims.play('woolfAsleepBackAnim')
+      console.log('Should be playing front death')
+    }
+
+    if (iValue === false) {
+      this.anims.play('woolfAsleepFrontAnim')
+      console.log('Should be playing back death')
+    }
   }
 }
 

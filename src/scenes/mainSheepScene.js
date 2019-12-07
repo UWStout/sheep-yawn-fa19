@@ -18,7 +18,7 @@ import FirePit from '..//sprites/FirePit'
 import MapTile from '..//sprites/MapTile'
 import Zzz from '..//sprites/Zzz'
 import Enemy from '../sprites/Enemy'
-import YawnCircle from '..//sprites/YawnCircle'
+import YawnCircle from '../sprites/YawnCircle'
 // import HUD from './HUD'
 
 class mainSheepScene extends Phaser.Scene {
@@ -84,7 +84,7 @@ class mainSheepScene extends Phaser.Scene {
     this._default_woolf_health = 1
     this._default_mohawk_woolf_health = 5
 
-    this._baby_woolf_Velocity = 10 
+    this._baby_woolf_Velocity = 10
     this._woolf_Velocity = 30
     this._mohawk_woolf_Velocity = 50
     this._sheep_Velocity = 300
@@ -532,7 +532,7 @@ class mainSheepScene extends Phaser.Scene {
       this.WoolfArray[i].body.setSize(250, 180, true)
       this.WoolfArray[i].body.setImmovable(true)
       this.WoolfArray[i].body.allowGravity = false
-      // this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
+      this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
     }
 
     // TODO: find a quick way to make all objects collide with all other objects (except trees with trees)? make sure Woolhemina can't be pushed off scene by wolf
@@ -555,7 +555,6 @@ class mainSheepScene extends Phaser.Scene {
     //   this.scene.setActive(false)
     //   this.scene.setVisible(false)
     // }
-
     if (__DEV__) {
       this.debugDraw.bringToTop()
     }
@@ -694,6 +693,7 @@ class mainSheepScene extends Phaser.Scene {
       }
     }
 
+    // Player Character's velocity and depth set here
     this.player.body.velocity.set(velocity.x, velocity.y)
     this.player.depth = this.player.y + this.player.height / 2
 
@@ -799,8 +799,6 @@ class mainSheepScene extends Phaser.Scene {
   destroyYawnBlast () {
     // Does yawn blast exist?
     if (this.yawnBlastCircle) {
-    // Crucial use for Woolhemin's animations
-    // if (this.yawnBlast) {
       // Was the last animation the loop front yawn animation?
       // Run front release yawn if so
       if (this.player.anims.getCurrentKey() === 'YawnLoopFrontAnim') {
@@ -828,7 +826,7 @@ class mainSheepScene extends Phaser.Scene {
             console.log('wolf is awake')
           } else if (this.WoolfArray[i].isAwake === false) {
             console.log('wolf is asleep') // delete from array
-            delete this.WoolfArray[i]
+            // delete this.WoolfArray[i]
           }
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
@@ -840,10 +838,28 @@ class mainSheepScene extends Phaser.Scene {
 
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
+    // Is the YawnCircle less than full?
+    // reduce health by 1 if so
     if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
-      woolfy.takeDamage(1)
-    } else { // Calls reduceHealthBy10 function
-      woolfy.takeDamage(1)
+      // woolfy.takeDamage(1)
+      console.log('health going down by 5')
+      woolfy.takeDamage(3)
+    } else { // YawnCircle full? Reduce health by 1 if so
+      // woolfy.takeDamage(1)
+      console.log('Health going down by 10')
+      woolfy.takeDamage(3)
+    }
+    // Has the Enemy lost all their health?
+    // Play death anim.s if so
+    if (woolfy.health === 0) {
+      console.log('No more health')
+      if (this._invert === true) {
+        this.woolfy.anims.play('woolfAsleepBackAnim')
+      }
+
+      if (this._invert === false) {
+        this.woolfy.anims.play('woolfAsleepFrontAnim')
+      }
     }
   }
 
@@ -890,11 +906,40 @@ class mainSheepScene extends Phaser.Scene {
   // change move enemy different for babies
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
+    // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
+    myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+    console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
     for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.WoolfArray[i].anims.play('woolfLeftRunAnim')
-      // this.WoolfArray[i].anims.play('woolfRightRunAnim')
-      // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
-      // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
+      // Is enemy moving in negative (left) direction
+      if (myEnemy.body.velocity.x < 0) {
+        console.log('going left')
+        this.WoolfArray[i].flipX = true
+        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          this.player.anims.play('woolfLeftRunAnim')
+        }
+      } else {
+        console.log('going right')
+        this.WoolfArray[i].flipX = false
+        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+        }
+
+        if (myEnemy.body.velocity.y < 0) {
+          console.log('going down')
+          // this.WoolfArray[i].flipX = true
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
+            this.player.anims.play('woolfRightRunAnim')
+          }
+        } else {
+          console.log('going up')
+          // this.WoolfArray[i].flipX = false
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
+            this.WoolfArray[i].anims.play('woolfRightRunAnim')
+          }
+        }
+      }
+        // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
+        // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
     }
     // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity) // work on this to make woolf move
   }

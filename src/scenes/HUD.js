@@ -2,7 +2,7 @@
 
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
-import mainSheepScene from '..//scenes/mainSheepScene'
+import Textbox from '../objects/Textbox'
 
 import { centerX, centerY } from '../utils'
 
@@ -10,13 +10,13 @@ class HUD extends Phaser.Scene {
   // Initialize the stage and any simple settings
   init () {
     // If running as a packaged app, go to full screen right away
-    if (__NWJS__) {
-      let canvas = this.sys.game.canvas
-      let fullscreen = this.sys.game.device.fullscreen
-      if (fullscreen.available) {
-        canvas[fullscreen.request]()
-      }
-    }
+    // if (__NWJS__) {
+    //   let canvas = this.sys.game.canvas
+    //   let fullscreen = this.sys.game.device.fullscreen
+    //   if (fullscreen.available) {
+    //     canvas[fullscreen.request]()
+    //   }
+    // }
 
     // Create sound sprite for running SFX
     this.RoosterSFX = this.sound.addAudioSprite('sounds')
@@ -26,7 +26,9 @@ class HUD extends Phaser.Scene {
   // Load all data needed for this game state
   preload () {
     // Holds count down's inital time 2:30 min in secs
-    this._default_time = 150 // 150
+    this._default_time = 1500000000000 // 150
+
+    this.load.image('textboxBackground', 'assets/images/textbox.png')
 
     // Show message that fonts are loading
     this.timeText = this.add.text(150, 32, 'Until Dawn: ' + this.formatTime(this._default_time),
@@ -38,7 +40,7 @@ class HUD extends Phaser.Scene {
   }
 
   create () {
-    let dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
+    const dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
     // Phaser.Display.Align.In.Center(dark)
     this.tweens.add({
       targets: dark,
@@ -46,8 +48,33 @@ class HUD extends Phaser.Scene {
       yoyo: true,
       loop: -1
     })
+
+    // Interaction
+    this.interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+    // Test Textbox
+    const textBox = new Textbox(this, 0, 0, this.interactKey, 'textboxBackground')
+    textBox.setText([
+      'What is this crazy thing?!?',
+      '[presses play button]',
+      'Wow what a crazy beat! Let\'s have a dance party!',
+      'What is all that racket!?',
+      'How am I supposed to sleep with all this partying going on.',
+      'I have a final in my woolen knitting class tomorrow and if I don\'t get to sleep I\'ll fail it for sure!',
+      'Guess it\'s time to round-up these rowdy wolves.'
+    ], [
+      'Party Wolf',
+      'Party Wolf',
+      'Party Wolf',
+      'Woolhemina',
+      'Woolhemina',
+      'Woolhemina',
+      'Woolhemina'
+    ])
+    this.add.existing(textBox)
+    this.updates.add(textBox)
   }
-  
+
   // Converts seconds to mins and secs
   // Formats conversion into digital time
   formatTime (seconds) {

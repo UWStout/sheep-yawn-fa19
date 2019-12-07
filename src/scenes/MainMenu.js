@@ -45,11 +45,12 @@ class MainMenu extends Phaser.Scene {
     // Creation of MainMenu title
     this.mainMenuTitleImage = new MainMenuImage({
       scene: this,
-      x: 10,
-      y: 10
+      x: this.sys.game.config.width / 2,
+      y: this.sys.game.config.height / 2
     })
 
-    this.add.existing('mainMenuTitleImage')
+    this.add.existing(this.mainMenuTitleImage)
+    this.mainMenuTitleImage.setOrigin(0.5, 0.5)
     // this.mainMenuTitleImage.depth = 1000
     console.log(this.mainMenuTitleImage)
   }
