@@ -31,11 +31,11 @@ class MainMenu extends Phaser.Scene {
 
   // Load all data needed for this scene
   preload () {
-    this.load.image('mainMenuTitle', 'assets/images/MainMenu.png')
+    this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
     this.load.image('playPressed', 'assets/images/Play_pressed.png')
     this.load.image('playUnpressed', 'assets/images/Play_unpressed.png')
-    this.load.image('optionsPressed', 'assets/images/Options_pressed.png')
-    this.load.image('optionsUnpressed', 'assets/images/Options_unpressed.png')
+    // this.load.image('optionsPressed', 'assets/images/Options_pressed.png')
+    // this.load.image('optionsUnpressed', 'assets/images/Options_unpressed.png')
     this.load.image('creditsPressed', 'assets/images/Credits_pressed.png')
     this.load.image('creditsUnpressed', 'assets/images/Credits_unpressed.png')
   }
@@ -49,10 +49,46 @@ class MainMenu extends Phaser.Scene {
       y: this.sys.game.config.height / 2
     })
 
+    // Creation of Play Unpressed button
+    this.unPlay = new PlayUnpressed({
+      scene: this,
+      x: 1610,
+      y: 130
+    })
+
+    // Creation of Play pressed button
+    this.play = new PlayPressed({
+      scene: this,
+      x: 1610,
+      y: 130
+    })
+
+    // Creation of credits button
+    this.unCredits = new CreditsUnpressed({
+      scene: this,
+      x: 1610,
+      y: 240
+    })
+
+    // Set up for button interaction
+    this.unPlay.setInteractive()
+
+    // Add items to scene
     this.add.existing(this.mainMenuTitleImage)
     this.mainMenuTitleImage.setOrigin(0.5, 0.5)
-    // this.mainMenuTitleImage.depth = 1000
+    this.add.existing(this.unPlay)
+    this.add.existing(this.play)
+    this.play.setActive = false
+    this.play.setVisible = false
+    this.add.existing(this.unCredits)
     console.log(this.mainMenuTitleImage)
+
+    // Set up of what button will do
+    // this.unPlay.on('pointerover', this.pointerHover() {
+    //   this.unPlay.setActive = false
+    //   this.unPlay.setVisible = false
+    //   this.play.setActive = true
+    //   this.play.setVisible = true }, this)
   }
 }
 
