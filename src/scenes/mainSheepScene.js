@@ -913,26 +913,26 @@ class mainSheepScene extends Phaser.Scene {
       // Is enemy moving in negative (left) direction
       if (myEnemy.body.velocity.x < 0) {
         console.log('going left')
-        this.WoolfArray[i].flipX = true
+        this.WoolfArray[i].flipX = false
         if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
           this.WoolfArray[i].anims.play('woolfLeftRunAnim')
         }
       } else {
         console.log('going right')
-        this.WoolfArray[i].flipX = false
+        this.WoolfArray[i].flipX = true
         if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
           this.WoolfArray[i].anims.play('woolfLeftRunAnim')
         }
 
         if (myEnemy.body.velocity.y < 0) {
           console.log('going down')
-          // this.WoolfArray[i].flipX = true
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
-            this.WoolfArray[i].anims.play('woolfRightRunAnim')
+          // this.WoolfArray[i].flipX = false
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
           }
         } else {
           console.log('going up')
-          // this.WoolfArray[i].flipX = false
+          // this.WoolfArray[i].flipX = true
           if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
             this.WoolfArray[i].anims.play('woolfRightRunAnim')
           }
@@ -950,11 +950,9 @@ class mainSheepScene extends Phaser.Scene {
     this.RandomWolfChoice = (Math.floor(Math.random() * (3 - 0)) + 0)
     if (this.RandomWolfChoice === 0) {
       this.BabyWolfAmount += 3
-    }
-    else if (this.RandomWolfChoice === 1) {
+    } else if (this.RandomWolfChoice === 1) {
       this.MediumWolfAmount += 2
-    }
-    else if (this.RandomWolfChoice === 2) {
+    } else if (this.RandomWolfChoice === 2) {
       this.BigWolfAmount += 1
     }
     for (let i = 0; i < (this.BabyWolfAmount + 1); i++) {
