@@ -38,7 +38,7 @@ class HUD extends Phaser.Scene {
   }
 
   create () {
-    let dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.3)
+    let dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
     // Phaser.Display.Align.In.Center(dark)
     this.tweens.add({
       targets: dark,
