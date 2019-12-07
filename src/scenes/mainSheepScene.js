@@ -904,7 +904,7 @@ class mainSheepScene extends Phaser.Scene {
         console.log('going left')
         this.WoolfArray[i].flipX = true
         if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-          this.player.anims.play('woolfLeftRunAnim')
+          this.WoolfArray[i].anims.play('woolfLeftRunAnim')
         }
       } else {
         console.log('going right')
@@ -917,7 +917,7 @@ class mainSheepScene extends Phaser.Scene {
           console.log('going down')
           // this.WoolfArray[i].flipX = true
           if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
-            this.player.anims.play('woolfRightRunAnim')
+            this.WoolfArray[i].anims.play('woolfRightRunAnim')
           }
         } else {
           console.log('going up')
@@ -927,8 +927,8 @@ class mainSheepScene extends Phaser.Scene {
           }
         }
       }
-        // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
-        // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
+      // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
+      // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
     }
   }
 
