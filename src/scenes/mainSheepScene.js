@@ -923,19 +923,21 @@ class mainSheepScene extends Phaser.Scene {
         if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
           this.WoolfArray[i].anims.play('woolfLeftRunAnim')
         }
+      }
 
-        if (myEnemy.body.velocity.y < 0) {
-          console.log('going down')
-          // this.WoolfArray[i].flipX = false
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
-          }
-        } else {
-          console.log('going up')
-          // this.WoolfArray[i].flipX = true
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
-            this.WoolfArray[i].anims.play('woolfRightRunAnim')
-          }
+      if (myEnemy.body.velocity.y < 0) {
+        console.log('going down')
+        // this.WoolfArray[i].flipX = false
+        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+        }
+      }
+
+      if (myEnemy.body.velocity.y > 0) {
+        console.log('going up')
+        // this.WoolfArray[i].flipX = true
+        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
+          this.WoolfArray[i].anims.play('woolfRightRunAnim')
         }
       }
       // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')

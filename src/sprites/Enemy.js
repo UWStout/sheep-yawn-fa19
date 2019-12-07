@@ -33,7 +33,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
 
   // Calls zzzDrop function when health is zero
   // Destroies enemy
-  die (iValue) {
+  die () {
     if (this.scene.zzzDrop) {
       // console.log(this.zCount)
       this.scene.zzzDrop(this.x, this.y, this.zzzCount)

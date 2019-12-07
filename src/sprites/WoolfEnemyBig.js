@@ -7,11 +7,9 @@ class WoolfEnemyBig extends Enemy {
   // Initalization
   constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
-    super({ scene, x, y, imageKey: 'woolfImage' })
+    super({ scene, x, y, imageKey: 'woolfImage', health: 5, zzzAmount: 15 })
     this.key = 'woolf'
     this.name = 'woolf'
-    this.Health = 5
-    this.zCount = 15
 
     this.setupAnimations()
   }

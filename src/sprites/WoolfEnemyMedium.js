@@ -105,16 +105,16 @@ class WoolfEnemyMedium extends Enemy {
     })
   }
 
-  die (iValue) {
-    if (iValue === true) {
-      this.anims.play('woolfAsleepBackAnim')
-      console.log('Should be playing front death')
-    }
+  die () {
+    // if (iValue === true) {
+    //   this.anims.play('woolfAsleepBackAnim')
+    //   console.log('Should be playing front death')
+    // }
 
-    if (iValue === false) {
-      this.anims.play('woolfAsleepFrontAnim')
-      console.log('Should be playing back death')
-    }
+    // if (iValue === false) {
+    //   this.anims.play('woolfAsleepFrontAnim')
+    //   console.log('Should be playing back death')
+    // }
   }
 }
 
