@@ -3,7 +3,7 @@
 // Import the entire 'Enemy' namespace
 import Enemy from './Enemy'
 
-class WoolfEnemy extends Enemy {
+class WoolfEnemyMedium extends Enemy {
   // Initalization
   constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
@@ -119,4 +119,4 @@ class WoolfEnemy extends Enemy {
 }
 
 // Expose the WoolfEnemy class to other files
-export default WoolfEnemy
+export default WoolfEnemyMedium

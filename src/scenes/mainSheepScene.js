@@ -7,14 +7,16 @@ import Phaser from 'phaser'
 import config from '../config'
 
 // Import the sprites
-import Woolhemina from '../sprites/Woolhemina'
-import WoolfEnemy from '../sprites/WoolfEnemy'
-import Tree from '../sprites/Tree'
-import Oak from '../sprites/Oak'
-import Pine from '../sprites/Pine'
-import FirePit from '../sprites/FirePit'
-import MapTile from '../sprites/MapTile'
-import Zzz from '../sprites/Zzz'
+import Woolhemina from '..//sprites/Woolhemina'
+import WoolfEnemyMedium from '..//sprites/WoolfEnemyMedium'
+import WoolfEnemyBig from '..//sprites/WoolfEnemyBig'
+import WoolfEnemyBaby from '..//sprites/WoolfEnemyBaby'
+import Tree from '..//sprites/Tree'
+import Oak from '..//sprites/Oak'
+import Pine from '..//sprites/Pine'
+import FirePit from '..//sprites/FirePit'
+import MapTile from '..//sprites/MapTile'
+import Zzz from '..//sprites/Zzz'
 import Enemy from '../sprites/Enemy'
 import YawnCircle from '../sprites/YawnCircle'
 // import HUD from './HUD'
@@ -27,7 +29,7 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
-    this.load.image('darkBackground', 'assets/images/DarkBackground.jpg')
+    this.load.image('darkBackground', 'assets/images/DarkBackground.png')
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
     this.load.image('treeImage', 'assets/images/asset_oakTree.png')
     this.load.image('FirePitImage', 'assets/images/asset_firePit.png')
@@ -93,7 +95,7 @@ class mainSheepScene extends Phaser.Scene {
     this.numberofNormal = 0
     this.numberofMohawks = 0
 
-    this.levelNumber = 1 // 0 is tutorial (should start at 0 in final version)
+    this.levelNumber = 1
 
     // Default yawn circumferance increase size
     this._yawn_scale = 1.0
@@ -391,43 +393,51 @@ class mainSheepScene extends Phaser.Scene {
       y: 1500
     })
 
-    // if (WoolfEnemy.WoolfType === 'baby') {
-    //   this.woolfZAmount = 5
-    // } else if (WoolfEnemy.WoolfType === 'woolf') {
-    //   this.woolfZAmount = 10
-    // } else if (WoolfEnemy.WoolfType === 'mohawk') {
-    //   this.woolfZAmount = 15
-    // }
-
-    // if (this.levelNumber === 0) {
-    //   this.BabyWoolfArray = []
-    //   for (let i = 0; i < 1; i++) {
-    //     this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450) // change this to specific spot for baby during tutorial
-    //     this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-    //     this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: this.woolfZAmount }) // health is set to 10 for testing (change later)
-    //     this.BabyWoolfArray.push(this['Woolf' + i])
-    //   }
-    //   this.BabyWoolfArrayLength = this.BabyWoolfArray.length
-    // } else if (this.levelNumber === 1) {
-    // run method to find how many types of wolves starts with 10 hits for level 1 and 5 more hits for each level
-    // 1 1 3 5 = 10 level 1
-    // 1 1 1 1 3 3 5 = 15 level 2
-    // 1 1 1 3 3 3 5 5 = 20 level 3
-    // 1 1 1 1 3 3 3 3 5 5 5 = 25 level 4
-    // 1 1 1 1 1 3 3 3 3 3 5 5 5 = 30
-    // 3 increases each time and 5s and 1s make up for the rest?
-    // this.numberofBabies = 2
-    // this.numberofNormal =
-    // this.numberofMohawks = 1
+    this.BabyWoolfArray = []
     this.WoolfArray = []
-    for (let i = 0; i < (5 + 1); i++) {
-      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-      this['Woolf' + i] = new WoolfEnemy({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
-      this.WoolfArray.push(this['Woolf' + i])
+    this.BabyWolfAmount = 0
+    this.MediumWolfAmount = 0
+    this.BigWolfAmount = 0
+
+    if (this.levelNumber === 1) {
+      this.BabyWolfAmount = 3
+      this.MediumWolfAmount = 1
+      this.BigWolfAmount = 0
+      for (let i = 0; i < (this.BabyWolfAmount); i++) {
+        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+          this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+          this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        }
+        this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+        this.WoolfArray.push(this['WoolfBaby' + i])
+        this.BabyWoolfArray.push(this['WoolfBaby' + i])
+      }
+      for (let i = 0; i < (this.MediumWolfAmount); i++) {
+        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+          this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+          this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        }
+        this['WoolfMedium' + i] = new WoolfEnemyMedium({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+        this.WoolfArray.push(this['WoolfMedium' + i])
+      }
+      for (let i = 0; i < (this.BigWolfAmount); i++) {
+        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+          this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+          this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        }
+        this['WoolfBig' + i] = new WoolfEnemyBig({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+        this.WoolfArray.push(this['WoolfBig' + i])
+      }
+      this.WoolfArrayLength = this.WoolfArray.length
+      this.BabyWoolfArrayLength = this.BabyWoolfArray.length
     }
-    this.WoolfArrayLength = this.WoolfArray.length // print this out to check
-    // }
+
     // add Woolhemina to scene and set physics
     this.add.existing(this.player)
     this.physics.add.existing(this.player)
@@ -893,6 +903,7 @@ class mainSheepScene extends Phaser.Scene {
     }
   }
 
+  // change move enemy different for babies
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
     // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
@@ -930,6 +941,55 @@ class mainSheepScene extends Phaser.Scene {
       // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
       // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
     }
+    // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity) // work on this to make woolf move
+  }
+
+  newLevel () {
+    this.BabyWoolfArray = []
+    this.WoolfArray = []
+    this.RandomWolfChoice = (Math.floor(Math.random() * (3 - 0)) + 0)
+    if (this.RandomWolfChoice === 0) {
+      this.BabyWolfAmount += 3
+    }
+    else if (this.RandomWolfChoice === 1) {
+      this.MediumWolfAmount += 2
+    }
+    else if (this.RandomWolfChoice === 2) {
+      this.BigWolfAmount += 1
+    }
+    for (let i = 0; i < (this.BabyWolfAmount + 1); i++) {
+      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      }
+      this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+      this.WoolfArray.push(this['WoolfBaby' + i])
+      this.BabyWoolfArray.push(this['WoolfBaby' + i])
+    }
+    for (let i = 0; i < (this.MediumWolfAmount + 1); i++) {
+      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      }
+      this['WoolfMedium' + i] = new WoolfEnemyMedium({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+      this.WoolfArray.push(this['WoolfMedium' + i])
+    }
+    for (let i = 0; i < (this.BigWolfAmount + 1); i++) {
+      this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+        this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+        this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
+      }
+      this['WoolfBig' + i] = new WoolfEnemyBig({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+      this.WoolfArray.push(this['WoolfBig' + i])
+    }
+    this.WoolfArrayLength = this.WoolfArray.length
+    this.BabyWoolfArrayLength = this.BabyWoolfArray.length
   }
 
   setSFXVolume (newVolume) {
@@ -976,9 +1036,6 @@ class mainSheepScene extends Phaser.Scene {
       this.sheepFootPosX = this.player.body.position.x
       this.testTreeTopCollide = myTree.body.position.y - (myTree.treeHeight / 2)
       this.testTreeBottomCollide = myTree.body.position.y + (myTree.treeHeight)
-      // console.log('sheepFootPos' + this.sheepFootPosY)
-      // console.log('bottom' + this.testTreeBottomCollide)
-      // console.log('top' + this.testTreeTopCollide)
       if ((this.sheepFootPosY < this.testTreeBottomCollide) && (this.sheepFootPosY > this.testTreeTopCollide)) {
         // console.log('5 can collide with tree stump')
         // allow the player to collide with the tree stump
