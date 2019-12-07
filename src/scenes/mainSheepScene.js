@@ -80,9 +80,6 @@ class mainSheepScene extends Phaser.Scene {
     // No longer needed
     // Used in reference of what was set for each health amount
     // Default health for enemies
-    this._default_baby_woolf_health = 1
-    this._default_woolf_health = 1
-    this._default_mohawk_woolf_health = 5
 
     this._baby_woolf_Velocity = 10
     this._woolf_Velocity = 30
@@ -90,10 +87,6 @@ class mainSheepScene extends Phaser.Scene {
     this._sheep_Velocity = 300
 
     this.woolfZAmount = 0
-
-    this.numberofBabies = 0
-    this.numberofNormal = 0
-    this.numberofMohawks = 0
 
     this.levelNumber = 1
 
@@ -364,7 +357,7 @@ class mainSheepScene extends Phaser.Scene {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this['OakTree' + i] = new Oak({ scene: this, x: this.xpos, y: this.ypos })
-      if (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+      if (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800)) { // || ((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))
         // leave clearing free
       } else {
         this.OakArray.push(this['OakTree' + i])

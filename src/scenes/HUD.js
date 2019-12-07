@@ -26,7 +26,7 @@ class HUD extends Phaser.Scene {
   // Load all data needed for this game state
   preload () {
     // Holds count down's inital time 2:30 min in secs
-    this._default_time = 1500000000000 // 150
+    this._default_time = 150 // 150
 
     this.load.image('textboxBackground', 'assets/images/textbox.png')
 
@@ -53,26 +53,26 @@ class HUD extends Phaser.Scene {
     this.interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
     // Test Textbox
-    const textBox = new Textbox(this, 0, 0, this.interactKey, 'textboxBackground')
-    textBox.setText([
-      'What is this crazy thing?!?',
-      '[presses play button]',
-      'Wow what a crazy beat! Let\'s have a dance party!',
-      'What is all that racket!?',
-      'How am I supposed to sleep with all this partying going on.',
-      'I have a final in my woolen knitting class tomorrow and if I don\'t get to sleep I\'ll fail it for sure!',
-      'Guess it\'s time to round-up these rowdy wolves.'
-    ], [
-      'Party Wolf',
-      'Party Wolf',
-      'Party Wolf',
-      'Woolhemina',
-      'Woolhemina',
-      'Woolhemina',
-      'Woolhemina'
-    ])
-    this.add.existing(textBox)
-    this.updates.add(textBox)
+    // const textBox = new Textbox(this, 0, 0, this.interactKey, 'textboxBackground')
+    // textBox.setText([
+    //   'What is this crazy thing?!?',
+    //   '[presses play button]',
+    //   'Wow what a crazy beat! Let\'s have a dance party!',
+    //   'What is all that racket!?',
+    //   'How am I supposed to sleep with all this partying going on.',
+    //   'I have a final in my woolen knitting class tomorrow and if I don\'t get to sleep I\'ll fail it for sure!',
+    //   'Guess it\'s time to round-up these rowdy wolves.'
+    // ], [
+    //   'Party Wolf',
+    //   'Party Wolf',
+    //   'Party Wolf',
+    //   'Woolhemina',
+    //   'Woolhemina',
+    //   'Woolhemina',
+    //   'Woolhemina'
+    // ])
+    // this.add.existing(textBox)
+    // this.updates.add(textBox)
   }
 
   // Converts seconds to mins and secs
