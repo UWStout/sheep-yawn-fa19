@@ -136,7 +136,7 @@ class mainSheepScene extends Phaser.Scene {
   create () {
     // Start playing the background music
     this.music = this.sound.addAudioSprite('sounds')
-    this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
+    // this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
 
     // Create sound sprite for game sound effects
     this.footstepsSFX = this.sound.addAudioSprite('sounds')
@@ -411,7 +411,7 @@ class mainSheepScene extends Phaser.Scene {
     })
 
     // Creation of house
-    this.house = new FirePit({ // just using firepit class as standin
+    this.house = new House({
       scene: this,
       x: 1408,
       y: 1024
@@ -424,6 +424,7 @@ class mainSheepScene extends Phaser.Scene {
     this.BigWolfAmount = 0
 
     if (this.levelNumber === 1) {
+      this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
       this.BabyWolfAmount = 3
       this.MediumWolfAmount = 1
       this.BigWolfAmount = 0
@@ -986,6 +987,7 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   newLevel () {
+    this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
     this.BabyWoolfArray = []
     this.WoolfArray = []
     this.RandomWolfChoice = (Math.floor(Math.random() * (3 - 0)) + 0)
@@ -1072,7 +1074,7 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   getNightsComplete () {
-    return 8 // fix later
+    return this.levelNumber
   }
 
   updateScore (wolfenemy) {
@@ -1088,6 +1090,17 @@ class mainSheepScene extends Phaser.Scene {
     if (wolfenemy.name === 'woolfBig') {
       this.BigWolfAsleepTotalAmount += 1
       this.BigWolfsAwakeCurrentAmount += 1
+    }
+  }
+
+  changeWinLoseMusic (winLose) {
+    if (winLose === true) { // has won
+      this.music.stop()
+      this.music.play('winScreen', { volume: config.MUSIC_VOLUME })
+    }
+    else { // has lost
+      this.music.stop()
+      this.music.play('winScreen', { volume: config.MUSIC_VOLUME }) // make this lose screen music
     }
   }
 
