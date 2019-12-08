@@ -9,7 +9,7 @@ class WoolfEnemyMedium extends Enemy {
     // Grabs items needed from Enemy class
     super({ scene, x, y, imageKey: 'woolfImage', health: 3, zzzAmount: 10 })
     this.key = 'woolf'
-    this.name = 'woolf'
+    this.name = 'woolfMedium'
 
     this.setupAnimations()
   }

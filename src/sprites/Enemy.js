@@ -31,6 +31,10 @@ class Enemy extends Phaser.GameObjects.Sprite {
     }
   }
 
+  getHealth () {
+    return this.genHealth
+  }
+  
   // Calls zzzDrop function when health is zero
   // Destroies enemy
   die (iValue) {

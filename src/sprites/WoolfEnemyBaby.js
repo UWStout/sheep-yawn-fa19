@@ -5,13 +5,11 @@ import Enemy from './Enemy'
 
 class WoolfEnemyBaby extends Enemy {
   // Initalization
-  constructor ({ scene, x, y}) {
+  constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
-    super({ scene, x, y, imageKey: 'woolfImage'})
+    super({ scene, x, y, imageKey: 'woolfImage', health: 1, zzzAmount: 5 })
     this.key = 'woolf'
-    this.name = 'woolf'
-    this.Health = 1
-    this.zCount = 5
+    this.name = 'woolfBaby'
 
     this.setupAnimations()
   }

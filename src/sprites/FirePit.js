@@ -14,8 +14,21 @@ class FirePit extends Phaser.GameObjects.Sprite {
     this.offsetX = 0
     this.offsetY = 0
     this.offsetChange = 0
+    this.setupAnimations()
+  }
+
+  // Creates animations for fire
+  setupAnimations () {
+    // Create flame anim
+    this.scene.anims.create({
+      key: 'flames',
+      frames: this.scene.anims.generateFrameNumbers(
+        'flames', { start: 0, end: 3 }
+      ),
+      frameRate: 3,
+      repeat: -1
+    })
   }
 }
-
 // Expose the FirePit class to other files
 export default FirePit

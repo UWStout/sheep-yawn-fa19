@@ -1,3 +1,4 @@
+// Coded By Kendra Aumann-Weyenberg and Abigail Smith
 /* globals __DEV__ */
 
 // Import the entire 'phaser' namespace
@@ -15,6 +16,7 @@ import Tree from '..//sprites/Tree'
 import Oak from '..//sprites/Oak'
 import Pine from '..//sprites/Pine'
 import FirePit from '..//sprites/FirePit'
+import House from '..//sprites/House'
 import MapTile from '..//sprites/MapTile'
 import Zzz from '..//sprites/Zzz'
 import Enemy from '../sprites/Enemy'
@@ -23,13 +25,17 @@ import YawnCircle from '../sprites/YawnCircle'
 
 class mainSheepScene extends Phaser.Scene {
   init (data) { }
-
   // ==================================================
   // Preload
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
     this.load.image('darkBackground', 'assets/images/DarkBackground.png')
+    this.load.image('SmallWoolfHUD', 'assets/images/WoolfPupCounter.png')
+    this.load.image('MedWoolfHUD', 'assets/images/WoolfCounter.png')
+    this.load.image('BigWoolfHUD', 'assets/images/AlphaCounter.png')
+    this.load.image('HouseClosedOnImage', 'assets/images/HouseClosedOn.png')
+    this.load.image('HouseClosedOffImage', 'assets/images/HouseClosedOff.png')
     this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
     this.load.image('treeImage', 'assets/images/asset_oakTree.png')
     this.load.image('FirePitImage', 'assets/images/asset_firePit.png')
@@ -70,6 +76,7 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('woolfAsleepBack', 'assets/images/painted_woolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
     this.load.spritesheet('woolfSleepLoopFront', 'assets/images/painted_woolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('woolfSleepLoopBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    this.load.spritesheet('flames', 'assets/images/firePit_flames_spritesheet.png', { frameWidth: 512, frameHeight: 512, endFrame: 3 })
 
     // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
     this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
@@ -81,9 +88,7 @@ class mainSheepScene extends Phaser.Scene {
     // Used in reference of what was set for each health amount
     // Default health for enemies
 
-    this._baby_woolf_Velocity = 10
     this._woolf_Velocity = 30
-    this._mohawk_woolf_Velocity = 50
     this._sheep_Velocity = 300
 
     this.woolfZAmount = 0
@@ -102,6 +107,13 @@ class mainSheepScene extends Phaser.Scene {
     this._invert = false
 
     this.enemyBehindTree = false
+
+    this.BabyWolfAsleepTotalAmount = 0
+    this.MediumWolfAsleepTotalAmount = 0
+    this.BigWolfAsleepTotalAmount = 0
+    this.BigWolfsAwakeCurrentAmount = 0
+    this.BabyWolfsAwakeCurrentAmount = 0
+    this.MediumWolfAwakeCurrentAmount = 0
   }
 
   // ==================================================
@@ -357,7 +369,7 @@ class mainSheepScene extends Phaser.Scene {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this['OakTree' + i] = new Oak({ scene: this, x: this.xpos, y: this.ypos })
-      if (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800)) { // || ((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))
+      if (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
         // leave clearing free
       } else {
         this.OakArray.push(this['OakTree' + i])
@@ -371,7 +383,7 @@ class mainSheepScene extends Phaser.Scene {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this['PineTree' + i] = new Pine({ scene: this, x: this.xpos, y: this.ypos })
-      if (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+      if (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
         // leave clearing free
       } else {
         this.PineArray.push(this['PineTree' + i])
@@ -382,8 +394,15 @@ class mainSheepScene extends Phaser.Scene {
     // Creation of firepit
     this.firePit = new FirePit({
       scene: this,
-      x: 1441,
-      y: 1500
+      x: 768,
+      y: 2175
+    })
+
+    // Creation of house
+    this.house = new FirePit({ // just using firepit class as standin
+      scene: this,
+      x: 1408,
+      y: 1024
     })
 
     this.BabyWoolfArray = []
@@ -399,32 +418,32 @@ class mainSheepScene extends Phaser.Scene {
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-        while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+        while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
           this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
           this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         }
-        this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+        this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 1, zzzAmount: 5 })
         this.WoolfArray.push(this['WoolfBaby' + i])
-        this.BabyWoolfArray.push(this['WoolfBaby' + i])
+        this.BabyWoolfArray.push(this['WoolfBaby' + i]) // in case they move differently
       }
       for (let i = 0; i < (this.MediumWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-        while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+        while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
           this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
           this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         }
-        this['WoolfMedium' + i] = new WoolfEnemyMedium({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+        this['WoolfMedium' + i] = new WoolfEnemyMedium({ scene: this, x: this.xpos, y: this.ypos, health: 3, zzzAmount: 10 })
         this.WoolfArray.push(this['WoolfMedium' + i])
       }
       for (let i = 0; i < (this.BigWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-        while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+        while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
           this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
           this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         }
-        this['WoolfBig' + i] = new WoolfEnemyBig({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+        this['WoolfBig' + i] = new WoolfEnemyBig({ scene: this, x: this.xpos, y: this.ypos, health: 5, zzzAmount: 15 })
         this.WoolfArray.push(this['WoolfBig' + i])
       }
       this.WoolfArrayLength = this.WoolfArray.length
@@ -484,6 +503,19 @@ class mainSheepScene extends Phaser.Scene {
       this.physics.add.collider(this.player, this.PineArray[i])
     }
 
+    // add house to scene and set physics
+    this.add.existing(this.house)
+    this.physics.add.existing(this.house)
+    this.house.setTexture('HouseClosedOffImage')
+    this.house.body.setSize(370, 100, 0)
+    this.house.body.setOffset(140, 300)
+    this.house.body.setImmovable(true)
+    this.house.body.allowGravity = false
+    this.house.body.enable = true
+    // set house depth
+    this.house.depth = this.house.y + this.house.height / 2
+    this.physics.add.collider(this.player, this.house)
+
     // add fire pit to scene and set physics
     this.add.existing(this.firePit)
     this.physics.add.existing(this.firePit)
@@ -493,15 +525,15 @@ class mainSheepScene extends Phaser.Scene {
     this.firePit.offsetX = 180
     this.firePit.offsetY = 70
     this.firePit.offsetChange = 215
-    this.firePit.body.setSize(410, 70, 0)
-    this.firePit.body.setOffset(0, 95)
+    this.firePit.body.setSize(1, 1, 1)
+    this.firePit.body.setOffset(0, 0)
     this.firePitTop = this.physics.add.image()
     this.firePitTop.body.setSize(230, 80, 0)
     this.firePitTop2 = this.physics.add.image()
     this.firePitTop2.body.setSize(335, 80, 0)
     this.firePit.body.setImmovable(true)
     this.firePit.body.allowGravity = false
-    this.firePit.body.enable = true
+    this.firePit.body.enable = false
     this.firePitTop.body.setImmovable(true)
     this.firePitTop.body.allowGravity = false
     this.firePitTop.body.enable = true
@@ -512,6 +544,7 @@ class mainSheepScene extends Phaser.Scene {
     this.firePitTop2.body.setOffset(this.firePit.x - 145, this.firePit.y - 50)
     // set fire pit depth
     this.firePit.depth = this.firePit.y + this.firePit.height / 2
+    this.firePit.anims.play('flames')
 
     // set collision
     this.physics.add.collider(this.player, this.firePit)
@@ -697,6 +730,7 @@ class mainSheepScene extends Phaser.Scene {
     for (let i = 0; i < this.PineArrayLength; i++) {
       this.depthCheck(this.PineArray[i])
     }
+    this.depthCheckHouse()
 
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
@@ -817,9 +851,10 @@ class mainSheepScene extends Phaser.Scene {
           // check to see if the woolf is already asleep
           if (this.WoolfArray[i].isAwake === true) {
             console.log('wolf is awake')
+            console.log(this.WoolfArrayLength)
           } else if (this.WoolfArray[i].isAwake === false) {
-            console.log('wolf is asleep') // delete from array
-            // delete this.WoolfArray[i]
+            console.log('wolf is asleep')
+            //this.WoolfArray.splice((i - 1), (i - 1))
           }
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
@@ -834,24 +869,23 @@ class mainSheepScene extends Phaser.Scene {
     // Is the YawnCircle less than full?
     // reduce health by 1 if so
     if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
-      // woolfy.takeDamage(1)
-      console.log('health going down by 5')
-      woolfy.takeDamage(3)
+      woolfy.takeDamage(1)
     } else { // YawnCircle full? Reduce health by 1 if so
-      // woolfy.takeDamage(1)
-      console.log('Health going down by 10')
-      woolfy.takeDamage(3)
+      woolfy.takeDamage(1)
     }
+    console.log('look at wolf health ' + woolfy.getHealth())
     // Has the Enemy lost all their health?
     // Play death anim.s if so
-    if (woolfy.health === 0) {
+    if (woolfy.getHealth() === 0) {
       console.log('No more health')
+      this.updateScore(woolfy)
+      woolfy.body.enable = false
       if (this._invert === true) {
-        this.woolfy.anims.play('woolfAsleepBackAnim')
+        woolfy.anims.play('woolfAsleepBackAnim')
       }
 
       if (this._invert === false) {
-        this.woolfy.anims.play('woolfAsleepFrontAnim')
+        woolfy.anims.play('woolfAsleepFrontAnim')
       }
     }
   }
@@ -900,7 +934,7 @@ class mainSheepScene extends Phaser.Scene {
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
     // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
-    myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+    myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))// hey
     console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
     for (let i = 0; i < this.WoolfArrayLength; i++) {
       // Is enemy moving in negative (left) direction
@@ -930,10 +964,10 @@ class mainSheepScene extends Phaser.Scene {
             this.WoolfArray[i].anims.play('woolfRightRunAnim')
           }
         }
-      }
+    }
       // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
       // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
-    }
+    } 
     // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity) // work on this to make woolf move
   }
 
@@ -953,32 +987,32 @@ class mainSheepScene extends Phaser.Scene {
     for (let i = 0; i < (this.BabyWolfAmount + 1); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-      while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+      while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       }
-      this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+      this['WoolfBaby' + i] = new WoolfEnemyBaby({ scene: this, x: this.xpos, y: this.ypos, health: 1, zzzAmount: 5 })
       this.WoolfArray.push(this['WoolfBaby' + i])
       this.BabyWoolfArray.push(this['WoolfBaby' + i])
     }
     for (let i = 0; i < (this.MediumWolfAmount + 1); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-      while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+      while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       }
-      this['WoolfMedium' + i] = new WoolfEnemyMedium({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+      this['WoolfMedium' + i] = new WoolfEnemyMedium({ scene: this, x: this.xpos, y: this.ypos, health: 3, zzzAmount: 10 })
       this.WoolfArray.push(this['WoolfMedium' + i])
     }
     for (let i = 0; i < (this.BigWolfAmount + 1); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
-      while (((this.xpos > 1056 && this.xpos < 1856) && (this.ypos > 1100 && this.ypos < 1800))) {
+      while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       }
-      this['WoolfBig' + i] = new WoolfEnemyBig({ scene: this, x: this.xpos, y: this.ypos, health: 10, zzzAmount: 10 }) // health is set to 10 for testing (change later)
+      this['WoolfBig' + i] = new WoolfEnemyBig({ scene: this, x: this.xpos, y: this.ypos, health: 5, zzzAmount: 15 })
       this.WoolfArray.push(this['WoolfBig' + i])
     }
     this.WoolfArrayLength = this.WoolfArray.length
@@ -989,9 +1023,80 @@ class mainSheepScene extends Phaser.Scene {
     this.footstepsSFX.volume = newVolume
   }
 
+  getBabyWoolfCount () {
+    return this.BabyWolfAmount
+  }
+
+  getMedWoolfCount () {
+    return this.MediumWolfAmount
+  }
+
+  getBigWoolfCount () {
+    return this.BigWolfAmount
+  }
+
+  getBabyWoolfsAsleepTotal () {
+    return this.BabyWolfAsleepTotalAmount
+  }
+
+  getMedWoolfsAsleepTotal () {
+    return this.MediumWolfAsleepTotalAmount
+  }
+
+  getBigWoolfsAsleepTotal () {
+    return this.BigWolfAsleepTotalAmount
+  }
+
+  getBigWoolfsAwakeCurrent () {
+    return this.BigWolfsAwakeCurrentAmount
+  }
+
+  getBabyWoolfsAwakeCurrent () {
+    return this.BabyWolfsAwakeCurrentAmount
+  }
+
+  getMedWoolfsAwakeCurrent () {
+    return this.MediumWolfAwakeCurrentAmount
+  }
+
+  updateScore (wolfenemy) {
+    console.log('look ' + wolfenemy.name)
+    if (wolfenemy.name === 'woolfBaby') {
+      this.BabyWolfAsleepTotalAmount += 1
+      this.BabyWolfsAwakeCurrentAmount += 1
+    }
+    if (wolfenemy.name === 'woolfMedium') {
+      this.MediumWolfAwakeCurrentAmount += 1
+      this.MediumWolfAsleepTotalAmount += 1
+    }
+    if (wolfenemy.name === 'woolfBig') {
+      this.BigWolfAsleepTotalAmount += 1
+      this.BigWolfsAwakeCurrentAmount += 1
+    }
+  }
+
   depthCheckEnemyTree (myTree) { // doesn't work, find a reliable way to see if enemy is actually behind the tree
     myTree.enemyBehindTree = true
-    console.log('enemy behind tree true ' + myTree.enemyBehindTree)
+  }
+
+  depthCheckHouse () {
+    this.sheepFootPosYForHouse = this.player.body.position.y + this.PlayerHeight
+    this.sheepFootPosXForHouse = this.player.body.position.x
+    // if (this.sheepFootPosXForHouse > 1024)
+    // {
+    //   this.house.depth = this.player.depth - 1
+    // } else {
+    //   this.house.depth = this.player.depth + 1
+    // }
+    if (((this.sheepFootPosXForHouse > (this.house.x + 298)) || (this.sheepFootPosXForHouse < (this.house.x - 223))) || ((this.sheepFootPosYForHouse > (this.house.y + 80)) || (this.sheepFootPosYForHouse < (this.house.y - 279)))) {
+      // not behind house
+      this.house.depth = this.player.depth - 1
+      this.house.setAlpha(1, 1, 1, 1)
+    } else {
+      // behind house
+      this.house.depth = this.player.depth + 1
+      this.house.setAlpha(0.2, 0.2, 1, 1)
+    }
   }
 
   depthCheck (myTree) {
@@ -1030,7 +1135,7 @@ class mainSheepScene extends Phaser.Scene {
       this.testTreeTopCollide = myTree.body.position.y - (myTree.treeHeight / 2)
       this.testTreeBottomCollide = myTree.body.position.y + (myTree.treeHeight)
       if ((this.sheepFootPosY < this.testTreeBottomCollide) && (this.sheepFootPosY > this.testTreeTopCollide)) {
-        // console.log('5 can collide with tree stump')
+        // console.log('can collide with tree stump')
         // allow the player to collide with the tree stump
         myTree.body.enable = true
         this.physics.add.collider(this.player, myTree)

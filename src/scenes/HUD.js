@@ -1,5 +1,4 @@
 /* global __NWJS__ */
-
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 import Textbox from '../objects/Textbox'
@@ -21,18 +20,41 @@ class HUD extends Phaser.Scene {
     // Create sound sprite for running SFX
     this.RoosterSFX = this.sound.addAudioSprite('sounds')
     this.TimeOver = false
+    this.mySheepScene = this.scene.get('SheepMove')
   }
 
   // Load all data needed for this game state
   preload () {
+    this.SmallWolfCount = 0
+    this.MedWolfCount = 0
+    this.BigWolfCount = 0
+    this.BabyWolfAsleepTotalAmount = 0
+    this.MedWolfAsleepTotalAmount = 0
+    this.BigWolfAsleepTotalAmount = 0
+    this.BabyWolfAwakeCurrentAmount = 0
+    this.MedWolfAwakeCurrentAmount = 0
+    this.BigWolfAwakeCurrentAmount = 0
     // Holds count down's inital time 2:30 min in secs
     this._default_time = 150 // 150
-
     this.load.image('textboxBackground', 'assets/images/textbox.png')
-
+    this.add.image((1800 - 100), (50), 'SmallWoolfHUD').setAlpha(1)
+    this.add.image((1800 - 100), (130), 'MedWoolfHUD').setAlpha(1)
+    this.add.image((1800 - 100), (210), 'BigWoolfHUD').setAlpha(1)
     // Show message that fonts are loading
+    this.SmallWolfCountText = this.add.text((1800 - 70), (55), ' / ',
+      { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.SmallWolfCountText.setOrigin(0.5, 0.5)
+
+    this.MedWolfCountText = this.add.text((1800 - 70), (135), ' / ',
+      { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.MedWolfCountText.setOrigin(0.5, 0.5)
+
+    this.BigWolfCountText = this.add.text((1800 - 70), (215), ' / ',
+      { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.BigWolfCountText.setOrigin(0.5, 0.5)
+
     this.timeText = this.add.text(150, 32, 'Until Dawn: ' + this.formatTime(this._default_time),
-      { font: '30px Roboto Condensed', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+      { font: '30px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.timeText.setOrigin(0.5, 0.5)
 
     // Each 1000 ms calls countDown
@@ -40,10 +62,10 @@ class HUD extends Phaser.Scene {
   }
 
   create () {
-    const dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
-    // Phaser.Display.Align.In.Center(dark)
+    this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
+    this.dark.depth = this.timeText.depth + 1
     this.tweens.add({
-      targets: dark,
+      targets: this.dark,
       alpha: { value: 0, duration: 150000, ease: 'Power1' },
       yoyo: true,
       loop: -1
@@ -75,6 +97,18 @@ class HUD extends Phaser.Scene {
     // this.updates.add(textBox)
   }
 
+  update (time, delta) {
+    this.SmallWolfCount = this.mySheepScene.getBabyWoolfCount()
+    this.MedWolfCount = this.mySheepScene.getMedWoolfCount()
+    this.BigWolfCount = this.mySheepScene.getBigWoolfCount()
+    this.BabyWolfAsleepTotalAmount = this.mySheepScene.getBabyWoolfsAsleepTotal()
+    this.MedWolfAsleepTotalAmount = this.mySheepScene.getMedWoolfsAsleepTotal()
+    this.BigWolfAsleepTotalAmount = this.mySheepScene.getBigWoolfsAsleepTotal()
+    this.BabyWolfAwakeCurrentAmount = this.mySheepScene.getBabyWoolfsAwakeCurrent()
+    this.MedWolfAwakeCurrentAmount = this.mySheepScene.getMedWoolfsAwakeCurrent()
+    this.BigWolfAwakeCurrentAmount = this.mySheepScene.getBigWoolfsAwakeCurrent()
+  }
+
   // Converts seconds to mins and secs
   // Formats conversion into digital time
   formatTime (seconds) {
@@ -98,6 +132,9 @@ class HUD extends Phaser.Scene {
     if (this._default_time > 0) {
       this._default_time -= 1
       this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
+      this.SmallWolfCountText.text = (this.BabyWolfAwakeCurrentAmount + ' / ' + this.SmallWolfCount)
+      this.MedWolfCountText.text = (this.MedWolfAwakeCurrentAmount + ' / ' + this.MedWolfCount)
+      this.BigWolfCountText.text = (this.BigWolfAwakeCurrentAmount + ' / ' + this.BigWolfCount)
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
       if (this.TimeOver === false) {
         this.TimeOver = true
@@ -107,13 +144,13 @@ class HUD extends Phaser.Scene {
           centerY(this),
           'Game Over',
           {
-            font: '110px Roboto Condensed',
+            font: '110px comic sans', // doesn't seeem to actually be Comic Sans
             fontStyle: 'bold',
             fill: '#0xff0000',
             align: 'center'
           }
         )
-        this.RoosterSFX.play('RoosterCrow', { volume: this.RoosterSFX.volume }) //change this volume later so it can be adjusted
+        this.RoosterSFX.play('RoosterCrow', { volume: this.RoosterSFX.volume }) // change this volume later so it can be adjusted
         this.gameOverText.setOrigin(0.5, 0.5)
       }
     }

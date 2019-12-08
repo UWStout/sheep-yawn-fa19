@@ -3,15 +3,13 @@
 // Import the entire 'Enemy' namespace
 import Enemy from './Enemy'
 
-class WoolfEnemyBig extends Enemy {
+class WoolfEnemyMohawk extends Enemy {
   // Initalization
   constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
-    super({ scene, x, y, imageKey: 'woolfImage' })
+    super({ scene, x, y, imageKey: 'woolfImage', health: 5, zzzAmount: 15 })
     this.key = 'woolf'
-    this.name = 'woolf'
-    this.Health = 5
-    this.zCount = 15
+    this.name = 'woolfBig'
 
     this.setupAnimations()
   }
@@ -61,4 +59,4 @@ class WoolfEnemyBig extends Enemy {
 }
 
 // Expose the WoolfEnemy class to other files
-export default WoolfEnemyBig
+export default WoolfEnemyMohawk
