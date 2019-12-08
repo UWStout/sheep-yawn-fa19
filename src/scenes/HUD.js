@@ -47,7 +47,7 @@ class HUD extends Phaser.Scene {
     this.LoseHUD = this.add.image((1800 / 2), (900 / 2), 'lose').setAlpha(1)
     this.LoseHUD.setOrigin(0.5, 0.5)
     this.WinHUD.visible = false
-    this.LoseHUD.visible = true
+    this.LoseHUD.visible = false
 
     this.SmallWolfCountText = this.add.text((1800 - 70), (55), ' / ',
       { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
@@ -120,7 +120,7 @@ class HUD extends Phaser.Scene {
     }, this)
 
     this.ContinueButton.visible = false
-    this.MenuButton.visible = true
+    this.MenuButton.visible = false
     // this.btnPlay.on("pointerover", function() {
     //   this.btnPlay.setTexture("sprBtnPlayHover"); // set the button texture to sprBtnPlayHover
     //   this.sfx.btnOver.play(); // play the button over sound

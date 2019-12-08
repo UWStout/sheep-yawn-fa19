@@ -41,7 +41,6 @@ class mainSheepScene extends Phaser.Scene {
     this.load.image('PlayButton', 'assets/images/PlayButton.png')
     this.load.image('PlayPressedButton', 'assets/images/PlayPressedButton.png')
     this.load.image('darkBackground', 'assets/images/DarkBackground.png')
-    this.load.image('darkBackground', 'assets/images/DarkBackground.png')
     this.load.image('win', 'assets/images/WinScreen.png')
     this.load.image('lose', 'assets/images/LoseScreen.png')
     this.load.image('SmallWoolfHUD', 'assets/images/WoolfPupCounter.png')
