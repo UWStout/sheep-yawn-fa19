@@ -21,6 +21,7 @@ class HUD extends Phaser.Scene {
     this.RoosterSFX = this.sound.addAudioSprite('sounds')
     this.TimeOver = false
     this.mySheepScene = this.scene.get('SheepMove')
+    this.HasWon = false
   }
 
   // Load all data needed for this game state
@@ -34,13 +35,20 @@ class HUD extends Phaser.Scene {
     this.BabyWolfAwakeCurrentAmount = 0
     this.MedWolfAwakeCurrentAmount = 0
     this.BigWolfAwakeCurrentAmount = 0
+    this.NightsCompleteAmount = 0
     // Holds count down's inital time 2:30 min in secs
     this._default_time = 150 // 150
     this.load.image('textboxBackground', 'assets/images/textbox.png')
-    this.add.image((1800 - 100), (50), 'SmallWoolfHUD').setAlpha(1)
-    this.add.image((1800 - 100), (130), 'MedWoolfHUD').setAlpha(1)
-    this.add.image((1800 - 100), (210), 'BigWoolfHUD').setAlpha(1)
-    // Show message that fonts are loading
+    this.SmallWoolfHUD = this.add.image((1800 - 100), (50), 'SmallWoolfHUD').setAlpha(1)
+    this.MedWoolfHUD = this.add.image((1800 - 100), (130), 'MedWoolfHUD').setAlpha(1)
+    this.BigWoolfHUD = this.add.image((1800 - 100), (210), 'BigWoolfHUD').setAlpha(1)
+    this.WinHUD = this.add.image((1800 / 2), (900 / 2), 'win').setAlpha(1)
+    this.WinHUD.setOrigin(0.5, 0.5)
+    this.LoseHUD = this.add.image((1800 / 2), (900 / 2), 'lose').setAlpha(1)
+    this.LoseHUD.setOrigin(0.5, 0.5)
+    this.WinHUD.visible = false
+    this.LoseHUD.visible = false
+
     this.SmallWolfCountText = this.add.text((1800 - 70), (55), ' / ',
       { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.SmallWolfCountText.setOrigin(0.5, 0.5)
@@ -52,6 +60,31 @@ class HUD extends Phaser.Scene {
     this.BigWolfCountText = this.add.text((1800 - 70), (215), ' / ',
       { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.BigWolfCountText.setOrigin(0.5, 0.5)
+
+    this.NightsCompleteTextWon = this.add.text(1280, 450, '' + this.NightsCompleteAmount,
+      { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.NightsCompleteTextWon.setOrigin(0.5, 0.5)
+    this.NightsCompleteTextWon.visible = false
+
+    this.NightsCompleteTextLost = this.add.text(1265, 300, '' + this.NightsCompleteAmount,
+      { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.NightsCompleteTextLost.setOrigin(0.5, 0.5)
+    this.NightsCompleteTextLost.visible = false
+
+    this.BabyWolfAsleepTotalText = this.add.text(350, 710, '' + this.BabyWolfAsleepTotalAmount,
+      { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.BabyWolfAsleepTotalText.setOrigin(0.5, 0.5)
+    this.BabyWolfAsleepTotalText.visible = false
+
+    this.MedWolfAsleepTotalText = this.add.text(930, 705, '' + this.MedWolfAsleepTotalAmount,
+      { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.MedWolfAsleepTotalText.setOrigin(0.5, 0.5)
+    this.MedWolfAsleepTotalText.visible = false
+
+    this.BigWolfAsleepTotalText = this.add.text(1500, 700, '' + this.BigWolfAsleepTotalAmount,
+      { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.BigWolfAsleepTotalText.setOrigin(0.5, 0.5)
+    this.BigWolfAsleepTotalText.visible = false
 
     this.timeText = this.add.text(150, 32, 'Until Dawn: ' + this.formatTime(this._default_time),
       { font: '30px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
@@ -107,6 +140,7 @@ class HUD extends Phaser.Scene {
     this.BabyWolfAwakeCurrentAmount = this.mySheepScene.getBabyWoolfsAwakeCurrent()
     this.MedWolfAwakeCurrentAmount = this.mySheepScene.getMedWoolfsAwakeCurrent()
     this.BigWolfAwakeCurrentAmount = this.mySheepScene.getBigWoolfsAwakeCurrent()
+    this.NightsCompleteAmount = this.mySheepScene.getNightsComplete()
   }
 
   // Converts seconds to mins and secs
@@ -132,30 +166,80 @@ class HUD extends Phaser.Scene {
     if (this._default_time > 0) {
       this._default_time -= 1
       this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
+      this.NightsCompleteTextLost.text = ('' + this.NightsCompleteAmount)
+      this.NightsCompleteTextWon.text = ('' + this.NightsCompleteAmount)
       this.SmallWolfCountText.text = (this.BabyWolfAwakeCurrentAmount + ' / ' + this.SmallWolfCount)
       this.MedWolfCountText.text = (this.MedWolfAwakeCurrentAmount + ' / ' + this.MedWolfCount)
       this.BigWolfCountText.text = (this.BigWolfAwakeCurrentAmount + ' / ' + this.BigWolfCount)
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
       if (this.TimeOver === false) {
-        this.TimeOver = true
-        this.timeText.destroy()
-        this.gameOverText = this.add.text(
-          centerX(this),
-          centerY(this),
-          'Game Over',
-          {
-            font: '110px comic sans', // doesn't seeem to actually be Comic Sans
-            fontStyle: 'bold',
-            fill: '#0xff0000',
-            align: 'center'
-          }
-        )
+        this.timeText.visible = false
+        this.SmallWolfCountText.visible = false
+        this.MedWolfCountText.visible = false
+        this.BigWolfCountText.visible = false
+        this.SmallWoolfHUD.visible = false
+        this.MedWoolfHUD.visible = false
+        this.BigWoolfHUD.visible = false
+        this.dark.visible = false
+        if ((this.BabyWolfAwakeCurrentAmount === this.SmallWolfCount) && (this.MedWolfAwakeCurrentAmount === this.MedWolfCount) && (this.BigWolfAwakeCurrentAmount === this.BigWolfCount)) {
+          this.HasWon = true
+          this.WinHUD.visible = true
+          this.NightsCompleteTextWon.visible = true
+        } else {
+          this.HasWon = false
+          this.LoseHUD.visible = true
+          this.NightsCompleteTextLost.visible = true
+          this.BabyWolfAsleepTotalText.visible = true
+          this.MedWolfAsleepTotalText.visible = true
+          this.BigWolfAsleepTotalText.visible = true
+        }
+        // this.mySheepScene.winLose(this.hasWon)
+        // must press button to continue
+        this.resetLevel()
+        // this.gameOverText = this.add.text(
+        //   centerX(this),
+        //   centerY(this),
+        //   'Game Over',
+        //   {
+        //     font: '110px comic sans', // doesn't seeem to actually be Comic Sans
+        //     fontStyle: 'bold',
+        //     fill: '#0xff0000',
+        //     align: 'center'
+        //   }
+        // )
         this.RoosterSFX.play('RoosterCrow', { volume: this.RoosterSFX.volume }) // change this volume later so it can be adjusted
-        this.gameOverText.setOrigin(0.5, 0.5)
+        // this.gameOverText.setOrigin(0.5, 0.5)
       }
     }
   }
-}
 
+  resetLevel () {
+    this.TimeOver = true
+    this._default_time = 150 // 150
+    this.LoseHUD.visible = false
+    this.WinHUD.visible = false
+    this.NightsCompleteTextLost.visible = false
+    this.NightsCompleteTextWon.visible = false
+    this.BabyWolfAsleepTotalText.visible = false
+    this.MedWolfAsleepTotalText.visible = false
+    this.BigWolfAsleepTotalText.visible = false
+    this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
+    this.dark.depth = this.timeText.depth + 1
+    this.tweens.add({
+      targets: this.dark,
+      alpha: { value: 0, duration: 150000, ease: 'Power1' },
+      yoyo: true,
+      loop: -1
+    })
+    this.TimeOver = true
+    this.timeText.visible = true
+    this.SmallWolfCountText.visible = true
+    this.MedWolfCountText.visible = true
+    this.BigWolfCountText.visible = true
+    this.SmallWoolfHUD.visible = true
+    this.MedWoolfHUD.visible = true
+    this.BigWoolfHUD.visible = true
+  }
+}
 // Expose the class HUD to other files
 export default HUD

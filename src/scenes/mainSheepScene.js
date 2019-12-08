@@ -31,6 +31,9 @@ class mainSheepScene extends Phaser.Scene {
   // Grabs images and other material needed for the scene before any functions run
   preload () {
     this.load.image('darkBackground', 'assets/images/DarkBackground.png')
+    this.load.image('darkBackground', 'assets/images/DarkBackground.png')
+    this.load.image('win', 'assets/images/WinScreen.png')
+    this.load.image('lose', 'assets/images/LoseScreen.png')
     this.load.image('SmallWoolfHUD', 'assets/images/WoolfPupCounter.png')
     this.load.image('MedWoolfHUD', 'assets/images/WoolfCounter.png')
     this.load.image('BigWoolfHUD', 'assets/images/AlphaCounter.png')
@@ -528,22 +531,22 @@ class mainSheepScene extends Phaser.Scene {
     this.firePit.body.setSize(1, 1, 1)
     this.firePit.body.setOffset(0, 0)
     this.firePitTop = this.physics.add.image()
-    this.firePitTop.body.setSize(230, 80, 0)
+    this.firePitTop.body.setSize(230, 100, 0)
     this.firePitTop2 = this.physics.add.image()
-    this.firePitTop2.body.setSize(335, 80, 0)
+    this.firePitTop2.body.setSize(335, 100, 0)
     this.firePit.body.setImmovable(true)
     this.firePit.body.allowGravity = false
     this.firePit.body.enable = false
     this.firePitTop.body.setImmovable(true)
     this.firePitTop.body.allowGravity = false
     this.firePitTop.body.enable = true
-    this.firePitTop.body.setOffset(this.firePit.x - 100, this.firePit.y - 75)
+    this.firePitTop.body.setOffset(this.firePit.x - 100, this.firePit.y - 110)
     this.firePitTop2.body.setImmovable(true)
     this.firePitTop2.body.allowGravity = false
     this.firePitTop2.body.enable = true
     this.firePitTop2.body.setOffset(this.firePit.x - 145, this.firePit.y - 50)
     // set fire pit depth
-    this.firePit.depth = this.firePit.y + this.firePit.height / 2
+    this.firePit.depth = this.player.depth - 1
     this.firePit.anims.play('flames')
 
     // set collision
@@ -1059,6 +1062,10 @@ class mainSheepScene extends Phaser.Scene {
     return this.MediumWolfAwakeCurrentAmount
   }
 
+  getNightsComplete () {
+    return 8 // fix later
+  }
+
   updateScore (wolfenemy) {
     console.log('look ' + wolfenemy.name)
     if (wolfenemy.name === 'woolfBaby') {
@@ -1073,6 +1080,10 @@ class mainSheepScene extends Phaser.Scene {
       this.BigWolfAsleepTotalAmount += 1
       this.BigWolfsAwakeCurrentAmount += 1
     }
+  }
+
+  winLose () {
+    console.log('win or lose')
   }
 
   depthCheckEnemyTree (myTree) { // doesn't work, find a reliable way to see if enemy is actually behind the tree
