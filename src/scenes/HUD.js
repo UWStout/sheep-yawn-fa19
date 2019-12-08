@@ -47,7 +47,7 @@ class HUD extends Phaser.Scene {
     this.LoseHUD = this.add.image((1800 / 2), (900 / 2), 'lose').setAlpha(1)
     this.LoseHUD.setOrigin(0.5, 0.5)
     this.WinHUD.visible = false
-    this.LoseHUD.visible = false
+    this.LoseHUD.visible = true
 
     this.SmallWolfCountText = this.add.text((1800 - 70), (55), ' / ',
       { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
@@ -95,6 +95,37 @@ class HUD extends Phaser.Scene {
   }
 
   create () {
+    this.ContinueButton = this.add.sprite(900, 700, 'ContinueButton').setInteractive()
+    this.ContinueButton.setScale(0.8)
+    this.ContinueButton.on('pointerdown', function (pointer) {
+      this.resetLevel()
+    }.bind(this))
+    this.ContinueButton.on('pointerover', function () {
+      this.ContinueButton.setTexture('ContinuePressedButton')
+    }, this)
+    this.ContinueButton.on('pointerout', function () {
+      this.ContinueButton.setTexture('ContinueButton')
+    }, this)
+
+    this.MenuButton = this.add.sprite(1600, 400, 'ExitButton').setInteractive()
+    this.MenuButton.setScale(0.8)
+    this.MenuButton.on('pointerdown', function (pointer) {
+      this.GoToMenu()
+    }.bind(this))
+    this.MenuButton.on('pointerover', function () {
+      this.MenuButton.setTexture('ExitPressedButton')
+    }, this)
+    this.MenuButton.on('pointerout', function () {
+      this.MenuButton.setTexture('ExitButton')
+    }, this)
+
+    this.ContinueButton.visible = false
+    this.MenuButton.visible = true
+    // this.btnPlay.on("pointerover", function() {
+    //   this.btnPlay.setTexture("sprBtnPlayHover"); // set the button texture to sprBtnPlayHover
+    //   this.sfx.btnOver.play(); // play the button over sound
+    // }, this);
+
     this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
     this.dark.depth = this.timeText.depth + 1
     this.tweens.add({
@@ -185,6 +216,7 @@ class HUD extends Phaser.Scene {
           this.HasWon = true
           this.WinHUD.visible = true
           this.NightsCompleteTextWon.visible = true
+          this.ContinueButton.visible = true
         } else {
           this.HasWon = false
           this.LoseHUD.visible = true
@@ -192,6 +224,7 @@ class HUD extends Phaser.Scene {
           this.BabyWolfAsleepTotalText.visible = true
           this.MedWolfAsleepTotalText.visible = true
           this.BigWolfAsleepTotalText.visible = true
+          this.MenuButton.visible = true
         }
         // this.mySheepScene.winLose(this.hasWon)
         // must press button to continue
@@ -213,6 +246,10 @@ class HUD extends Phaser.Scene {
     }
   }
 
+  GoToMenu () {
+    console.log('go to menu')
+  }
+
   resetLevel () {
     this.TimeOver = true
     this._default_time = 150 // 150
@@ -223,6 +260,8 @@ class HUD extends Phaser.Scene {
     this.BabyWolfAsleepTotalText.visible = false
     this.MedWolfAsleepTotalText.visible = false
     this.BigWolfAsleepTotalText.visible = false
+    this.ContinueButton.visible = false
+    this.MenuButton.visible = false
     this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
     this.dark.depth = this.timeText.depth + 1
     this.tweens.add({

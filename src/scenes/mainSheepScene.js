@@ -30,6 +30,16 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
+    this.load.image('BackButton', 'assets/images/BackButton.png')
+    this.load.image('BackPressedButton', 'assets/images/BackPressedButton.png')
+    this.load.image('ContinueButton', 'assets/images/Continue.png')
+    this.load.image('ContinuePressedButton', 'assets/images/ContinuePressed.png')
+    this.load.image('CreditsButton', 'assets/images/CreditsButton.png')
+    this.load.image('CreditsPressedButton', 'assets/images/CreditsPressedButton.png')
+    this.load.image('ExitButton', 'assets/images/ExitButton.png')
+    this.load.image('ExitPressedButton', 'assets/images/ExitPressedButton.png')
+    this.load.image('PlayButton', 'assets/images/PlayButton.png')
+    this.load.image('PlayPressedButton', 'assets/images/PlayPressedButton.png')
     this.load.image('darkBackground', 'assets/images/DarkBackground.png')
     this.load.image('darkBackground', 'assets/images/DarkBackground.png')
     this.load.image('win', 'assets/images/WinScreen.png')
