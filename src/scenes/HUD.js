@@ -121,10 +121,6 @@ class HUD extends Phaser.Scene {
 
     this.ContinueButton.visible = false
     this.MenuButton.visible = false
-    // this.btnPlay.on("pointerover", function() {
-    //   this.btnPlay.setTexture("sprBtnPlayHover"); // set the button texture to sprBtnPlayHover
-    //   this.sfx.btnOver.play(); // play the button over sound
-    // }, this);
 
     this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
     this.dark.depth = this.timeText.depth + 1
@@ -226,20 +222,7 @@ class HUD extends Phaser.Scene {
           this.BigWolfAsleepTotalText.visible = true
           this.MenuButton.visible = true
         }
-        // this.mySheepScene.winLose(this.hasWon)
-        // must press button to continue
-        this.resetLevel()
-        // this.gameOverText = this.add.text(
-        //   centerX(this),
-        //   centerY(this),
-        //   'Game Over',
-        //   {
-        //     font: '110px comic sans', // doesn't seeem to actually be Comic Sans
-        //     fontStyle: 'bold',
-        //     fill: '#0xff0000',
-        //     align: 'center'
-        //   }
-        // )
+        // must press button to continue and reset level
         this.RoosterSFX.play('RoosterCrow', { volume: this.RoosterSFX.volume }) // change this volume later so it can be adjusted
         // this.gameOverText.setOrigin(0.5, 0.5)
       }
@@ -251,6 +234,7 @@ class HUD extends Phaser.Scene {
   }
 
   resetLevel () {
+    // this.mySheepScene.winLose(this.hasWon)
     this.TimeOver = true
     this._default_time = 150 // 150
     this.LoseHUD.visible = false
