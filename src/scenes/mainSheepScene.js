@@ -80,6 +80,14 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('KnockbackLeftFront', 'assets/images/painted_woolhemina_surprised_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('KnockbackRightBack', 'assets/images/painted_woolhemina_surprised_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
+    // this.load.spritesheet('babyWoolfLeftRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
+    // this.load.spritesheet('babyWoolfRightRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
+    this.load.spritesheet('babyWoolfLeftIdle', 'assets/images/painted_babyWoolf_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
+    this.load.spritesheet('babyWoolfRightIdle', 'assets/images/painted_babyWoolf_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
+    // this.load.spritesheet('babyWoolfAsleepFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    // this.load.spritesheet('babyWoolfAsleepBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    // this.load.spritesheet('babyWoolfSleepLoopFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    // this.load.spritesheet('babyWoolfSleepLoopBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfRightRun', 'assets/images/painted_woolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfLeftIdle', 'assets/images/painted_woolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
@@ -88,6 +96,18 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('woolfAsleepBack', 'assets/images/painted_woolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
     this.load.spritesheet('woolfSleepLoopFront', 'assets/images/painted_woolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('woolfSleepLoopBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    // this.load.spritesheet('woolfAttackFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    // this.load.spritesheet('woolfAttackBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    this.load.spritesheet('alphaWoolfLeftRun', 'assets/images/painted_altWoolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
+    this.load.spritesheet('alphaWoolfRightRun', 'assets/images/painted_altWoolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
+    this.load.spritesheet('alphaWoolfLeftIdle', 'assets/images/painted_altWoolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
+    this.load.spritesheet('alphaWoolfRightIdle', 'assets/images/painted_altWoolf_idle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
+    this.load.spritesheet('alphaWoolfAsleepFront', 'assets/images/painted_altWoolf_fallAsleep_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    this.load.spritesheet('alphaWoolfAsleepBack', 'assets/images/painted_altWoolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    this.load.spritesheet('alphaWoolfSleepLoopFront', 'assets/images/painted_altWoolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    this.load.spritesheet('alphaWoolfSleepLoopBack', 'assets/images/painted_altWoolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    this.load.spritesheet('alphaWoolfAttackFront', 'assets/images/painted_altWoolf_partyHowl_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    this.load.spritesheet('alphaWoolfAttackBack', 'assets/images/painted_altWoolf_partyHowl_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
     this.load.spritesheet('flames', 'assets/images/firePit_flames_spritesheet.png', { frameWidth: 512, frameHeight: 512, endFrame: 3 })
 
     // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
@@ -878,7 +898,7 @@ class mainSheepScene extends Phaser.Scene {
             console.log(this.WoolfArrayLength)
           } else if (this.WoolfArray[i].isAwake === false) {
             console.log('wolf is asleep')
-            //this.WoolfArray.splice((i - 1), (i - 1))
+            // this.WoolfArray.splice((i - 1), (i - 1))
           }
           // Check for overlap with enemy and yawnBlast
           // Call loseHealth if so
@@ -890,32 +910,25 @@ class mainSheepScene extends Phaser.Scene {
 
   // Reduces health of enemy when caught in yawn blast circle
   loseHealth (yawnCircle, woolfy) {
-    console.log('1')
     // Is the YawnCircle less than full?
     // reduce health by 1 if so
     if (this.yawnBlastCircle && this.yawnBlastCircle.scale < this._yawn_size_check) {
       woolfy.takeDamage(1)
-      console.log('2')
     } else { // YawnCircle full? Reduce health by 1 if so
       woolfy.takeDamage(1)
-      console.log('3')
     }
     // Has the Enemy lost all their health?
     // Play death anim.s if so
-    console.log('4-')
-    console.log('does this happen' + woolfy.getHealth())
-    if (woolfy.getHealth() >= 0) {
-      console.log('5')
-      console.log('I want this to happen No more health')
+    if (woolfy.getHealth() === 0) {
+      console.log('Name: ' + woolfy.getEnemyName())
+      console.log('No more health')
       this.updateScore(woolfy)
       woolfy.body.enable = false
       if (this._invert === true) {
         woolfy.anims.play('woolfAsleepBackAnim')
-        console.log('6')
       }
 
       if (this._invert === false) {
-        console.log('7')
         woolfy.anims.play('woolfAsleepFrontAnim')
       }
     }
@@ -963,7 +976,7 @@ class mainSheepScene extends Phaser.Scene {
   moveEnemy (myEnemy) {
     // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
     if (myEnemy.isAwake === true) {
-      // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60)) //test kendra
+      myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
       // console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
       for (let i = 0; i < this.WoolfArrayLength; i++) {
         // Is enemy moving in negative (left) direction
@@ -1077,9 +1090,9 @@ class mainSheepScene extends Phaser.Scene {
     for (let i = 0; i < (this.WoolfArray.length); i++) {
     }
 
-    // for (let i = 0; i < this.WoolfArrayLength; i++) {
-    //   this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true }) //test kendra
-    // }
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+    }
   }
 
   setSFXVolume (newVolume) {
@@ -1127,7 +1140,6 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   updateScore (wolfenemy) {
-    console.log('does this happpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppen')
     if (wolfenemy.name === 'woolfBaby') {
       this.BabyWolfAsleepTotalAmount += 1
       this.BabyWolfsAwakeCurrentAmount += 1
@@ -1146,8 +1158,7 @@ class mainSheepScene extends Phaser.Scene {
     if (winLose === true) { // has won
       this.music.stop()
       this.music.play('WinScreen', { volume: config.MUSIC_VOLUME })
-    }
-    else { // has lost
+    } else { // has lost
       this.music.stop()
       this.music.play('LoseScreen', { volume: config.MUSIC_VOLUME }) // make this lose screen music
     }

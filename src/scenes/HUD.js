@@ -170,7 +170,7 @@ class HUD extends Phaser.Scene {
     this.BigWolfAwakeCurrentAmount = this.mySheepScene.getBigWoolfsAwakeCurrent()
     this.NightsCompleteAmount = this.mySheepScene.getNightsComplete()
     if ((this.BabyWolfAwakeCurrentAmount === this.SmallWolfCount) && (this.MedWolfAwakeCurrentAmount === this.MedWolfCount) && (this.BigWolfAwakeCurrentAmount === this.BigWolfCount)) {
-      console.log('yay')
+      console.log('should win')
       this.DecideWinLose()
     }
   }
@@ -196,7 +196,6 @@ class HUD extends Phaser.Scene {
     // Is there time left on the clock?
     // Subtract one second
     if (this._default_time > 0) {
-      console.log('y1')
       this._default_time -= 1
       this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
       this.NightsCompleteTextLost.text = ('' + this.NightsCompleteAmount)
