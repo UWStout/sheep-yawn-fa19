@@ -80,14 +80,14 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('KnockbackLeftFront', 'assets/images/painted_woolhemina_surprised_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('KnockbackRightBack', 'assets/images/painted_woolhemina_surprised_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
-    // this.load.spritesheet('babyWoolfLeftRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
-    // this.load.spritesheet('babyWoolfRightRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
+    this.load.spritesheet('babyWoolfLeftRun', 'assets/images/painted_babyWoolf_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
+    this.load.spritesheet('babyWoolfRightRun', 'assets/images/painted_altWoolf_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
     this.load.spritesheet('babyWoolfLeftIdle', 'assets/images/painted_babyWoolf_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
     this.load.spritesheet('babyWoolfRightIdle', 'assets/images/painted_babyWoolf_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
-    // this.load.spritesheet('babyWoolfAsleepFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    // this.load.spritesheet('babyWoolfAsleepBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    // this.load.spritesheet('babyWoolfSleepLoopFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    // this.load.spritesheet('babyWoolfSleepLoopBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    this.load.spritesheet('babyWoolfAsleepFront', 'assets/images/painted_babyWoolf_fallAsleep_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
+    this.load.spritesheet('babyWoolfAsleepBack', 'assets/images/painted_babyWoolf_fallAsleep_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
+    this.load.spritesheet('babyWoolfSleepLoopFront', 'assets/images/painted_babyWoolf_fallAsleep_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
+    this.load.spritesheet('babyWoolfSleepLoopBack', 'assets/images/painted_babyWoolf_fallAsleep_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
     this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfRightRun', 'assets/images/painted_woolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfLeftIdle', 'assets/images/painted_woolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
@@ -96,8 +96,8 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('woolfAsleepBack', 'assets/images/painted_woolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
     this.load.spritesheet('woolfSleepLoopFront', 'assets/images/painted_woolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('woolfSleepLoopBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    // this.load.spritesheet('woolfAttackFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
-    // this.load.spritesheet('woolfAttackBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    this.load.spritesheet('woolfAttackFront', 'assets/images/painted_woolf_armSlam_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    this.load.spritesheet('woolfAttackBack', 'assets/images/painted_woolf_armSlam_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
     this.load.spritesheet('alphaWoolfLeftRun', 'assets/images/painted_altWoolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('alphaWoolfRightRun', 'assets/images/painted_altWoolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('alphaWoolfLeftIdle', 'assets/images/painted_altWoolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
@@ -910,16 +910,47 @@ class mainSheepScene extends Phaser.Scene {
     // Has the Enemy lost all their health?
     // Play death anim.s if so
     if (woolfy.getHealth() === 0) {
-      console.log('Name: ' + woolfy.getEnemyName())
+      // console.log('Name: ' + woolfy.getEnemyName())
       console.log('No more health')
       this.updateScore(woolfy)
       woolfy.body.enable = false
+
+      // Is the Enemy inverted?
+      // Play back fall asleep if so
       if (this._invert === true) {
-        woolfy.anims.play('woolfAsleepBackAnim')
+        // Is the Enemy a baby woolf?
+        if (woolfy.getEnemyName === 'woolfBaby') {
+          woolfy.anims.play('babyWoolfAsleepBackAnim')
+        }
+
+        // Is the Enemy a regular woolf?
+        if (woolfy.getEnemyName === 'woolfMedium') {
+          woolfy.anims.play('woolfAsleepBackAnim')
+        }
+
+        // Is the Enemy an alpha woolf?
+        if (woolfy.getEnemyName === 'woolfBig') {
+          woolfy.anims.play('alphaWoolfAsleepBackAnim')
+        }
       }
 
+      // Is the Enemy not inverted?
+      // Play front fall asleep if so
       if (this._invert === false) {
-        woolfy.anims.play('woolfAsleepFrontAnim')
+        // Is the Enemy a baby woolf?
+        if (woolfy.getEnemyName === 'woolfBaby') {
+          woolfy.anims.play('babyWoolfAsleepFrontAnim')
+        }
+
+        // Is the Enemy a regular woolf?
+        if (woolfy.getEnemyName === 'woolfMedium') {
+          woolfy.anims.play('woolfAsleepFrontAnim')
+        }
+
+        // Is the Enemy an alpha woolf?
+        if (woolfy.getEnemyName === 'woolfBig') {
+          woolfy.anims.play('alphaWoolfAsleepFrontAnim')
+        }
       }
     }
   }
@@ -975,22 +1006,93 @@ class mainSheepScene extends Phaser.Scene {
       if (myEnemy.body.velocity.x < 0) {
         console.log('going left')
         this.WoolfArray[i].flipX = false
-        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-          this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+
+        // Is the Enemy a baby woolf?
+        if (myEnemy.getEnemyName === 'woolfBaby') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+          }
+        }
+
+        // Is the Enemy a regular woolf?
+        if (myEnemy.getEnemyName === 'woolfMedium') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+          }
+        }
+
+        // Is the Enemy an alpha woolf?
+        if (myEnemy.getEnemyName === 'woolfBig') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+          }
         }
       } else {
         console.log('going right')
         this.WoolfArray[i].flipX = true
-        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-          this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+
+        // Is the Enemy a baby woolf?
+        if (myEnemy.getEnemyName === 'woolfBaby') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+          }
+        }
+
+        // Is the Enemy a regular woolf?
+        if (myEnemy.getEnemyName === 'woolfMedium') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+          }
+        }
+
+        // Is the Enemy an alpha woolf?
+        if (myEnemy.getEnemyName === 'woolfBig') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+          }
         }
       }
 
       if (myEnemy.body.velocity.y < 0) {
         console.log('going down')
-        // this.WoolfArray[i].flipX = false
-        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-          this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+
+        // Is the Enemy a baby woolf?
+        if (myEnemy.getEnemyName === 'woolfBaby') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+          }
+        }
+
+        // Is the Enemy a regular woolf?
+        if (myEnemy.getEnemyName === 'woolfMedium') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+          }
+        }
+
+        // Is the Enemy an alpha woolf?
+        if (myEnemy.getEnemyName === 'woolfBig') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+            this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+          }
         }
       }
 
@@ -999,6 +1101,33 @@ class mainSheepScene extends Phaser.Scene {
         // this.WoolfArray[i].flipX = true
         if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
           this.WoolfArray[i].anims.play('woolfRightRunAnim')
+        }
+
+        // Is the Enemy a baby woolf?
+        if (myEnemy.getEnemyName === 'woolfBaby') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
+            this.WoolfArray[i].anims.play('babyWoolfRightRunAnim')
+          }
+        }
+
+        // Is the Enemy a regular woolf?
+        if (myEnemy.getEnemyName === 'woolfMedium') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+            this.WoolfArray[i].anims.play('alphaWoolfRightRunAnim')
+          }
+        }
+
+        // Is the Enemy an alpha woolf?
+        if (myEnemy.getEnemyName === 'woolfBig') {
+          // Is Enemy left run running
+          // Play anim if not so
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+            this.WoolfArray[i].anims.play('alphaWoolfRightRunAnim')
+          }
         }
       }
       // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
