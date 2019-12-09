@@ -438,6 +438,13 @@ class mainSheepScene extends Phaser.Scene {
       y: 1024
     })
 
+    // Creation of house2
+    this.house2 = new House({
+      scene: this,
+      x: 1408,
+      y: 1024
+    })
+
     this.BabyWoolfArray = []
     this.WoolfArray = []
     this.BabyWolfAmount = 0
@@ -447,9 +454,15 @@ class mainSheepScene extends Phaser.Scene {
     if (this.levelNumber === 1) {
       this.music.stop()
       this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
+      this.tweens.add({
+        targets: this.house2,
+        alpha: { value: 0, duration: 150000, ease: 'Power1' },
+        yoyo: true,
+        loop: -1
+      })
       this.BabyWolfAmount = 1 //3
-      this.MediumWolfAmount = 0 //1
-      this.BigWolfAmount = 0
+      this.MediumWolfAmount = 1 //1
+      this.BigWolfAmount = 1
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
@@ -541,7 +554,7 @@ class mainSheepScene extends Phaser.Scene {
     // add house to scene and set physics
     this.add.existing(this.house)
     this.physics.add.existing(this.house)
-    this.house.setTexture('HouseClosedOnImage')
+    this.house.setTexture('HouseClosedOffImage')
     this.house.body.setSize(370, 100, 0)
     this.house.body.setOffset(140, 300)
     this.house.body.setImmovable(true)
@@ -550,6 +563,21 @@ class mainSheepScene extends Phaser.Scene {
     // set house depth
     this.house.depth = this.house.y + this.house.height / 2
     this.physics.add.collider(this.player, this.house)
+
+    // add house2 to scene and set physics
+    this.add.existing(this.house2)
+    this.physics.add.existing(this.house2)
+    this.house2.setTexture('HouseClosedOnImage')
+    this.house2.setAlpha(1)
+    // this.house2.body.setSize(370, 100, 0)
+    this.house2.body.setOffset(140, 300)
+    this.house2.body.setImmovable(true)
+    this.house2.body.allowGravity = false
+    this.house2.body.enable = true
+    // set house2 depth
+    this.house2.depth = this.house.depth - 1
+    this.physics.add.collider(this.player, this.house)
+    this.house2.setAlpha(0.7)
 
     // add fire pit to scene and set physics
     this.add.existing(this.firePit)
@@ -602,9 +630,9 @@ class mainSheepScene extends Phaser.Scene {
     this.player.anims.play('idleFrontAnim')
 
     // timed event to make enemy AI move
-    for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
-    }
+    // for (let i = 0; i < this.WoolfArrayLength; i++) {
+    //   this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+    // }
 
     // Setup the key objects
     this.setupKeyboard()
@@ -773,7 +801,7 @@ class mainSheepScene extends Phaser.Scene {
     for (let i = 0; i < this.PineArrayLength; i++) {
       this.depthCheck(this.PineArray[i])
     }
-    this.depthCheckHouse()
+    this.depthCheckHouse(this.house)
 
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
@@ -976,7 +1004,7 @@ class mainSheepScene extends Phaser.Scene {
   moveEnemy (myEnemy) {
     // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
     if (myEnemy.isAwake === true) {
-      myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+      // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
       // console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
       for (let i = 0; i < this.WoolfArrayLength; i++) {
         // Is enemy moving in negative (left) direction
@@ -1019,14 +1047,20 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   newLevel () {
-    for (let i = 0; i < (this.WoolfArray.length); i++) {
-      this.WoolfArray[i].setActive(false).setVisible(false);
-      this.WoolfArray[i].body.enable = false
-    }
-
     this.BigWolfsAwakeCurrentAmount = 0
     this.MediumWolfAwakeCurrentAmount = 0
     this.BabyWolfsAwakeCurrentAmount = 0
+    for (let i = 0; i < (this.WoolfArray.length); i++) {
+      this.WoolfArray[i].setActive(false).setVisible(false)
+      this.WoolfArray[i].body.enable = false
+    }
+    this.house2.setAlpha(1)
+    this.tweens.add({
+      targets: this.house2,
+      alpha: { value: 0, duration: 150000, ease: 'Power1' },
+      yoyo: true,
+      loop: -1
+    })
     this._sheep_Velocity = 300
     this.player.x = 1441
     this.player.y = 1300
@@ -1178,7 +1212,7 @@ class mainSheepScene extends Phaser.Scene {
     myTree.enemyBehindTree = true
   }
 
-  depthCheckHouse () {
+  depthCheckHouse (house) {
     this.sheepFootPosYForHouse = this.player.body.position.y + this.PlayerHeight
     this.sheepFootPosXForHouse = this.player.body.position.x
     // if (this.sheepFootPosXForHouse > 1024)
@@ -1187,14 +1221,16 @@ class mainSheepScene extends Phaser.Scene {
     // } else {
     //   this.house.depth = this.player.depth + 1
     // }
-    if (((this.sheepFootPosXForHouse > (this.house.x + 298)) || (this.sheepFootPosXForHouse < (this.house.x - 223))) || ((this.sheepFootPosYForHouse > (this.house.y + 80)) || (this.sheepFootPosYForHouse < (this.house.y - 279)))) {
+    if (((this.sheepFootPosXForHouse > (house.x + 298)) || (this.sheepFootPosXForHouse < (house.x - 223))) || ((this.sheepFootPosYForHouse > (house.y + 80)) || (this.sheepFootPosYForHouse < (house.y - 279)))) {
       // not behind house
-      this.house.depth = this.player.depth - 1
-      this.house.setAlpha(1, 1, 1, 1)
+      house.depth = this.player.depth - 2
+      this.house2.depth = this.house.depth + 1
+      house.setAlpha(1, 1, 1, 1)
     } else {
       // behind house
-      this.house.depth = this.player.depth + 1
-      this.house.setAlpha(0.2, 0.2, 1, 1)
+      house.depth = this.player.depth + 2
+      this.house2.depth = this.house.depth + 1
+      house.setAlpha(0.2, 0.2, 1, 1)
     }
   }
 

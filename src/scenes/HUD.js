@@ -23,6 +23,7 @@ class HUD extends Phaser.Scene {
     this.mySheepScene = this.scene.get('SheepMove')
     this.HasWon = false
     this.happenOnce = false
+    this.timeCheck = 0
   }
 
   // Load all data needed for this game state
@@ -123,7 +124,7 @@ class HUD extends Phaser.Scene {
     this.ContinueButton.visible = false
     this.MenuButton.visible = false
 
-    this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
+    this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(1)
     this.dark.depth = this.timeText.depth - 1
     this.tweens.add({
       targets: this.dark,
@@ -170,8 +171,7 @@ class HUD extends Phaser.Scene {
     this.BigWolfAwakeCurrentAmount = this.mySheepScene.getBigWoolfsAwakeCurrent()
     this.NightsCompleteAmount = this.mySheepScene.getNightsComplete()
     if ((this.BabyWolfAwakeCurrentAmount === this.SmallWolfCount) && (this.MedWolfAwakeCurrentAmount === this.MedWolfCount) && (this.BigWolfAwakeCurrentAmount === this.BigWolfCount)) {
-      console.log('should win')
-      this.DecideWinLose()
+      this.timedEvent = this.time.addEvent({ delay: 2000, callback: this.DecideWinLose, callbackScope: this, loop: false })
     }
   }
 
@@ -258,8 +258,9 @@ class HUD extends Phaser.Scene {
   }
 
   resetLevel () {
-    this.happenOnce = false
-    this.mySheepScene.resetAfterWin()
+    this.BabyWolfAwakeCurrentAmount = 0
+    this.MedWolfAwakeCurrentAmount = 0
+    this.BigWolfAwakeCurrentAmount = 0
     this.TimeOver = false
     this._default_time = 150 // 150
     this.LoseHUD.visible = false
@@ -271,7 +272,7 @@ class HUD extends Phaser.Scene {
     this.BigWolfAsleepTotalText.visible = false
     this.ContinueButton.visible = false
     this.MenuButton.visible = false
-    this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
+    this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(1)
     this.dark.depth = this.timeText.depth - 1
     this.tweens.add({
       targets: this.dark,
@@ -286,6 +287,8 @@ class HUD extends Phaser.Scene {
     this.SmallWoolfHUD.visible = true
     this.MedWoolfHUD.visible = true
     this.BigWoolfHUD.visible = true
+    this.mySheepScene.resetAfterWin()
+    this.happenOnce = false
   }
 }
 // Expose the class HUD to other files
