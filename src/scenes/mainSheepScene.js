@@ -80,14 +80,14 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('KnockbackLeftFront', 'assets/images/painted_woolhemina_surprised_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('KnockbackRightBack', 'assets/images/painted_woolhemina_surprised_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
-    this.load.spritesheet('babyWoolfLeftRun', 'assets/images/painted_babyWoolf_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
-    this.load.spritesheet('babyWoolfRightRun', 'assets/images/painted_altWoolf_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
+    // this.load.spritesheet('babyWoolfLeftRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
+    // this.load.spritesheet('babyWoolfRightRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('babyWoolfLeftIdle', 'assets/images/painted_babyWoolf_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
     this.load.spritesheet('babyWoolfRightIdle', 'assets/images/painted_babyWoolf_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
-    this.load.spritesheet('babyWoolfAsleepFront', 'assets/images/painted_babyWoolf_fallAsleep_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
-    this.load.spritesheet('babyWoolfAsleepBack', 'assets/images/painted_babyWoolf_fallAsleep_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
-    this.load.spritesheet('babyWoolfSleepLoopFront', 'assets/images/painted_babyWoolf_fallAsleep_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
-    this.load.spritesheet('babyWoolfSleepLoopBack', 'assets/images/painted_babyWoolf_fallAsleep_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
+    // this.load.spritesheet('babyWoolfAsleepFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    // this.load.spritesheet('babyWoolfAsleepBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    // this.load.spritesheet('babyWoolfSleepLoopFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    // this.load.spritesheet('babyWoolfSleepLoopBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfRightRun', 'assets/images/painted_woolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfLeftIdle', 'assets/images/painted_woolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
@@ -96,8 +96,8 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('woolfAsleepBack', 'assets/images/painted_woolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
     this.load.spritesheet('woolfSleepLoopFront', 'assets/images/painted_woolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('woolfSleepLoopBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    this.load.spritesheet('woolfAttackFront', 'assets/images/painted_woolf_armSlam_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
-    this.load.spritesheet('woolfAttackBack', 'assets/images/painted_woolf_armSlam_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    // this.load.spritesheet('woolfAttackFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    // this.load.spritesheet('woolfAttackBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
     this.load.spritesheet('alphaWoolfLeftRun', 'assets/images/painted_altWoolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('alphaWoolfRightRun', 'assets/images/painted_altWoolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('alphaWoolfLeftIdle', 'assets/images/painted_altWoolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
@@ -438,6 +438,13 @@ class mainSheepScene extends Phaser.Scene {
       y: 1024
     })
 
+    // Creation of house2
+    this.house2 = new House({
+      scene: this,
+      x: 1408,
+      y: 1024
+    })
+
     this.BabyWoolfArray = []
     this.WoolfArray = []
     this.BabyWolfAmount = 0
@@ -541,7 +548,7 @@ class mainSheepScene extends Phaser.Scene {
     // add house to scene and set physics
     this.add.existing(this.house)
     this.physics.add.existing(this.house)
-    this.house.setTexture('HouseClosedOnImage')
+    this.house.setTexture('HouseClosedOffImage')
     this.house.body.setSize(370, 100, 0)
     this.house.body.setOffset(140, 300)
     this.house.body.setImmovable(true)
@@ -550,6 +557,21 @@ class mainSheepScene extends Phaser.Scene {
     // set house depth
     this.house.depth = this.house.y + this.house.height / 2
     this.physics.add.collider(this.player, this.house)
+
+    // add house2 to scene and set physics
+    this.add.existing(this.house2)
+    this.physics.add.existing(this.house2)
+    this.house2.setTexture('HouseClosedOnImage')
+    this.house2.setAlpha(1)
+    // this.house2.body.setSize(370, 100, 0)
+    this.house2.body.setOffset(140, 300)
+    this.house2.body.setImmovable(true)
+    this.house2.body.allowGravity = false
+    this.house2.body.enable = true
+    // set house2 depth
+    this.house2.depth = this.house.depth - 1
+    this.physics.add.collider(this.player, this.house)
+    this.house2.setAlpha(0.7)
 
     // add fire pit to scene and set physics
     this.add.existing(this.firePit)
@@ -602,9 +624,9 @@ class mainSheepScene extends Phaser.Scene {
     this.player.anims.play('idleFrontAnim')
 
     // timed event to make enemy AI move
-    for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
-    }
+    // for (let i = 0; i < this.WoolfArrayLength; i++) {
+    //   this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+    // }
 
     // Setup the key objects
     this.setupKeyboard()
@@ -773,7 +795,7 @@ class mainSheepScene extends Phaser.Scene {
     for (let i = 0; i < this.PineArrayLength; i++) {
       this.depthCheck(this.PineArray[i])
     }
-    this.depthCheckHouse()
+    this.depthCheckHouse(this.house)
 
     // Moves sheep yawn circle with player when
     // Arrow keys/wasd keys are pressed
@@ -920,47 +942,16 @@ class mainSheepScene extends Phaser.Scene {
     // Has the Enemy lost all their health?
     // Play death anim.s if so
     if (woolfy.getHealth() === 0) {
-      // console.log('Name: ' + woolfy.getEnemyName())
+      console.log('Name: ' + woolfy.getEnemyName())
       console.log('No more health')
       this.updateScore(woolfy)
       woolfy.body.enable = false
-
-      // Is the Enemy inverted?
-      // Play back fall asleep if so
       if (this._invert === true) {
-        // Is the Enemy a baby woolf?
-        if (woolfy.getEnemyName === 'woolfBaby') {
-          woolfy.anims.play('babyWoolfAsleepBackAnim')
-        }
-
-        // Is the Enemy a regular woolf?
-        if (woolfy.getEnemyName === 'woolfMedium') {
-          woolfy.anims.play('woolfAsleepBackAnim')
-        }
-
-        // Is the Enemy an alpha woolf?
-        if (woolfy.getEnemyName === 'woolfBig') {
-          woolfy.anims.play('alphaWoolfAsleepBackAnim')
-        }
+        woolfy.anims.play('woolfAsleepBackAnim')
       }
 
-      // Is the Enemy not inverted?
-      // Play front fall asleep if so
       if (this._invert === false) {
-        // Is the Enemy a baby woolf?
-        if (woolfy.getEnemyName === 'woolfBaby') {
-          woolfy.anims.play('babyWoolfAsleepFrontAnim')
-        }
-
-        // Is the Enemy a regular woolf?
-        if (woolfy.getEnemyName === 'woolfMedium') {
-          woolfy.anims.play('woolfAsleepFrontAnim')
-        }
-
-        // Is the Enemy an alpha woolf?
-        if (woolfy.getEnemyName === 'woolfBig') {
-          woolfy.anims.play('alphaWoolfAsleepFrontAnim')
-        }
+        woolfy.anims.play('woolfAsleepFrontAnim')
       }
     }
   }
@@ -1147,10 +1138,13 @@ class mainSheepScene extends Phaser.Scene {
       this.WoolfArray[i].setActive(false).setVisible(false)
       this.WoolfArray[i].body.enable = false
     }
-
-    this.BigWolfsAwakeCurrentAmount = 0
-    this.MediumWolfAwakeCurrentAmount = 0
-    this.BabyWolfsAwakeCurrentAmount = 0
+    this.house2.setAlpha(1)
+    this.tweens.add({
+      targets: this.house2,
+      alpha: { value: 0, duration: 150000, ease: 'Power1' },
+      yoyo: true,
+      loop: -1
+    })
     this._sheep_Velocity = 300
     this.player.x = 1441
     this.player.y = 1300
@@ -1300,7 +1294,7 @@ class mainSheepScene extends Phaser.Scene {
     myTree.enemyBehindTree = true
   }
 
-  depthCheckHouse () {
+  depthCheckHouse (house) {
     this.sheepFootPosYForHouse = this.player.body.position.y + this.PlayerHeight
     this.sheepFootPosXForHouse = this.player.body.position.x
     // if (this.sheepFootPosXForHouse > 1024)
@@ -1309,14 +1303,16 @@ class mainSheepScene extends Phaser.Scene {
     // } else {
     //   this.house.depth = this.player.depth + 1
     // }
-    if (((this.sheepFootPosXForHouse > (this.house.x + 298)) || (this.sheepFootPosXForHouse < (this.house.x - 223))) || ((this.sheepFootPosYForHouse > (this.house.y + 80)) || (this.sheepFootPosYForHouse < (this.house.y - 279)))) {
+    if (((this.sheepFootPosXForHouse > (house.x + 298)) || (this.sheepFootPosXForHouse < (house.x - 223))) || ((this.sheepFootPosYForHouse > (house.y + 80)) || (this.sheepFootPosYForHouse < (house.y - 279)))) {
       // not behind house
-      this.house.depth = this.player.depth - 1
-      this.house.setAlpha(1, 1, 1, 1)
+      house.depth = this.player.depth - 2
+      this.house2.depth = this.house.depth + 1
+      house.setAlpha(1, 1, 1, 1)
     } else {
       // behind house
-      this.house.depth = this.player.depth + 1
-      this.house.setAlpha(0.2, 0.2, 1, 1)
+      house.depth = this.player.depth + 2
+      this.house2.depth = this.house.depth + 1
+      house.setAlpha(0.2, 0.2, 1, 1)
     }
   }
 
