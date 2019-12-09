@@ -1096,11 +1096,11 @@ class mainSheepScene extends Phaser.Scene {
   changeWinLoseMusic (winLose) {
     if (winLose === true) { // has won
       this.music.stop()
-      this.music.play('winScreen', { volume: config.MUSIC_VOLUME })
+      this.music.play('WinScreen', { volume: config.MUSIC_VOLUME })
     }
     else { // has lost
       this.music.stop()
-      this.music.play('winScreen', { volume: config.MUSIC_VOLUME }) // make this lose screen music
+      this.music.play('LoseScreen', { volume: config.MUSIC_VOLUME }) // make this lose screen music
     }
   }
 
