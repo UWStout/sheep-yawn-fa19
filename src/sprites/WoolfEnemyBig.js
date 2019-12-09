@@ -18,9 +18,9 @@ class WoolfEnemyMohawk extends Enemy {
   setupAnimations () {
     // Create woolf left run anim.
     this.scene.anims.create({
-      key: 'woolfLeftRunAnim',
+      key: 'alphaWoolfLeftRunAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfLeftRun', { start: 0, end: 11 }
+        'alphaWoolfLeftRun', { start: 0, end: 11 }
       ),
       frameRate: 14,
       repeat: -1
@@ -28,9 +28,9 @@ class WoolfEnemyMohawk extends Enemy {
 
     // Create woolf right run anim.
     this.scene.anims.create({
-      key: 'woolfRightRunAnim',
+      key: 'alphaWoolfRightRunAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfRightRun', { start: 0, end: 11 }
+        'alphaWoolfRightRun', { start: 0, end: 11 }
       ),
       frameRate: 14,
       repeat: -1
@@ -38,9 +38,9 @@ class WoolfEnemyMohawk extends Enemy {
 
     // Create woolf left run anim.
     this.scene.anims.create({
-      key: 'woolfLeftIdleAnim',
+      key: 'alphaWoolfLeftIdleAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfLeftIdle', { start: 0, end: 7 }
+        'alphaWoolfLeftIdle', { start: 0, end: 7 }
       ),
       frameRate: 14,
       repeat: -1
@@ -48,12 +48,80 @@ class WoolfEnemyMohawk extends Enemy {
 
     // Create woolf right run anim.
     this.scene.anims.create({
-      key: 'woolfRightIdleAnim',
+      key: 'alphaWoolfRightIdleAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfRightIdle', { start: 0, end: 7 }
+        'alphaWoolfRightIdle', { start: 0, end: 7 }
       ),
       frameRate: 14,
       repeat: -1
+    })
+
+    // Create woolf front asleep anim.
+    this.scene.anims.create({
+      key: 'alphaWoolfAsleepFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'alphaWoolfAsleepFront', { start: 0, end: 14 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    this.on('animationcomplete-alphaWoolfAsleepFrontAnim', () => {
+      this.anims.play('alphaWoolfSleepLoopFrontAnim')
+    }, this)
+
+    // Create woolf back asleep anim.
+    this.scene.anims.create({
+      key: 'woolfAsleepBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'alphaWoolfAsleepBack', { start: 0, end: 14 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    this.on('animationcomplete-alphaWoolfAsleepBackAnim', () => {
+      this.anims.play('alphaWoolfSleepLoopBackAnim')
+    }, this)
+
+    // Create woolf front loop sleep anim.
+    this.scene.anims.create({
+      key: 'alphaWoolfSleepLoopFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'alphaWoolfSleepLoopFront', { start: 0, end: 8 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf back sleep anim.
+    this.scene.anims.create({
+      key: 'alphaWoolfSleepLoopBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'alphaWoolfSleepLoopBack', { start: 0, end: 8 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf front loop sleep anim.
+    this.scene.anims.create({
+      key: 'alphaWoolfAttackFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'alphaWoolfAttackFront', { start: 0, end: 15 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    // Create woolf back sleep anim.
+    this.scene.anims.create({
+      key: 'alphaWoolfAttackBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'alphaWoolfAttackBack', { start: 0, end: 15 }
+      ),
+      frameRate: 14,
+      repeat: 0
     })
   }
 }

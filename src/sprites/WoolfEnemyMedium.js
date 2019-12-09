@@ -103,6 +103,26 @@ class WoolfEnemyMedium extends Enemy {
       frameRate: 14,
       repeat: -1
     })
+
+    // Create woolf front loop sleep anim.
+    this.scene.anims.create({
+      key: 'woolfAttackFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfAttackFront', { start: 0, end: 15 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    // Create woolf back sleep anim.
+    this.scene.anims.create({
+      key: 'woolfAttackBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'woolfAttackBack', { start: 0, end: 15 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
   }
 
   die () {

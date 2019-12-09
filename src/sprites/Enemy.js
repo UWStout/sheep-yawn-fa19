@@ -31,10 +31,16 @@ class Enemy extends Phaser.GameObjects.Sprite {
     }
   }
 
+  // Gets Enemy's current health
   getHealth () {
     return this.genHealth
   }
-  
+
+  // Gets Enemy's name
+  getEnemyName () {
+    return this.name
+  }
+
   // Calls zzzDrop function when health is zero
   // Destroies enemy
   die () {

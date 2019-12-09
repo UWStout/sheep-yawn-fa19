@@ -18,9 +18,9 @@ class WoolfEnemyBaby extends Enemy {
   setupAnimations () {
     // Create woolf left run anim.
     this.scene.anims.create({
-      key: 'woolfLeftRunAnim',
+      key: 'babyWoolfLeftRunAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfLeftRun', { start: 0, end: 11 }
+        'babyWoolfLeftRun', { start: 0, end: 11 }
       ),
       frameRate: 14,
       repeat: -1
@@ -28,9 +28,9 @@ class WoolfEnemyBaby extends Enemy {
 
     // Create woolf right run anim.
     this.scene.anims.create({
-      key: 'woolfRightRunAnim',
+      key: 'babyWoolfRightRunAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfRightRun', { start: 0, end: 11 }
+        'babyWoolfRightRun', { start: 0, end: 11 }
       ),
       frameRate: 14,
       repeat: -1
@@ -38,9 +38,9 @@ class WoolfEnemyBaby extends Enemy {
 
     // Create woolf left run anim.
     this.scene.anims.create({
-      key: 'woolfLeftIdleAnim',
+      key: 'babyWoolfLeftIdleAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfLeftIdle', { start: 0, end: 7 }
+        'babyWoolfLeftIdle', { start: 0, end: 7 }
       ),
       frameRate: 14,
       repeat: -1
@@ -48,9 +48,57 @@ class WoolfEnemyBaby extends Enemy {
 
     // Create woolf right run anim.
     this.scene.anims.create({
-      key: 'woolfRightIdleAnim',
+      key: 'babyWoolfRightIdleAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'woolfRightIdle', { start: 0, end: 7 }
+        'babyWoolfRightIdle', { start: 0, end: 7 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf front asleep anim.
+    this.scene.anims.create({
+      key: 'babyWoolfAsleepFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'babyWoolfAsleepFront', { start: 0, end: 14 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    this.on('animationcomplete-babyWoolfAsleepFrontAnim', () => {
+      this.anims.play('babyWoolfSleepLoopFrontAnim')
+    }, this)
+
+    // Create woolf back asleep anim.
+    this.scene.anims.create({
+      key: 'babyWoolfAsleepBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'babyWoolfAsleepBack', { start: 0, end: 14 }
+      ),
+      frameRate: 14,
+      repeat: 0
+    })
+
+    this.on('animationcomplete-babyWoolfAsleepBackAnim', () => {
+      this.anims.play('babyWoolfSleepLoopBackAnim')
+    }, this)
+
+    // Create woolf front loop sleep anim.
+    this.scene.anims.create({
+      key: 'babyWoolfSleepLoopFrontAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'babyWoolfSleepLoopFront', { start: 0, end: 8 }
+      ),
+      frameRate: 14,
+      repeat: -1
+    })
+
+    // Create woolf back sleep anim.
+    this.scene.anims.create({
+      key: 'babyWoolfSleepLoopBackAnim',
+      frames: this.scene.anims.generateFrameNumbers(
+        'babyWoolfSleepLoopBack', { start: 0, end: 8 }
       ),
       frameRate: 14,
       repeat: -1

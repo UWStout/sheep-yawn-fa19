@@ -38,7 +38,7 @@ class HUD extends Phaser.Scene {
     this.BigWolfAwakeCurrentAmount = 0
     this.NightsCompleteAmount = 0
     // Holds count down's inital time 2:30 min in secs
-    this._default_time = 10 // 150
+    this._default_time = 150 // 10
     this.load.image('textboxBackground', 'assets/images/textbox.png')
     this.SmallWoolfHUD = this.add.image((1800 - 100), (50), 'SmallWoolfHUD').setAlpha(1)
     this.MedWoolfHUD = this.add.image((1800 - 100), (130), 'MedWoolfHUD').setAlpha(1)
@@ -124,7 +124,7 @@ class HUD extends Phaser.Scene {
     this.MenuButton.visible = false
 
     this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
-    this.dark.depth = this.timeText.depth + 1
+    this.dark.depth = this.timeText.depth - 1
     this.tweens.add({
       targets: this.dark,
       alpha: { value: 0, duration: 150000, ease: 'Power1' },
@@ -252,7 +252,7 @@ class HUD extends Phaser.Scene {
     this.ContinueButton.visible = false
     this.MenuButton.visible = false
     this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(0.9)
-    this.dark.depth = this.timeText.depth + 1
+    this.dark.depth = this.timeText.depth - 1
     this.tweens.add({
       targets: this.dark,
       alpha: { value: 0, duration: 150000, ease: 'Power1' },
