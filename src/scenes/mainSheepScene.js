@@ -447,8 +447,8 @@ class mainSheepScene extends Phaser.Scene {
     if (this.levelNumber === 1) {
       this.music.stop()
       this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
-      this.BabyWolfAmount = 1 //3
-      this.MediumWolfAmount = 0 //1
+      this.BabyWolfAmount = 1 // 3
+      this.MediumWolfAmount = 0 // 1
       this.BigWolfAmount = 0
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
@@ -1002,149 +1002,149 @@ class mainSheepScene extends Phaser.Scene {
     }
   }
 
-  // change move enemy different for babies
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
-    // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity)
-    myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))// hey
-    console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
-    for (let i = 0; i < this.WoolfArrayLength; i++) {
-      // Is enemy moving in negative (left) direction
-      if (myEnemy.body.velocity.x < 0) {
-        console.log('going left')
-        this.WoolfArray[i].flipX = false
+    if (myEnemy.isAwake === true) {
+      console.log('Type of Woolf: ' + myEnemy.getEnemyName())
+      console.log('This is a test')
+      myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60)) // hey
+      console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
+      for (let i = 0; i < this.WoolfArrayLength; i++) {
+        // Is enemy moving in negative (left) direction
+        if (myEnemy.body.velocity.x < 0) {
+          console.log('going left')
+          this.WoolfArray[i].flipX = false
 
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+          // Is the Enemy a baby woolf?
+          if (myEnemy.getEnemyName() === 'woolfBaby') {
+            // Is Enemy left run running
+            // Play anim if not so
+            console.log('testing right')
+            if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+              this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+            }
           }
-        }
 
-        // Is the Enemy a regular woolf?
-        if (myEnemy.getEnemyName === 'woolfMedium') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+          // Is the Enemy a regular woolf?
+          if (myEnemy.getEnemyName() === 'woolfMedium') {
+            // Is Enemy left run running
+            // Play anim if not so
+            if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+              this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+            }
           }
-        }
 
-        // Is the Enemy an alpha woolf?
-        if (myEnemy.getEnemyName === 'woolfBig') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+          // Is the Enemy an alpha woolf?
+          if (myEnemy.getEnemyName() === 'woolfBig') {
+            // Is Enemy left run running
+            // Play anim if not so
+            if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+              this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+            }
           }
-        }
-      } else {
-        console.log('going right')
-        this.WoolfArray[i].flipX = true
+        } else {
+          console.log('going right')
+          this.WoolfArray[i].flipX = true
 
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+          // Is the Enemy a baby woolf?
+          if (myEnemy.getEnemyName() === 'woolfBaby') {
+            // Is Enemy left run running
+            // Play anim if not so
+            console.log('testing right')
+            if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+              this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+            }
           }
-        }
 
-        // Is the Enemy a regular woolf?
-        if (myEnemy.getEnemyName === 'woolfMedium') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+          // Is the Enemy a regular woolf?
+          if (myEnemy.getEnemyName() === 'woolfMedium') {
+            // Is Enemy left run running
+            // Play anim if not so
+            if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+              this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+            }
           }
-        }
 
-        // Is the Enemy an alpha woolf?
-        if (myEnemy.getEnemyName === 'woolfBig') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+          // Is the Enemy an alpha woolf?
+          if (myEnemy.getEnemyName() === 'woolfBig') {
+            // Is Enemy left run running
+            // Play anim if not so
+            if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+              this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+            }
           }
-        }
 
-      if (myEnemy.body.velocity.y < 0) {
-        console.log('going down')
+          if (myEnemy.body.velocity.y < 0) {
+            console.log('going down')
 
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
-          }
-        }
+            // Is the Enemy a baby woolf?
+            if (myEnemy.getEnemyName() === 'woolfBaby') {
+              console.log('testing down')
+              // Is Enemy left run running
+              // Play anim if not so
+              if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+                this.WoolfArray[i].anims.play('babyWoolfLeftRunAnim')
+              }
+            }
 
-        // Is the Enemy a regular woolf?
-        if (myEnemy.getEnemyName === 'woolfMedium') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('woolfLeftRunAnim')
-          }
-        }
+            // Is the Enemy a regular woolf?
+            if (myEnemy.getEnemyName() === 'woolfMedium') {
+              // Is Enemy left run running
+              // Play anim if not so
+              if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+                this.WoolfArray[i].anims.play('woolfLeftRunAnim')
+              }
+            }
 
-        // Is the Enemy an alpha woolf?
-        if (myEnemy.getEnemyName === 'woolfBig') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
-          }
-        }
+            // Is the Enemy an alpha woolf?
+            if (myEnemy.getEnemyName() === 'woolfBig') {
+              // Is Enemy left run running
+              // Play anim if not so
+              if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+                this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
+              }
+            }
 
-        if (myEnemy.body.velocity.y > 0) {
-          // console.log('going up')
-          // this.WoolfArray[i].flipX = true
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
-            this.WoolfArray[i].anims.play('woolfRightRunAnim')
-          }
-        }
+            if (myEnemy.body.velocity.y > 0) {
+              console.log('going up')
 
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
-            this.WoolfArray[i].anims.play('babyWoolfRightRunAnim')
-          }
-        }
+              // Is the Enemy a baby woolf?
+              if (myEnemy.getEnemyName() === 'woolfBaby') {
+                // Is Enemy left run running
+                // Play anim if not so
+                console.log('testing up')
+                if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
+                  this.WoolfArray[i].anims.play('babyWoolfRightRunAnim')
+                }
+              }
 
-        // Is the Enemy a regular woolf?
-        if (myEnemy.getEnemyName === 'woolfMedium') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
-            this.WoolfArray[i].anims.play('alphaWoolfRightRunAnim')
-          }
-        }
+              // Is the Enemy a regular woolf?
+              if (myEnemy.getEnemyName() === 'woolfMedium') {
+                // Is Enemy left run running
+                // Play anim if not so
+                if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
+                  this.WoolfArray[i].anims.play('woolfRightRunAnim')
+                }
+              }
 
-        // Is the Enemy an alpha woolf?
-        if (myEnemy.getEnemyName === 'woolfBig') {
-          // Is Enemy left run running
-          // Play anim if not so
-          if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
-            this.WoolfArray[i].anims.play('alphaWoolfRightRunAnim')
+              // Is the Enemy an alpha woolf?
+              if (myEnemy.getEnemyName() === 'woolfBig') {
+                // Is Enemy left run running
+                // Play anim if not so
+                if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+                  this.WoolfArray[i].anims.play('alphaWoolfRightRunAnim')
+                }
+              }
+            }
           }
         }
       }
-      // this.WoolfArray[i].anims.play('woolfLeftIdleAnim')
-      // this.WoolfArray[i].anims.play('woolfRightIdleAnim')
     }
-    // myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), this._woolf_Velocity) // work on this to make woolf move
   }
 
   newLevel () {
     for (let i = 0; i < (this.WoolfArray.length); i++) {
-      this.WoolfArray[i].setActive(false).setVisible(false);
+      this.WoolfArray[i].setActive(false).setVisible(false)
       this.WoolfArray[i].body.enable = false
     }
 
@@ -1210,8 +1210,6 @@ class mainSheepScene extends Phaser.Scene {
         this.WoolfArray[i].body.allowGravity = false
         this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
       }
-    }
-    for (let i = 0; i < (this.WoolfArray.length); i++) {
     }
 
     for (let i = 0; i < this.WoolfArrayLength; i++) {
