@@ -38,7 +38,7 @@ class HUD extends Phaser.Scene {
     this.BigWolfAwakeCurrentAmount = 0
     this.NightsCompleteAmount = 0
     // Holds count down's inital time 2:30 min in secs
-    this._default_time = 150 // 10
+    this._default_time = 150 // 150
     this.load.image('textboxBackground', 'assets/images/textbox.png')
     this.SmallWoolfHUD = this.add.image((1800 - 100), (50), 'SmallWoolfHUD').setAlpha(1)
     this.MedWoolfHUD = this.add.image((1800 - 100), (130), 'MedWoolfHUD').setAlpha(1)
@@ -169,6 +169,10 @@ class HUD extends Phaser.Scene {
     this.MedWolfAwakeCurrentAmount = this.mySheepScene.getMedWoolfsAwakeCurrent()
     this.BigWolfAwakeCurrentAmount = this.mySheepScene.getBigWoolfsAwakeCurrent()
     this.NightsCompleteAmount = this.mySheepScene.getNightsComplete()
+    if ((this.BabyWolfAwakeCurrentAmount === this.SmallWolfCount) && (this.MedWolfAwakeCurrentAmount === this.MedWolfCount) && (this.BigWolfAwakeCurrentAmount === this.BigWolfCount)) {
+      console.log('should win')
+      this.DecideWinLose()
+    }
   }
 
   // Converts seconds to mins and secs
@@ -200,37 +204,7 @@ class HUD extends Phaser.Scene {
       this.MedWolfCountText.text = (this.MedWolfAwakeCurrentAmount + ' / ' + this.MedWolfCount)
       this.BigWolfCountText.text = (this.BigWolfAwakeCurrentAmount + ' / ' + this.BigWolfCount)
     } else { // Deletes countdown timer, creates, and shows game over text in the center of the screen
-      if (this.TimeOver === false) {
-        if (this.happenOnce === false) {
-          this.timeText.visible = false
-          this.SmallWolfCountText.visible = false
-          this.MedWolfCountText.visible = false
-          this.BigWolfCountText.visible = false
-          this.SmallWoolfHUD.visible = false
-          this.MedWoolfHUD.visible = false
-          this.BigWoolfHUD.visible = false
-          this.dark.visible = false
-          if ((this.BabyWolfAwakeCurrentAmount === this.SmallWolfCount) && (this.MedWolfAwakeCurrentAmount === this.MedWolfCount) && (this.BigWolfAwakeCurrentAmount === this.BigWolfCount)) {
-            this.HasWon = true
-            this.mySheepScene.changeWinLoseMusic(this.HasWon)
-            this.WinHUD.visible = true
-            this.NightsCompleteTextWon.visible = true
-            this.ContinueButton.visible = true
-          } else {
-            this.HasWon = false
-            this.mySheepScene.changeWinLoseMusic(this.HasWon)
-            this.LoseHUD.visible = true
-            this.NightsCompleteTextLost.visible = true
-            this.BabyWolfAsleepTotalText.visible = true
-            this.MedWolfAsleepTotalText.visible = true
-            this.BigWolfAsleepTotalText.visible = true
-            this.MenuButton.visible = true
-          }
-          // must press button to continue and reset level
-          this.RoosterSFX.play('RoosterCrow', { volume: this.RoosterSFX.volume }) // change this volume later so it can be adjusted
-          this.happenOnce = true
-        }
-      }
+      this.DecideWinLose()
     }
   }
 
@@ -238,9 +212,55 @@ class HUD extends Phaser.Scene {
     console.log('go to menu')
   }
 
+  DecideWinLose () {
+    if (this._default_time <= 0) {
+      if (this.happenOnce === false) {
+        this.happenOnce = true
+        this.timeText.visible = false
+        this.SmallWolfCountText.visible = false
+        this.MedWolfCountText.visible = false
+        this.BigWolfCountText.visible = false
+        this.SmallWoolfHUD.visible = false
+        this.MedWoolfHUD.visible = false
+        this.BigWoolfHUD.visible = false
+        this.dark.visible = false
+        this.RoosterSFX.play('RoosterCrow', { volume: this.RoosterSFX.volume }) // change this volume later so it can be adjusted
+        this.HasWon = false
+        this.mySheepScene.changeWinLoseMusic(this.HasWon)
+        this.LoseHUD.visible = true
+        this.mySheepScene.turnSFXOff()
+        this.NightsCompleteTextLost.visible = true
+        this.BabyWolfAsleepTotalText.visible = true
+        this.MedWolfAsleepTotalText.visible = true
+        this.BigWolfAsleepTotalText.visible = true
+        this.MenuButton.visible = true
+      }
+    } else if ((this.BabyWolfAwakeCurrentAmount === this.SmallWolfCount) && (this.MedWolfAwakeCurrentAmount === this.MedWolfCount) && (this.BigWolfAwakeCurrentAmount === this.BigWolfCount)) {
+      if (this.happenOnce === false) {
+        this.happenOnce = true
+        this.timeText.visible = false
+        this.SmallWolfCountText.visible = false
+        this.MedWolfCountText.visible = false
+        this.BigWolfCountText.visible = false
+        this.SmallWoolfHUD.visible = false
+        this.MedWoolfHUD.visible = false
+        this.BigWoolfHUD.visible = false
+        this.dark.visible = false
+        this.HasWon = true
+        this.mySheepScene.changeWinLoseMusic(this.HasWon)
+        this.WinHUD.visible = true
+        this.BabyWolfAwakeCurrentAmount = 0
+        this.mySheepScene.turnSFXOff()
+        this.NightsCompleteTextWon.visible = true
+        this.ContinueButton.visible = true
+      }
+    }
+  }
+
   resetLevel () {
-    // this.mySheepScene.winLose(this.hasWon)
-    this.TimeOver = true
+    this.happenOnce = false
+    this.mySheepScene.resetAfterWin()
+    this.TimeOver = false
     this._default_time = 150 // 150
     this.LoseHUD.visible = false
     this.WinHUD.visible = false
@@ -259,7 +279,6 @@ class HUD extends Phaser.Scene {
       yoyo: true,
       loop: -1
     })
-    this.TimeOver = true
     this.timeText.visible = true
     this.SmallWolfCountText.visible = true
     this.MedWolfCountText.visible = true
@@ -267,7 +286,6 @@ class HUD extends Phaser.Scene {
     this.SmallWoolfHUD.visible = true
     this.MedWoolfHUD.visible = true
     this.BigWoolfHUD.visible = true
-    // this.happenOnce = false // don't forget this later
   }
 }
 // Expose the class HUD to other files

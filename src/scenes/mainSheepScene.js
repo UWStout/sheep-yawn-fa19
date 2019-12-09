@@ -123,7 +123,7 @@ class mainSheepScene extends Phaser.Scene {
     this._woolf_Velocity = 30
     this._sheep_Velocity = 300
 
-    this.woolfZAmount = 0
+    this.sfxOn = true
 
     this.levelNumber = 1
 
@@ -161,6 +161,7 @@ class mainSheepScene extends Phaser.Scene {
     // Create sound sprite for game sound effects
     this.footstepsSFX = this.sound.addAudioSprite('sounds')
     this.yawnSFX = this.sound.addAudioSprite('sounds')
+    this.snoreSFX = this.sound.addAudioSprite('sounds')
 
     // Creation of sheep character (Main Character)
     this.player = new Woolhemina({
@@ -444,9 +445,10 @@ class mainSheepScene extends Phaser.Scene {
     this.BigWolfAmount = 0
 
     if (this.levelNumber === 1) {
+      this.music.stop()
       this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
-      this.BabyWolfAmount = 3
-      this.MediumWolfAmount = 1
+      this.BabyWolfAmount = 1 //3
+      this.MediumWolfAmount = 0 //1
       this.BigWolfAmount = 0
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
@@ -539,7 +541,7 @@ class mainSheepScene extends Phaser.Scene {
     // add house to scene and set physics
     this.add.existing(this.house)
     this.physics.add.existing(this.house)
-    this.house.setTexture('HouseClosedOffImage')
+    this.house.setTexture('HouseClosedOnImage')
     this.house.body.setSize(370, 100, 0)
     this.house.body.setOffset(140, 300)
     this.house.body.setImmovable(true)
@@ -662,7 +664,9 @@ class mainSheepScene extends Phaser.Scene {
       velocity.x = 0
 
       if (!this.footstepsSFX.isPlaying) {
-        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        if (this.sfxOn === true) {
+          this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        }
       }
 
       // Is the sprite inverted?
@@ -683,7 +687,9 @@ class mainSheepScene extends Phaser.Scene {
       velocity.x = 0
 
       if (!this.footstepsSFX.isPlaying) {
-        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        if (this.sfxOn === true) {
+          this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        }
       }
 
       // Is the sprite inverted?
@@ -704,7 +710,9 @@ class mainSheepScene extends Phaser.Scene {
       velocity.y = 0
 
       if (!this.footstepsSFX.isPlaying) {
-        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        if (this.sfxOn === true) {
+          this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        }
       }
 
       // Flips player character along the x-axis
@@ -723,7 +731,9 @@ class mainSheepScene extends Phaser.Scene {
       velocity.y = 0
 
       if (!this.footstepsSFX.isPlaying) {
-        this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        if (this.sfxOn === true) {
+          this.footstepsSFX.play('running', { volume: this.footstepsSFX.volume })
+        }
       }
 
       // Flips player character along the x-axis
@@ -835,8 +845,9 @@ class mainSheepScene extends Phaser.Scene {
     }
 
     this.yawnSFX.stop()
-    this.yawnSFX.play('YawnBlast', { volume: this.yawnSFX.volume })
-    console.log('yawning')
+    if (this.sfxOn === true) {
+      this.yawnSFX.play('YawnBlast', { volume: this.yawnSFX.volume })
+    }
 
     // Add yawnblast image to scene
     this.add.existing(this.yawnBlastCircle)
@@ -906,7 +917,6 @@ class mainSheepScene extends Phaser.Scene {
     } else { // YawnCircle full? Reduce health by 1 if so
       woolfy.takeDamage(1)
     }
-    console.log('look at wolf health ' + woolfy.getHealth())
     // Has the Enemy lost all their health?
     // Play death anim.s if so
     if (woolfy.getHealth() === 0) {
@@ -970,7 +980,6 @@ class mainSheepScene extends Phaser.Scene {
 
     // Sets up holder for zzz sprites
     this.zzzGroup = this.physics.add.group({ key: 'zzzImage', frameQuantity: amountOfZs })
-
     // Places Zzz's on ellipse path
     Phaser.Actions.PlaceOnEllipse(this.zzzGroup.getChildren(), this.enemyEllipse)
 
@@ -985,11 +994,9 @@ class mainSheepScene extends Phaser.Scene {
     if (this.zzzGroup) {
       // Delete Zzz based on which object its hiding in
       if (obj1 === this.player) {
-        console.log('a')
         obj2.destroy()
-        this._yawn_size_check += 0.05 // test size
+        this._yawn_size_check += 0.02 // test size
       } else {
-        console.log('b')
         obj1.destroy()
       }
     }
@@ -1063,7 +1070,6 @@ class mainSheepScene extends Phaser.Scene {
             this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
           }
         }
-      }
 
       if (myEnemy.body.velocity.y < 0) {
         console.log('going down')
@@ -1094,13 +1100,13 @@ class mainSheepScene extends Phaser.Scene {
             this.WoolfArray[i].anims.play('alphaWoolfLeftRunAnim')
           }
         }
-      }
 
-      if (myEnemy.body.velocity.y > 0) {
-        console.log('going up')
-        // this.WoolfArray[i].flipX = true
-        if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
-          this.WoolfArray[i].anims.play('woolfRightRunAnim')
+        if (myEnemy.body.velocity.y > 0) {
+          // console.log('going up')
+          // this.WoolfArray[i].flipX = true
+          if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
+            this.WoolfArray[i].anims.play('woolfRightRunAnim')
+          }
         }
 
         // Is the Enemy a baby woolf?
@@ -1137,9 +1143,21 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   newLevel () {
+    for (let i = 0; i < (this.WoolfArray.length); i++) {
+      this.WoolfArray[i].setActive(false).setVisible(false);
+      this.WoolfArray[i].body.enable = false
+    }
+
+    this.BigWolfsAwakeCurrentAmount = 0
+    this.MediumWolfAwakeCurrentAmount = 0
+    this.BabyWolfsAwakeCurrentAmount = 0
+    this._sheep_Velocity = 300
+    this.player.x = 1441
+    this.player.y = 1300
+    this.levelNumber += 1
+    this.sfxOn = true
+    this.music.stop()
     this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
-    this.BabyWoolfArray = []
-    this.WoolfArray = []
     this.RandomWolfChoice = (Math.floor(Math.random() * (3 - 0)) + 0)
     if (this.RandomWolfChoice === 0) {
       this.BabyWolfAmount += 3
@@ -1148,7 +1166,7 @@ class mainSheepScene extends Phaser.Scene {
     } else if (this.RandomWolfChoice === 2) {
       this.BigWolfAmount += 1
     }
-    for (let i = 0; i < (this.BabyWolfAmount + 1); i++) {
+    for (let i = 0; i < (this.BabyWolfAmount); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
@@ -1159,7 +1177,7 @@ class mainSheepScene extends Phaser.Scene {
       this.WoolfArray.push(this['WoolfBaby' + i])
       this.BabyWoolfArray.push(this['WoolfBaby' + i])
     }
-    for (let i = 0; i < (this.MediumWolfAmount + 1); i++) {
+    for (let i = 0; i < (this.MediumWolfAmount); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
@@ -1169,7 +1187,7 @@ class mainSheepScene extends Phaser.Scene {
       this['WoolfMedium' + i] = new WoolfEnemyMedium({ scene: this, x: this.xpos, y: this.ypos, health: 3, zzzAmount: 10 })
       this.WoolfArray.push(this['WoolfMedium' + i])
     }
-    for (let i = 0; i < (this.BigWolfAmount + 1); i++) {
+    for (let i = 0; i < (this.BigWolfAmount); i++) {
       this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
       while (((this.xpos > 1024 && this.xpos < 1792) && (this.ypos > 256 && this.ypos < 1536)) || ((this.xpos > 256 && this.xpos < 1280) && (this.ypos > 1792 && this.ypos < 2560))) {
@@ -1181,6 +1199,24 @@ class mainSheepScene extends Phaser.Scene {
     }
     this.WoolfArrayLength = this.WoolfArray.length
     this.BabyWoolfArrayLength = this.BabyWoolfArray.length
+
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      // Adds woolf enemy to scene and set up physics
+      if (this.WoolfArray[i].isAwake === true) {
+        this.add.existing(this.WoolfArray[i])
+        this.physics.add.existing(this.WoolfArray[i])
+        this.WoolfArray[i].body.setSize(250, 180, true)
+        this.WoolfArray[i].body.setImmovable(true)
+        this.WoolfArray[i].body.allowGravity = false
+        this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
+      }
+    }
+    for (let i = 0; i < (this.WoolfArray.length); i++) {
+    }
+
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+    }
   }
 
   setSFXVolume (newVolume) {
@@ -1228,7 +1264,6 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   updateScore (wolfenemy) {
-    console.log('look ' + wolfenemy.name)
     if (wolfenemy.name === 'woolfBaby') {
       this.BabyWolfAsleepTotalAmount += 1
       this.BabyWolfsAwakeCurrentAmount += 1
@@ -1253,8 +1288,14 @@ class mainSheepScene extends Phaser.Scene {
     }
   }
 
-  winLose () {
-    console.log('win or lose')
+  turnSFXOff () {
+    this.sfxOn = false
+  }
+
+  resetAfterWin () {
+    this._sheep_Velocity = 0
+    this.sfxOn = false
+    this.newLevel()
   }
 
   depthCheckEnemyTree (myTree) { // doesn't work, find a reliable way to see if enemy is actually behind the tree
