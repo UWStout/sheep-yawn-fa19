@@ -948,10 +948,12 @@ class mainSheepScene extends Phaser.Scene {
       woolfy.body.enable = false
       if (this._invert === true) {
         woolfy.anims.play('alphaWoolfAsleepBackAnim')
+        // woolfy.anims.play('alphaWoolfRightRunAnim')
       }
 
       if (this._invert === false) {
         woolfy.anims.play('alphaWoolfAsleepFrontAnim')
+        // woolfy.anims.play('alphaWoolfLeftRunAnim')
       }
     }
   }
