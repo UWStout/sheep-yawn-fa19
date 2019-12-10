@@ -18,9 +18,9 @@ class WoolfEnemyMedium extends Enemy {
   setupAnimations () {
     // Create woolf left run anim.
     this.scene.anims.create({
-      key: 'WoolfLeftRunAnim',
+      key: 'woolfLeftRunAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfLeftRun', { start: 0, end: 11 }
+        'woolfLeftRun', { start: 0, end: 11 }
       ),
       frameRate: 14,
       repeat: -1
@@ -28,9 +28,9 @@ class WoolfEnemyMedium extends Enemy {
 
     // Create woolf right run anim.
     this.scene.anims.create({
-      key: 'WoolfRightRunAnim',
+      key: 'woolfRightRunAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfRightRun', { start: 0, end: 11 }
+        'woolfRightRun', { start: 0, end: 11 }
       ),
       frameRate: 14,
       repeat: -1
@@ -38,9 +38,9 @@ class WoolfEnemyMedium extends Enemy {
 
     // Create woolf left run anim.
     this.scene.anims.create({
-      key: 'WoolfLeftIdleAnim',
+      key: 'woolfLeftIdleAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfLeftIdle', { start: 0, end: 7 }
+        'woolfLeftIdle', { start: 0, end: 7 }
       ),
       frameRate: 14,
       repeat: -1
@@ -48,9 +48,9 @@ class WoolfEnemyMedium extends Enemy {
 
     // Create woolf right run anim.
     this.scene.anims.create({
-      key: 'WoolfRightIdleAnim',
+      key: 'woolfRightIdleAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfRightIdle', { start: 0, end: 7 }
+        'woolfRightIdle', { start: 0, end: 7 }
       ),
       frameRate: 14,
       repeat: -1
@@ -58,37 +58,37 @@ class WoolfEnemyMedium extends Enemy {
 
     // Create woolf front asleep anim.
     this.scene.anims.create({
-      key: 'WoolfAsleepFrontAnim',
+      key: 'woolfAsleepFrontAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfAsleepFront', { start: 0, end: 14 }
+        'woolfAsleepFront', { start: 0, end: 14 }
       ),
       frameRate: 14,
       repeat: 0
     })
 
-    this.on('animationcomplete-WoolfAsleepFrontAnim', () => {
-      this.anims.play('WoolfSleepLoopFrontAnim')
+    this.on('animationcomplete-woolfAsleepFrontAnim', () => {
+      this.anims.play('woolfSleepLoopFrontAnim')
     }, this)
 
     // Create woolf back asleep anim.
     this.scene.anims.create({
-      key: 'WoolfAsleepBackAnim',
+      key: 'woolfAsleepBackAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfAsleepBack', { start: 0, end: 14 }
+        'woolfAsleepBack', { start: 0, end: 14 }
       ),
       frameRate: 14,
       repeat: 0
     })
 
-    this.on('animationcomplete-WoolfAsleepBackAnim', () => {
-      this.anims.play('WoolfSleepLoopBackAnim')
+    this.on('animationcomplete-woolfAsleepBackAnim', () => {
+      this.anims.play('woolfSleepLoopBackAnim')
     }, this)
 
     // Create woolf front loop sleep anim.
     this.scene.anims.create({
-      key: 'WoolfSleepLoopFrontAnim',
+      key: 'woolfSleepLoopFrontAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfSleepLoopFront', { start: 0, end: 8 }
+        'woolfSleepLoopFront', { start: 0, end: 8 }
       ),
       frameRate: 14,
       repeat: -1
@@ -96,9 +96,9 @@ class WoolfEnemyMedium extends Enemy {
 
     // Create woolf back sleep anim.
     this.scene.anims.create({
-      key: 'WoolfSleepLoopBackAnim',
+      key: 'woolfSleepLoopBackAnim',
       frames: this.scene.anims.generateFrameNumbers(
-        'WoolfSleepLoopBack', { start: 0, end: 8 }
+        'woolfSleepLoopBack', { start: 0, end: 8 }
       ),
       frameRate: 14,
       repeat: -1

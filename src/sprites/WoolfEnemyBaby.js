@@ -62,7 +62,7 @@ class WoolfEnemyBaby extends Enemy {
       frames: this.scene.anims.generateFrameNumbers(
         'babyWoolfAsleepFront', { start: 0, end: 14 }
       ),
-      frameRate: 14,
+      frameRate: 10,
       repeat: 0
     })
 
@@ -76,7 +76,7 @@ class WoolfEnemyBaby extends Enemy {
       frames: this.scene.anims.generateFrameNumbers(
         'babyWoolfAsleepBack', { start: 0, end: 14 }
       ),
-      frameRate: 14,
+      frameRate: 10,
       repeat: 0
     })
 
@@ -90,7 +90,7 @@ class WoolfEnemyBaby extends Enemy {
       frames: this.scene.anims.generateFrameNumbers(
         'babyWoolfSleepLoopFront', { start: 0, end: 8 }
       ),
-      frameRate: 14,
+      frameRate: 10,
       repeat: -1
     })
 
@@ -100,7 +100,7 @@ class WoolfEnemyBaby extends Enemy {
       frames: this.scene.anims.generateFrameNumbers(
         'babyWoolfSleepLoopBack', { start: 0, end: 8 }
       ),
-      frameRate: 14,
+      frameRate: 10,
       repeat: -1
     })
   }

@@ -80,14 +80,14 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('KnockbackLeftFront', 'assets/images/painted_woolhemina_surprised_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('KnockbackRightBack', 'assets/images/painted_woolhemina_surprised_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
     this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
-    // this.load.spritesheet('babyWoolfLeftRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
-    // this.load.spritesheet('babyWoolfRightRun', '', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
+    this.load.spritesheet('babyWoolfLeftRun', 'assets/images/painted_babyWoolf_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
+    this.load.spritesheet('babyWoolfRightRun', 'assets/images/painted_babyWoolf_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
     this.load.spritesheet('babyWoolfLeftIdle', 'assets/images/painted_babyWoolf_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
     this.load.spritesheet('babyWoolfRightIdle', 'assets/images/painted_babyWoolf_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
-    // this.load.spritesheet('babyWoolfAsleepFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    // this.load.spritesheet('babyWoolfAsleepBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    // this.load.spritesheet('babyWoolfSleepLoopFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    // this.load.spritesheet('babyWoolfSleepLoopBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
+    this.load.spritesheet('babyWoolfAsleepFront', 'assets/images/painted_babyWoolf_fallAsleep_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
+    this.load.spritesheet('babyWoolfAsleepBack', 'assets/images/painted_babyWoolf_fallAsleep_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
+    this.load.spritesheet('babyWoolfSleepLoopFront', 'assets/images/painted_babyWoolf_fallAsleep_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
+    this.load.spritesheet('babyWoolfSleepLoopBack', 'assets/images/painted_babyWoolf_fallAsleep_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
     this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfRightRun', 'assets/images/painted_woolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('woolfLeftIdle', 'assets/images/painted_woolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
@@ -96,14 +96,14 @@ class mainSheepScene extends Phaser.Scene {
     this.load.spritesheet('woolfAsleepBack', 'assets/images/painted_woolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
     this.load.spritesheet('woolfSleepLoopFront', 'assets/images/painted_woolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('woolfSleepLoopBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    // this.load.spritesheet('woolfAttackFront', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
-    // this.load.spritesheet('woolfAttackBack', '', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    this.load.spritesheet('woolfAttackFront', 'assets/images/painted_woolf_armSlam_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
+    this.load.spritesheet('woolfAttackBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
     this.load.spritesheet('alphaWoolfLeftRun', 'assets/images/painted_altWoolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('alphaWoolfRightRun', 'assets/images/painted_altWoolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
     this.load.spritesheet('alphaWoolfLeftIdle', 'assets/images/painted_altWoolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
     this.load.spritesheet('alphaWoolfRightIdle', 'assets/images/painted_altWoolf_idle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
     this.load.spritesheet('alphaWoolfAsleepFront', 'assets/images/painted_altWoolf_fallAsleep_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    this.load.spritesheet('alphaWoolfAsleepBack', 'assets/images/painted_altWoolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
+    this.load.spritesheet('alphaWoolfAsleepBack', 'assets/images\painted_altWoolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
     this.load.spritesheet('alphaWoolfSleepLoopFront', 'assets/images/painted_altWoolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('alphaWoolfSleepLoopBack', 'assets/images/painted_altWoolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
     this.load.spritesheet('alphaWoolfAttackFront', 'assets/images/painted_altWoolf_partyHowl_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
@@ -947,11 +947,11 @@ class mainSheepScene extends Phaser.Scene {
       this.updateScore(woolfy)
       woolfy.body.enable = false
       if (this._invert === true) {
-        woolfy.anims.play('woolfAsleepBackAnim')
+        woolfy.anims.play('alphaWoolfAsleepBackAnim')
       }
 
       if (this._invert === false) {
-        woolfy.anims.play('woolfAsleepFrontAnim')
+        woolfy.anims.play('alphaWoolfAsleepFrontAnim')
       }
     }
   }
