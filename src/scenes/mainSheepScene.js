@@ -186,11 +186,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) {
         this['Tile' + i].setTexture('CornerMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       } else {
         this['Tile' + i].setTexture('TopMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       }
     }
 
@@ -201,11 +201,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) {
         this['Tile' + i].setTexture('BelowCornerMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('topWaterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -225,11 +225,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -249,11 +249,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -273,11 +273,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -297,11 +297,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -321,11 +321,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -345,11 +345,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -369,11 +369,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -393,11 +393,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -417,11 +417,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 10) { // make this a river
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       } else {
         this['Tile' + i].setTexture('bottomFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i]) // fence
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       }
     }
 
@@ -656,7 +656,7 @@ class mainSheepScene extends Phaser.Scene {
       } else if (this.WoolfArray[i].getEnemyName() === 'woolfBig') {
         this.WoolfArray[i].body.setSize(250, 180, true)
       }
-      for (let k = 0; k < this.AllBorderTilesArray; k++) {
+      for (let k = 0; k < this.AllBorderTilesArray.length; k++) {
         this.physics.add.collider(this.WoolfArray[i], this.AllBorderTilesArray[k])
       }
       this.WoolfArray[i].body.setImmovable(true)
