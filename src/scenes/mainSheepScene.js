@@ -30,6 +30,7 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
+    this.load.image('CursorImage', 'assets/images/MouseCursor.png')
     this.load.image('BackButton', 'assets/images/BackButton.png')
     this.load.image('BackPressedButton', 'assets/images/BackPressedButton.png')
     this.load.image('ContinueButton', 'assets/images/Continue.png')
@@ -154,6 +155,7 @@ class mainSheepScene extends Phaser.Scene {
   // Creates objects and other items used within the scene
   // Not immediately added to scene, unless add/addExisting Is stated
   create () {
+    this.input.setDefaultCursor('url(assets/images/MouseCursor.png), pointer')
     // Start playing the background music
     this.music = this.sound.addAudioSprite('sounds')
     // this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
@@ -460,8 +462,8 @@ class mainSheepScene extends Phaser.Scene {
         yoyo: true,
         loop: -1
       })
-      this.BabyWolfAmount = 1 //3
-      this.MediumWolfAmount = 1 //1
+      this.BabyWolfAmount = 1 // 3
+      this.MediumWolfAmount = 1 // 1
       this.BigWolfAmount = 1
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
@@ -630,9 +632,9 @@ class mainSheepScene extends Phaser.Scene {
     this.player.anims.play('idleFrontAnim')
 
     // timed event to make enemy AI move
-    // for (let i = 0; i < this.WoolfArrayLength; i++) {
-    //   this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
-    // }
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+    }
 
     // Setup the key objects
     this.setupKeyboard()
@@ -992,7 +994,7 @@ class mainSheepScene extends Phaser.Scene {
       // Delete Zzz based on which object its hiding in
       if (obj1 === this.player) {
         obj2.destroy()
-        this._yawn_size_check += 0.02 // test size
+        this._yawn_size_check += 0.05 // test size
       } else {
         obj1.destroy()
       }
@@ -1004,7 +1006,7 @@ class mainSheepScene extends Phaser.Scene {
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
     if (myEnemy.isAwake === true) {
-      myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60)) // hey
+      myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60)) 
       console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
       for (let i = 0; i < this.WoolfArrayLength; i++) {
         // Is enemy moving in negative (left) direction
@@ -1012,7 +1014,7 @@ class mainSheepScene extends Phaser.Scene {
           console.log('going left')
           this.WoolfArray[i].flipX = false
           // Is the Enemy a baby woolf?
-          if (myEnemy.getEnemyName === 'woolfBaby') {
+          if (myEnemy.getEnemyName() === 'woolfBaby') {
           // Is Enemy left run running
           // Play anim if not so
             if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
@@ -1020,7 +1022,7 @@ class mainSheepScene extends Phaser.Scene {
             }
           }
           // Is the Enemy a regular woolf?
-          if (myEnemy.getEnemyName === 'woolfMedium') {
+          if (myEnemy.getEnemyName() === 'woolfMedium') {
           // Is Enemy left run running
           // Play anim if not so
             if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
@@ -1028,7 +1030,7 @@ class mainSheepScene extends Phaser.Scene {
             }
           }
           // Is the Enemy an alpha woolf?
-          if (myEnemy.getEnemyName === 'woolfBig') {
+          if (myEnemy.getEnemyName() === 'woolfBig') {
             // Is Enemy left run running
             // Play anim if not so
             if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
@@ -1039,7 +1041,7 @@ class mainSheepScene extends Phaser.Scene {
           console.log('going right')
           this.WoolfArray[i].flipX = true
           // Is the Enemy a baby woolf?
-          if (myEnemy.getEnemyName === 'woolfBaby') {
+          if (myEnemy.getEnemyName() === 'woolfBaby') {
           // Is Enemy left run running
           // Play anim if not so
             if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
@@ -1047,7 +1049,7 @@ class mainSheepScene extends Phaser.Scene {
             }
           }
           // Is the Enemy a regular woolf?
-          if (myEnemy.getEnemyName === 'woolfMedium') {
+          if (myEnemy.getEnemyName() === 'woolfMedium') {
             // Is Enemy left run running
             // Play anim if not so
             if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
@@ -1055,7 +1057,7 @@ class mainSheepScene extends Phaser.Scene {
             }
           }
           // Is the Enemy an alpha woolf?
-          if (myEnemy.getEnemyName === 'woolfBig') {
+          if (myEnemy.getEnemyName() === 'woolfBig') {
             // Is Enemy left run running
             // Play anim if not so
             if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
@@ -1065,7 +1067,7 @@ class mainSheepScene extends Phaser.Scene {
           if (myEnemy.body.velocity.y < 0) {
             console.log('going down')
             // Is the Enemy a baby woolf?
-            if (myEnemy.getEnemyName === 'woolfBaby') {
+            if (myEnemy.getEnemyName() === 'woolfBaby') {
             // Is Enemy left run running
             // Play anim if not so
               if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
@@ -1073,7 +1075,7 @@ class mainSheepScene extends Phaser.Scene {
               }
             }
             // Is the Enemy a regular woolf?
-            if (myEnemy.getEnemyName === 'woolfMedium') {
+            if (myEnemy.getEnemyName() === 'woolfMedium') {
             // Is Enemy left run running
             // Play anim if not so
               if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfLeftRunAnim') {
@@ -1081,7 +1083,7 @@ class mainSheepScene extends Phaser.Scene {
               }
             }
             // Is the Enemy an alpha woolf?
-            if (myEnemy.getEnemyName === 'woolfBig') {
+            if (myEnemy.getEnemyName() === 'woolfBig') {
             // Is Enemy left run running
             // Play anim if not so
               if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
@@ -1096,7 +1098,7 @@ class mainSheepScene extends Phaser.Scene {
               }
             }
             // Is the Enemy a baby woolf?
-            if (myEnemy.getEnemyName === 'woolfBaby') {
+            if (myEnemy.getEnemyName() === 'woolfBaby') {
             // Is Enemy left run running
             // Play anim if not so
               if (this.WoolfArray[i].anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
@@ -1104,7 +1106,7 @@ class mainSheepScene extends Phaser.Scene {
               }
             }
             // Is the Enemy a regular woolf?
-            if (myEnemy.getEnemyName === 'woolfMedium') {
+            if (myEnemy.getEnemyName() === 'woolfMedium') {
             // Is Enemy left run running
             // Play anim if not so
               if (this.WoolfArray[i].anims.getCurrentKey() !== 'woolfRightRunAnim') {
@@ -1112,7 +1114,7 @@ class mainSheepScene extends Phaser.Scene {
               }
             }
             // Is the Enemy an alpha woolf?
-            if (myEnemy.getEnemyName === 'woolfBig') {
+            if (myEnemy.getEnemyName() === 'woolfBig') {
             // Is Enemy left run running
             // Play anim if not so
               if (this.WoolfArray[i].anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
