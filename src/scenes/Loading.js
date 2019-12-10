@@ -21,7 +21,7 @@ class Loading extends Phaser.Scene {
   preload () {
     // Add the logo to the screen and center it
     // this.load.sprite
-    this.logo = this.add.sprite(centerX(this), centerY(this) - 100, 'assets/images/LoadingWoolhemina.png')
+    this.logo = this.add.sprite(centerX(this), centerY(this) - 100, 'logo')
     this.logo.setScale(0.5, 0.5)
     centerGameObjects([this.logo])
 
@@ -33,16 +33,16 @@ class Loading extends Phaser.Scene {
     this.load.image('CursorImage', 'assets/images/MouseCursor.png')
     this.load.image('MenuButton', 'assets/images/MenuButton.png')
     this.load.image('MenuPressedButton', 'assets/images/MenuPressed.png')
-    this.load.image('BackButton', 'assets/images/BackButton.png')
-    this.load.image('BackPressedButton', 'assets/images/BackPressed.png')
+    // this.load.image('BackButton', 'assets/images/BackButton.png')
+    // this.load.image('BackPressedButton', 'assets/images/BackPressed.png')
     this.load.image('ContinueButton', 'assets/images/Continue.png')
     this.load.image('ContinuePressedButton', 'assets/images/ContinuePressed.png')
-    this.load.image('CreditsButton', 'assets/images/CreditsButton.png')
-    this.load.image('CreditsPressedButton', 'assets/images/CreditsPressedButton.png')
+    // this.load.image('CreditsButton', 'assets/images/CreditsButton.png')
+    // this.load.image('CreditsPressedButton', 'assets/images/CreditsPressedButton.png')
     this.load.image('ExitButton', 'assets/images/ExitButton.png')
     this.load.image('ExitPressedButton', 'assets/images/ExitPressedButton.png')
-    this.load.image('PlayButton', 'assets/images/PlayButton.png')
-    this.load.image('PlayPressedButton', 'assets/images/PlayPressedButton.png')
+    // this.load.image('PlayButton', 'assets/images/PlayButton.png')
+    // this.load.image('PlayPressedButton', 'assets/images/PlayPressedButton.png')
     this.load.image('darkBackground', 'assets/images/DarkBackground.png')
     this.load.image('win', 'assets/images/WinScreen.png')
     this.load.image('lose', 'assets/images/LoseScreen.png')
@@ -120,9 +120,9 @@ class Loading extends Phaser.Scene {
     ])
 
     // Load a bunch of junk to slow down the preloader
-    for (let i = 0; i < 500; i++) {
-      this.load.image(`logo${i}`, './assets/images/assets/images/LoadingWoolhemina.png.png')
-    }
+    // for (let i = 0; i < 500; i++) {
+    this.load.image('logo', 'assets/images/LoadingWoolhemina.png')
+    // }
   }
 
   setupProgressBar (yOffset) {
@@ -197,7 +197,7 @@ class Loading extends Phaser.Scene {
 
   // Called repeatedly after pre-load finishes and after 'create' has run
   update () {
-    this.scene.start('SheepMove')
+    // this.scene.start('SheepMove')
   }
 }
 
