@@ -12,7 +12,5 @@ function fix {
 }
 
 # Replace non human readable names with proper ones
-# fix "|Berrier|" "|Seth Berrier|"
-# fix "|waterse1080|" "|Eliot Waters|"
-# fix "|CameronPyfferoen|" "|Cameron Pyfferoen|"
-# fix "|Nguyenh0417|" "|Hunter Nguyen|"
+fix "|Aumann-Weyenberg|" "|Kendra Aumann-Weyenberg|"
+fix "|Smith|" "|Abby Smith|"
