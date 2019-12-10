@@ -966,12 +966,24 @@ class mainSheepScene extends Phaser.Scene {
       woolfy.body.enable = false
       if (this._invert === true) {
         console.log('anim of back')
-        woolfy.anims.play('babyWoolfAsleepBackAnim')
+        if (woolfy.getEnemyName() === 'woolfBaby') {
+          woolfy.anims.play('babyWoolfAsleepFrontAnim')
+        } else if (woolfy.getEnemyName() === 'woolfMedium') {
+          woolfy.anims.play('woolfAsleepFrontAnim')
+        } else if (woolfy.getEnemyName() === 'woolfBig') {
+          woolfy.anims.play('alphaWoolfAsleepFrontAnim')
+        }
       }
 
       if (this._invert === false) {
         console.log('anim of front')
-        woolfy.anims.play('babyWoolfAsleepFrontAnim')
+        if (woolfy.getEnemyName() === 'woolfBaby') {
+          woolfy.anims.play('babyWoolfAsleepBackAnim')
+        } else if (woolfy.getEnemyName() === 'woolfMedium') {
+          woolfy.anims.play('woolfAsleepBackAnim')
+        } else if (woolfy.getEnemyName() === 'woolfBig') {
+          woolfy.anims.play('alphaWoolfAsleepBackAnim')
+        }
       }
     }
   }

@@ -12,6 +12,7 @@ import OptionsPressed from '..//sprites/OptionsPressed'
 import OptionsUnpressed from '..//sprites/OptionsUnpressed'
 import CreditsPressed from '..//sprites/CreditsPressed'
 import CreditsUnpressed from '..//sprites/CreditsUnpressed'
+import CreditsPanel from '..//sprites/CreditsPanel'
 
 class MainMenu extends Phaser.Scene {
   // Initialize the stage and any simple settings
@@ -32,12 +33,13 @@ class MainMenu extends Phaser.Scene {
   // Load all data needed for this scene
   preload () {
     this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
-    this.load.image('playPressed', 'assets/images/Play_pressed.png')
-    this.load.image('playUnpressed', 'assets/images/Play_unpressed.png')
-    // this.load.image('optionsPressed', 'assets/images/Options_pressed.png')
-    // this.load.image('optionsUnpressed', 'assets/images/Options_unpressed.png')
-    this.load.image('creditsPressed', 'assets/images/Credits_pressed.png')
-    this.load.image('creditsUnpressed', 'assets/images/Credits_unpressed.png')
+    this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
+    this.load.image('playUnpressed', 'assets/images/PlayButton.png')
+    this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
+    this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
+    this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
+    this.load.image('backPressed', 'assets/images/BackPressedButton.png')
+    this.load.image('backUnpressed', 'assets/images/BackButton.png')
   }
 
   // Creates objects and other items used within the scene
@@ -49,46 +51,71 @@ class MainMenu extends Phaser.Scene {
       y: this.sys.game.config.height / 2
     })
 
-    // Creation of Play Unpressed button
-    this.unPlay = new PlayUnpressed({
+    // Creation of credits panel
+    this.credPanel = new CreditsPanel({
       scene: this,
-      x: 1610,
-      y: 130
+      x: this.sys.game.config.width / 2,
+      y: this.sys.game.config.height / 2
     })
-
-    // Creation of Play pressed button
-    this.play = new PlayPressed({
-      scene: this,
-      x: 1610,
-      y: 130
-    })
-
-    // Creation of credits button
-    this.unCredits = new CreditsUnpressed({
-      scene: this,
-      x: 1610,
-      y: 240
-    })
-
-    // Set up for button interaction
-    this.unPlay.setInteractive()
 
     // Add items to scene
     this.add.existing(this.mainMenuTitleImage)
     this.mainMenuTitleImage.setOrigin(0.5, 0.5)
-    this.add.existing(this.unPlay)
-    this.add.existing(this.play)
-    this.play.setActive = false
-    this.play.setVisible = false
-    this.add.existing(this.unCredits)
-    console.log(this.mainMenuTitleImage)
 
-    // Set up of what button will do
-    // this.unPlay.on('pointerover', this.pointerHover() {
-    //   this.unPlay.setActive = false
-    //   this.unPlay.setVisible = false
-    //   this.play.setActive = true
-    //   this.play.setVisible = true }, this)
+    // Set up for button interaction
+    // Play Button
+    this.PlayButton = this.add.sprite(1610, 250, 'playUnpressed').setInteractive()
+    this.PlayButton.setScale(0.7)
+
+    // Credits Button
+    this.CreditsButton = this.add.sprite(1610, 450, 'creditsUnpressed').setInteractive()
+    this.CreditsButton.setScale(0.7)
+
+    // Add credits panel to scene
+    this.add.existing(this.credPanel)
+    this.credPanel.setVisible(false)
+
+    // Back Button
+    this.BackButton = this.add.sprite(1310, 598, 'backUnpressed').setInteractive()
+    this.BackButton.setScale(0.9)
+    this.BackButton.setVisible(false)
+    this.BackButton.setActive(false)
+
+    // Switch image to play onPress button
+    this.PlayButton.on('pointerover', function () {
+      this.PlayButton.setTexture('playPressed')
+    }, this)
+    // Switch image to play offPress button
+    this.PlayButton.on('pointerout', function () {
+      this.PlayButton.setTexture('playUnpressed')
+    }, this)
+
+    // Switch image to credits onPress button
+    this.CreditsButton.on('pointerover', function () {
+      this.CreditsButton.setTexture('creditsPressed')
+    }, this)
+    // Switch image to credits offPress button
+    this.CreditsButton.on('pointerout', function () {
+      this.CreditsButton.setTexture('creditsUnpressed')
+    }, this)
+    // Call bringUpCredits function when CreditsButton is pressed
+    this.CreditsButton.on('pointerdown', function (pointer) {
+      this.bringUpCredits()
+    }.bind(this))
+  }
+
+  toPlay () {
+    this.scene.start('SheepMove')
+  }
+
+  bringUpCredits () {
+    this.PlayButton.setVisible(false)
+    this.PlayButton.setActive(false)
+    this.CreditsButton.setVisible(false)
+    this.CreditsButton.setActive(false)
+    this.credPanel.setVisible(true)
+    this.BackButton.setVisible(true)
+    this.BackButton.setActive(true)
   }
 }
 
