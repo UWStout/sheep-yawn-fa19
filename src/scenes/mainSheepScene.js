@@ -1225,11 +1225,18 @@ class mainSheepScene extends Phaser.Scene {
       if (this.WoolfArray[i].isAwake === true) {
         this.add.existing(this.WoolfArray[i])
         this.physics.add.existing(this.WoolfArray[i])
-        this.WoolfArray[i].body.setSize(250, 180, true)
+        if (this.WoolfArray[i].getEnemyName() === 'woolfBaby') {
+          this.WoolfArray[i].body.setSize(128, 128, true)
+          this.WoolfArray[i].body.setOffset(0, 0)
+        } else if (this.WoolfArray[i].getEnemyName() === 'woolfMedium') {
+          this.WoolfArray[i].body.setSize(250, 180, true)
+        } else if (this.WoolfArray[i].getEnemyName() === 'woolfBig') {
+          this.WoolfArray[i].body.setSize(250, 180, true)
+        }
         this.WoolfArray[i].body.setImmovable(true)
         this.WoolfArray[i].body.allowGravity = false
         for (let k = 0; k < this.AllBorderTilesArray; k++) {
-           this.physics.add.collider(this.WoolfArray[i], this.AllBorderTilesArray[k])
+          this.physics.add.collider(this.WoolfArray[i], this.AllBorderTilesArray[k])
         }
         this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
       }
