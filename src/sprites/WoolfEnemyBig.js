@@ -3,7 +3,7 @@
 // Import the entire 'Enemy' namespace
 import Enemy from './Enemy'
 
-class WoolfEnemyMohawk extends Enemy {
+class WoolfEnemyBig extends Enemy {
   // Initalization
   constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
@@ -72,7 +72,7 @@ class WoolfEnemyMohawk extends Enemy {
 
     // Create woolf back asleep anim.
     this.scene.anims.create({
-      key: 'woolfAsleepBackAnim',
+      key: 'alphaWoolfAsleepBackAnim',
       frames: this.scene.anims.generateFrameNumbers(
         'alphaWoolfAsleepBack', { start: 0, end: 14 }
       ),
@@ -127,4 +127,4 @@ class WoolfEnemyMohawk extends Enemy {
 }
 
 // Expose the WoolfEnemy class to other files
-export default WoolfEnemyMohawk
+export default WoolfEnemyBig
