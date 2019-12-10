@@ -32,6 +32,11 @@ class MainMenu extends Phaser.Scene {
 
   // Load all data needed for this scene
   preload () {
+    // The audiosprite with all music and SFX (keep this for sounds only need to load once)
+    this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
+      'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
+      'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
+    ])
     this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
     this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
     this.load.image('playUnpressed', 'assets/images/PlayButton.png')
@@ -44,6 +49,8 @@ class MainMenu extends Phaser.Scene {
 
   // Creates objects and other items used within the scene
   create () {
+    this.music = this.sound.addAudioSprite('sounds')
+    this.music.play('MenuScreen', { volume: 0.5 })
     // Creation of MainMenu title
     this.mainMenuTitleImage = new MainMenuImage({
       scene: this,
@@ -91,6 +98,7 @@ class MainMenu extends Phaser.Scene {
     }, this)
     // Call bringUpCredits function when CreditsButton is pressed
     this.PlayButton.on('pointerdown', function (event) {
+      this.music.stop()
       this.scene.start('SheepMove')
     }, this)
 

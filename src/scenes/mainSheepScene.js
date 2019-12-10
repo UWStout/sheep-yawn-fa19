@@ -30,6 +30,12 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
+    this.load.image('tutorial1', 'assets/images/tutorialCard_1.png')
+    this.load.image('tutorial2', 'assets/images/tutorialCard_2.png')
+    this.load.image('tutorial3', 'assets/images/tutorialCard_3.png')
+    this.load.image('tutorial4', 'assets/images/tutorialCard_4.png')
+    this.load.image('tutorial5', 'assets/images/tutorialCard_5.png')
+    this.load.image('tutorial6', 'assets/images/tutorialCard_6.png')
     this.load.image('timerImage', 'assets/images/UntilDawnLabel.png')
     this.load.image('CursorImage', 'assets/images/MouseCursor.png')
     this.load.image('MenuButton', 'assets/images/MenuButton.png')
@@ -159,6 +165,7 @@ class mainSheepScene extends Phaser.Scene {
 
   // Creates objects and other items used within the scene
   // Not immediately added to scene, unless add/addExisting Is stated
+  
   create () {
     this.input.setDefaultCursor('url(assets/images/MouseCursor.png), pointer')
     // Start playing the background music

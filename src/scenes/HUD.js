@@ -21,6 +21,7 @@ class HUD extends Phaser.Scene {
     this.RoosterSFX = this.sound.addAudioSprite('sounds')
     this.TimeOver = false
     this.mySheepScene = this.scene.get('SheepMove')
+    this.MenuScene = this.scene.get('MainMenuScene')
     this.HasWon = false
     this.happenOnce = false
     this.timeCheck = 0
