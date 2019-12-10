@@ -15,6 +15,7 @@ import UIPlugin from '../plugins/rexrainbow/rexuiplugin.min'
 import mainSheepScene from './scenes/mainSheepScene' // main scene
 import HUD from './scenes/HUD'
 import MainMenu from './scenes/MainMenu'
+import Loading from './scenes/Loading'
 // import InfoScene from './scenes/InfoScene' // Some static info locked to the camera (like a HUD)
 // import PauseMenuScene from './scenes/PauseMenuScene' // A menu displayed while the game is paused
 
@@ -75,13 +76,14 @@ class Game extends Phaser.Game {
     // this.scene.add('Test', TestScene, false)
     this.scene.add('SheepMove', mainSheepScene, false)
     this.scene.add('HUDScene', HUD, false)
-    // this.scene.add('MainMenuScene', MainMenu, false) // uncomment later
+    this.scene.add('LoadingScene', Loading, false)
+    this.scene.add('MainMenuScene', MainMenu, false) // uncomment later
     // Extra scenes showing how you can layer scenes together
     // this.scene.add('Info', InfoScene, false)
     // this.scene.add('PauseMenu', PauseMenuScene, false)
 
     // Start with the bootstrap scene that will load assets needed for the splash scene
-    this.scene.start('SheepMove')
+    // this.scene.start('SheepMove')
     this.scene.start('MainMenuScene') // uncomment later
   }
 }
