@@ -625,9 +625,9 @@ class mainSheepScene extends Phaser.Scene {
     this.player.anims.play('idleFrontAnim')
 
     // timed event to make enemy AI move
-    // for (let i = 0; i < this.WoolfArrayLength; i++) {
-    //   this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
-    // }
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+    }
 
     // Setup the key objects
     this.setupKeyboard()
