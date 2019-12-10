@@ -98,8 +98,12 @@ class MainMenu extends Phaser.Scene {
     }, this)
     // Call bringUpCredits function when CreditsButton is pressed
     this.PlayButton.on('pointerdown', function (event) {
+<<<<<<< HEAD
       this.music.stop()
       this.scene.start('SheepMove')
+=======
+      this.scene.start('LoadingScene')
+>>>>>>> ad8079eb20c819d96aeed1066076697c3a62464e
     }, this)
 
     // Switch image to credits onPress button

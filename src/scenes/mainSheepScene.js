@@ -30,6 +30,7 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
+<<<<<<< HEAD
     this.load.image('tutorial1', 'assets/images/tutorialCard_1.png')
     this.load.image('tutorial2', 'assets/images/tutorialCard_2.png')
     this.load.image('tutorial3', 'assets/images/tutorialCard_3.png')
@@ -126,6 +127,8 @@ class mainSheepScene extends Phaser.Scene {
       'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
     ])
 
+=======
+>>>>>>> ad8079eb20c819d96aeed1066076697c3a62464e
     this.RightLeftArray = []
     this.UpDownArray = []
 
@@ -193,11 +196,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) {
         this['Tile' + i].setTexture('CornerMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       } else {
         this['Tile' + i].setTexture('TopMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       }
     }
 
@@ -208,11 +211,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) {
         this['Tile' + i].setTexture('BelowCornerMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('topWaterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -232,11 +235,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -256,11 +259,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -280,11 +283,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -304,11 +307,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -328,11 +331,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -352,11 +355,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -376,11 +379,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -400,11 +403,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.RightLeftArray.push(['Tile' + i])
+        this.RightLeftArray.push(this['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -424,11 +427,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 10) { // make this a river
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       } else {
         this['Tile' + i].setTexture('bottomFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i]) // fence
-        this.UpDownArray.push(['Tile' + i])
+        this.UpDownArray.push(this['Tile' + i])
       }
     }
 
@@ -663,7 +666,7 @@ class mainSheepScene extends Phaser.Scene {
       } else if (this.WoolfArray[i].getEnemyName() === 'woolfBig') {
         this.WoolfArray[i].body.setSize(250, 180, true)
       }
-      for (let k = 0; k < this.AllBorderTilesArray; k++) {
+      for (let k = 0; k < this.AllBorderTilesArray.length; k++) {
         this.physics.add.collider(this.WoolfArray[i], this.AllBorderTilesArray[k])
       }
       this.WoolfArray[i].body.setImmovable(true)
@@ -678,7 +681,7 @@ class mainSheepScene extends Phaser.Scene {
 
     // timed event to make enemy AI move
     for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: true })
     }
 
     // Setup the key objects
@@ -998,13 +1001,6 @@ class mainSheepScene extends Phaser.Scene {
   // Creates circle around enemy
   // Adds Zzzs to circle's path
   zzzDrop (enemyX, enemyY, amountOfZs) {
-    // Creation of Zzz sprite
-    // this.Zzz = new Zzz({
-    //   scene: this,
-    //   x: enemyX,
-    //   y: enemyY
-    // })
-
     // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
 
@@ -1016,6 +1012,14 @@ class mainSheepScene extends Phaser.Scene {
     // Checks for overlap with player character and Zzzs
     // Calls increaseYawnRadiusByZzz when true
     this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz, null, this)
+
+    // How long has the zzzs existed in the scene?
+    this.timedEvent = this.time.addEvent({ delay: 5000, callback: () => { this.zzzClear(this.zzzGroup) }, callbackScope: this, loop: false })
+  }
+
+  // Clear zzzGroups zzz objects
+  zzzClear (zzzItems) {
+    zzzItems.clear(true, true)
   }
 
   // Increases YawnBlast radius
@@ -1034,12 +1038,12 @@ class mainSheepScene extends Phaser.Scene {
 
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
-    for (let i = 0; i < this.RightLeftArray; i++) {
-      this.physics.add.overlap(myEnemy, this.RightLeftArray[i], this.wolfMoveRightLeft(myEnemy), null, this)
-    }
-    for (let i = 0; i < this.UpDownArray; i++) {
-      this.physics.add.overlap(myEnemy, this.UpDownArray[i], this.wolfMoveUpDown(myEnemy), null, this)
-    }
+    // for (let i = 0; i < this.RightLeftArray; i++) {
+    //   this.physics.add.overlap(myEnemy, this.RightLeftArray[i], this.wolfMoveRightLeft(myEnemy), null, this)
+    // }
+    // for (let i = 0; i < this.UpDownArray; i++) {
+    //   this.physics.add.overlap(myEnemy, this.UpDownArray[i], this.wolfMoveUpDown(myEnemy), null, this)
+    // }
 
     if (myEnemy.body.touching.left || (myEnemy.body.touching.right)) {
       this.wolfMoveRightLeft(myEnemy)
@@ -1056,51 +1060,51 @@ class mainSheepScene extends Phaser.Scene {
         console.log('going left')
         myEnemy.flipX = false
 
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          console.log('testing right')
-          if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            myEnemy.anims.play('babyWoolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            myEnemy.anims.play('woolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            myEnemy.anims.play('alphaWoolfLeftRunAnim')
-          }
-        }
+        // // Is the Enemy a baby woolf?
+        // if (myEnemy.getEnemyName() === 'woolfBaby') {
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   console.log('testing right')
+        //   if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('babyWoolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+        //     myEnemy.anims.play('woolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('alphaWoolfLeftRunAnim')
+        //   }
+        // }
       } else {
         console.log('going right')
         myEnemy.flipX = true
         // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          console.log('testing right')
-          if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            myEnemy.anims.play('babyWoolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            myEnemy.anims.play('woolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            myEnemy.anims.play('alphaWoolfLeftRunAnim')
-          }
-        }
+        // if (myEnemy.getEnemyName() === 'woolfBaby') {
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   console.log('testing right')
+        //   if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('babyWoolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+        //     myEnemy.anims.play('woolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('alphaWoolfLeftRunAnim')
+        //   }
+        // }
         if (myEnemy.body.velocity.y < 0) {
           console.log('going down')
           // Is the Enemy a baby woolf?
@@ -1167,10 +1171,14 @@ class mainSheepScene extends Phaser.Scene {
     this.BigWolfsAwakeCurrentAmount = 0
     this.BabyWolfsAwakeCurrentAmount = 0
     this.MediumWolfAwakeCurrentAmount = 0
+
+    // Destroy the old wolf arrays
     for (let i = 0; i < (this.WoolfArray.length); i++) {
-      this.WoolfArray[i].setActive(false).setVisible(false)
-      this.WoolfArray[i].body.enable = false
+      this.WoolfArray[i].destroy()
     }
+    this.WoolfArray = []
+    this.BabyWoolfArray = []
+
     this.house2.setAlpha(1)
     this.tweens.add({
       targets: this.house2,
@@ -1250,7 +1258,7 @@ class mainSheepScene extends Phaser.Scene {
     }
 
     for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: true })
     }
   }
 
@@ -1360,7 +1368,6 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   depthCheck (myTree) {
-
     if (myTree.depth > this.player.depth) {
       // Might be behind or to the side of the tree
       // console.log('1) is it behind?')
