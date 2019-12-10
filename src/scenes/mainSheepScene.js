@@ -1004,13 +1004,12 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz, null, this)
 
     // How long has the zzzs existed in the scene?
-    this.timedEvent = this.time.addEvent({ delay: 5000, callback: this.zzzClear(this.zzzGroup), callbackScope: this, loop: false })
+    this.timedEvent = this.time.addEvent({ delay: 5000, callback: () => { this.zzzClear(this.zzzGroup) }, callbackScope: this, loop: false })
   }
 
   // Clear zzzGroups zzz objects
   zzzClear (zzzItems) {
-    this.zzzItems.clear(true, true)
-    console.log('loss of zzzs')
+    zzzItems.clear(true, true)
   }
 
   // Increases YawnBlast radius
