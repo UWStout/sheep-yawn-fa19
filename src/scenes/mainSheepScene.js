@@ -671,7 +671,7 @@ class mainSheepScene extends Phaser.Scene {
 
     // timed event to make enemy AI move
     for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: true })
     }
 
     // Setup the key objects
@@ -1028,12 +1028,12 @@ class mainSheepScene extends Phaser.Scene {
 
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
-    for (let i = 0; i < this.RightLeftArray; i++) {
-      this.physics.add.overlap(myEnemy, this.RightLeftArray[i], this.wolfMoveRightLeft(myEnemy), null, this)
-    }
-    for (let i = 0; i < this.UpDownArray; i++) {
-      this.physics.add.overlap(myEnemy, this.UpDownArray[i], this.wolfMoveUpDown(myEnemy), null, this)
-    }
+    // for (let i = 0; i < this.RightLeftArray; i++) {
+    //   this.physics.add.overlap(myEnemy, this.RightLeftArray[i], this.wolfMoveRightLeft(myEnemy), null, this)
+    // }
+    // for (let i = 0; i < this.UpDownArray; i++) {
+    //   this.physics.add.overlap(myEnemy, this.UpDownArray[i], this.wolfMoveUpDown(myEnemy), null, this)
+    // }
 
     if (myEnemy.body.touching.left || (myEnemy.body.touching.right)) {
       this.wolfMoveRightLeft(myEnemy)
@@ -1161,10 +1161,14 @@ class mainSheepScene extends Phaser.Scene {
     this.BigWolfsAwakeCurrentAmount = 0
     this.BabyWolfsAwakeCurrentAmount = 0
     this.MediumWolfAwakeCurrentAmount = 0
+
+    // Destroy the old wolf arrays
     for (let i = 0; i < (this.WoolfArray.length); i++) {
-      this.WoolfArray[i].setActive(false).setVisible(false)
-      this.WoolfArray[i].body.enable = false
+      this.WoolfArray[i].destroy()
     }
+    this.WoolfArray = []
+    this.BabyWoolfArray = []
+
     this.house2.setAlpha(1)
     this.tweens.add({
       targets: this.house2,
@@ -1244,7 +1248,7 @@ class mainSheepScene extends Phaser.Scene {
     }
 
     for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: this.moveEnemy(this.WoolfArray[i]), callbackScope: this, loop: true })
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: true })
     }
   }
 
