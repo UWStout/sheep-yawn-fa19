@@ -22,3 +22,11 @@ assets/audio/sounds.*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# MacOS System files
+._*
+.DS_Store
+
+# Souce code generation data
+gourceLog.txt
+gourceVideo.mp4
