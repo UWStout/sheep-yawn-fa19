@@ -30,9 +30,12 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
+    this.load.image('timerImage', 'assets/images/UntilDawnLabel.png')
     this.load.image('CursorImage', 'assets/images/MouseCursor.png')
+    this.load.image('MenuButton', 'assets/images/MenuButton.png')
+    this.load.image('MenuPressedButton', 'assets/images/MenuPressed.png')
     this.load.image('BackButton', 'assets/images/BackButton.png')
-    this.load.image('BackPressedButton', 'assets/images/BackPressedButton.png')
+    this.load.image('BackPressedButton', 'assets/images/BackPressed.png')
     this.load.image('ContinueButton', 'assets/images/Continue.png')
     this.load.image('ContinuePressedButton', 'assets/images/ContinuePressed.png')
     this.load.image('CreditsButton', 'assets/images/CreditsButton.png')
@@ -117,7 +120,9 @@ class mainSheepScene extends Phaser.Scene {
       'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
     ])
 
-    // No longer needed
+    this.RightLeftArray = []
+    this.UpDownArray = []
+
     // Used in reference of what was set for each health amount
     // Default health for enemies
 
@@ -181,9 +186,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) {
         this['Tile' + i].setTexture('CornerMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.UpDownArray.push(['Tile' + i])
       } else {
         this['Tile' + i].setTexture('TopMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.UpDownArray.push(['Tile' + i])
       }
     }
 
@@ -194,9 +201,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) {
         this['Tile' + i].setTexture('BelowCornerMountainMapTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('topWaterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -216,9 +225,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -238,9 +249,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -260,9 +273,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -282,9 +297,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -304,9 +321,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -326,9 +345,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -348,9 +369,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -370,9 +393,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 0) { // make this a fence
         this['Tile' + i].setTexture('sideFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else if (i === 10) { // make this river tile
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.RightLeftArray.push(['Tile' + i])
       } else {
         this.GrassNumber = (Math.floor(Math.random() * (3 - 0)) + 0)
         if (this.GrassNumber === 0) {
@@ -392,9 +417,11 @@ class mainSheepScene extends Phaser.Scene {
       if (i === 10) { // make this a river
         this['Tile' + i].setTexture('waterTile')
         this.AllBorderTilesArray.push(this['Tile' + i])
+        this.UpDownArray.push(['Tile' + i])
       } else {
         this['Tile' + i].setTexture('bottomFenceTile')
         this.AllBorderTilesArray.push(this['Tile' + i]) // fence
+        this.UpDownArray.push(['Tile' + i])
       }
     }
 
@@ -463,9 +490,9 @@ class mainSheepScene extends Phaser.Scene {
         yoyo: true,
         loop: -1
       })
-      this.BabyWolfAmount = 1 // 3
+      this.BabyWolfAmount = 0 // 3
       this.MediumWolfAmount = 1 // 1
-      this.BigWolfAmount = 1
+      this.BigWolfAmount = 0
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
@@ -621,7 +648,17 @@ class mainSheepScene extends Phaser.Scene {
       // Adds woolf enemy to scene and set up physics
       this.add.existing(this.WoolfArray[i])
       this.physics.add.existing(this.WoolfArray[i])
-      this.WoolfArray[i].body.setSize(250, 180, true)
+      if (this.WoolfArray[i].getEnemyName() === 'woolfBaby') {
+        this.WoolfArray[i].body.setSize(128, 128, true)
+        this.WoolfArray[i].body.setOffset(0, 0)
+      } else if (this.WoolfArray[i].getEnemyName() === 'woolfMedium') {
+        this.WoolfArray[i].body.setSize(250, 180, true)
+      } else if (this.WoolfArray[i].getEnemyName() === 'woolfBig') {
+        this.WoolfArray[i].body.setSize(250, 180, true)
+      }
+      for (let k = 0; k < this.AllBorderTilesArray; k++) {
+        this.physics.add.collider(this.WoolfArray[i], this.AllBorderTilesArray[k])
+      }
       this.WoolfArray[i].body.setImmovable(true)
       this.WoolfArray[i].body.allowGravity = false
       this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
@@ -817,34 +854,6 @@ class mainSheepScene extends Phaser.Scene {
       this.yawnBlastCircle.setScale(this._yawn_scale)
       this._yawn_scale += 0.01
     }
-
-    // working on this if wolf collides change direction
-    // for (let i = 0; this.i < this.WoolfArrayLength; i++) {
-    //   for (let k = 0; k < this.WoolfArrayLength; k++) {
-    //     this.physics.world.overlap(this.WoolfArray[i], this.WoolfArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   }
-    //   for (let k = 0; k < this.PineArrayLength; k++) {
-    //     this.physics.world.overlap(this.PineArray[k], this.WoolfArray[i], this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   }
-    //   for (let k = 0; k < this.WoolfArrayLength; k++) {
-    //     this.physics.world.overlap(this.WoolfArray[i], this.OakArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   }
-    //   for (let k = 0; k < this.BottomBoundaryArrayLength; k++) {
-    //     this.physics.world.overlap(this.WoolfArray[i], this.BottomBoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   }
-    //   for (let k = 0; k < this.TopBoundaryArrayLength; k++) {
-    //     this.physics.world.overlap(this.WoolfArray[i], this.AllTilesArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   }
-    //   for (let k = 0; k < this.RightBoundaryArrayLength; k++) {
-    //     this.physics.world.overlap(this.WoolfArray[i], this.RightoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   }
-    //   for (let k = 0; k < this.LeftBoundaryArrayLength; k++) {
-    //     this.physics.world.overlap(this.WoolfArray[i], this.LeftBoundaryArray[k], this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   }
-    //   this.physics.world.overlap(this.WoolfArray[i], this.firePit, this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   this.physics.world.overlap(this.WoolfArray[i], this.firePitTop, this.moveEnemy(this.WoolfArray[i]), null, this)
-    //   this.physics.world.overlap(this.WoolfArray[i], this.firePitTop2, this.moveEnemy(this.WoolfArray[i]), null, this)
-    // }
   }
 
   // Creates sheep yawnBlast circle, add physics
@@ -1009,7 +1018,7 @@ class mainSheepScene extends Phaser.Scene {
       // Delete Zzz based on which object its hiding in
       if (obj1 === this.player) {
         obj2.destroy()
-        this._yawn_size_check += 0.05 // test size
+        this._yawn_size_check += 0.03 // test size
       } else {
         obj1.destroy()
       }
@@ -1018,8 +1027,21 @@ class mainSheepScene extends Phaser.Scene {
 
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
+    for (let i = 0; i < this.RightLeftArray; i++) {
+      this.physics.add.overlap(myEnemy, this.RightLeftArray[i], this.wolfMoveRightLeft(myEnemy), null, this)
+    }
+    for (let i = 0; i < this.UpDownArray; i++) {
+      this.physics.add.overlap(myEnemy, this.UpDownArray[i], this.wolfMoveUpDown(myEnemy), null, this)
+    }
+
+    if (myEnemy.body.touching.left || (myEnemy.body.touching.right)) {
+      this.wolfMoveRightLeft(myEnemy)
+    } else if (myEnemy.body.touching.up || (myEnemy.body.touching.down)) {
+      this.wolfMoveUpDown(myEnemy)
+    }
+
     if (myEnemy.isAwake === true) {
-      myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60)) 
+      myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
       console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
       console.log('Are we assigning anims? in movement?')
       // Is enemy moving in negative (left) direction
@@ -1124,7 +1146,20 @@ class mainSheepScene extends Phaser.Scene {
     }
   }
 
+  wolfMoveRightLeft (myEnemy) {
+    myEnemy.body.velocity.x = (-1 * myEnemy.body.velocity.x)
+    console.log('left right does this happen?')
+  }
+
+  wolfMoveUpDown (myEnemy) {
+    myEnemy.body.velocity.y = (-1 * myEnemy.body.velocity.y)
+    console.log('up down does this happen?')
+  }
+
   newLevel () {
+    this.BigWolfsAwakeCurrentAmount = 0
+    this.BabyWolfsAwakeCurrentAmount = 0
+    this.MediumWolfAwakeCurrentAmount = 0
     for (let i = 0; i < (this.WoolfArray.length); i++) {
       this.WoolfArray[i].setActive(false).setVisible(false)
       this.WoolfArray[i].body.enable = false
@@ -1193,6 +1228,9 @@ class mainSheepScene extends Phaser.Scene {
         this.WoolfArray[i].body.setSize(250, 180, true)
         this.WoolfArray[i].body.setImmovable(true)
         this.WoolfArray[i].body.allowGravity = false
+        for (let k = 0; k < this.AllBorderTilesArray; k++) {
+           this.physics.add.collider(this.WoolfArray[i], this.AllBorderTilesArray[k])
+        }
         this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
       }
     }
@@ -1308,13 +1346,6 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   depthCheck (myTree) {
-    // for (let k = 0; k < this.WoolfArrayLength; k++) {
-    //   this.physics.add.overlap(myTree, this.WoolfArray[k], this.depthCheckEnemyTree(myTree), null, this)
-    //   if (myTree.enemyBehindTree === true)
-    //   {
-    //     //myTree.setAlpha(0.2, 0.2, 1, 1)
-    //   }
-    // }
 
     if (myTree.depth > this.player.depth) {
       // Might be behind or to the side of the tree
