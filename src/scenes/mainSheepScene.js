@@ -1004,6 +1004,7 @@ class mainSheepScene extends Phaser.Scene {
       myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60)) // hey
       console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
       for (let i = 0; i < this.WoolfArrayLength; i++) {
+        console.log('Are we assigning anims? in movement?')
         // Is enemy moving in negative (left) direction
         if (myEnemy.body.velocity.x < 0) {
           console.log('going left')
