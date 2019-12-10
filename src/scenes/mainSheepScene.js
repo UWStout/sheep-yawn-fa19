@@ -1050,51 +1050,51 @@ class mainSheepScene extends Phaser.Scene {
         console.log('going left')
         myEnemy.flipX = false
 
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          console.log('testing right')
-          if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            myEnemy.anims.play('babyWoolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            myEnemy.anims.play('woolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            myEnemy.anims.play('alphaWoolfLeftRunAnim')
-          }
-        }
+        // // Is the Enemy a baby woolf?
+        // if (myEnemy.getEnemyName() === 'woolfBaby') {
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   console.log('testing right')
+        //   if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('babyWoolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+        //     myEnemy.anims.play('woolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('alphaWoolfLeftRunAnim')
+        //   }
+        // }
       } else {
         console.log('going right')
         myEnemy.flipX = true
         // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          console.log('testing right')
-          if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            myEnemy.anims.play('babyWoolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            myEnemy.anims.play('woolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            myEnemy.anims.play('alphaWoolfLeftRunAnim')
-          }
-        }
+        // if (myEnemy.getEnemyName() === 'woolfBaby') {
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   console.log('testing right')
+        //   if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('babyWoolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+        //     myEnemy.anims.play('woolfLeftRunAnim')
+        //   }
+        // } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
+        //   // Is Enemy left run running
+        //   // Play anim if not so
+        //   if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+        //     myEnemy.anims.play('alphaWoolfLeftRunAnim')
+        //   }
+        // }
         if (myEnemy.body.velocity.y < 0) {
           console.log('going down')
           // Is the Enemy a baby woolf?
@@ -1358,7 +1358,6 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   depthCheck (myTree) {
-
     if (myTree.depth > this.player.depth) {
       // Might be behind or to the side of the tree
       // console.log('1) is it behind?')
