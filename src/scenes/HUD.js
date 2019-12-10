@@ -41,9 +41,9 @@ class HUD extends Phaser.Scene {
     // Holds count down's inital time 2:30 min in secs
     this._default_time = 150 // 150
     this.load.image('textboxBackground', 'assets/images/textbox.png')
-    this.SmallWoolfHUD = this.add.image((1800 - 100), (50), 'SmallWoolfHUD').setAlpha(1)
+    this.SmallWoolfHUD = this.add.image((1800 - 100), (210), 'SmallWoolfHUD').setAlpha(1)
     this.MedWoolfHUD = this.add.image((1800 - 100), (130), 'MedWoolfHUD').setAlpha(1)
-    this.BigWoolfHUD = this.add.image((1800 - 100), (210), 'BigWoolfHUD').setAlpha(1)
+    this.BigWoolfHUD = this.add.image((1800 - 100), (50), 'BigWoolfHUD').setAlpha(1)
     this.WinHUD = this.add.image((1800 / 2), (900 / 2), 'win').setAlpha(1)
     this.WinHUD.setOrigin(0.5, 0.5)
     this.LoseHUD = this.add.image((1800 / 2), (900 / 2), 'lose').setAlpha(1)
@@ -51,7 +51,7 @@ class HUD extends Phaser.Scene {
     this.WinHUD.visible = false
     this.LoseHUD.visible = false
 
-    this.SmallWolfCountText = this.add.text((1800 - 70), (55), ' / ',
+    this.SmallWolfCountText = this.add.text((1800 - 70), (215), ' / ',
       { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.SmallWolfCountText.setOrigin(0.5, 0.5)
 
@@ -59,7 +59,7 @@ class HUD extends Phaser.Scene {
       { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.MedWolfCountText.setOrigin(0.5, 0.5)
 
-    this.BigWolfCountText = this.add.text((1800 - 70), (215), ' / ',
+    this.BigWolfCountText = this.add.text((1800 - 70), (55), ' / ',
       { font: '40px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.BigWolfCountText.setOrigin(0.5, 0.5)
 
@@ -73,7 +73,7 @@ class HUD extends Phaser.Scene {
     this.NightsCompleteTextLost.setOrigin(0.5, 0.5)
     this.NightsCompleteTextLost.visible = false
 
-    this.BabyWolfAsleepTotalText = this.add.text(350, 710, '' + this.BabyWolfAsleepTotalAmount,
+    this.BabyWolfAsleepTotalText = this.add.text(1500, 710, '' + this.BabyWolfAsleepTotalAmount,
       { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.BabyWolfAsleepTotalText.setOrigin(0.5, 0.5)
     this.BabyWolfAsleepTotalText.visible = false
@@ -83,14 +83,17 @@ class HUD extends Phaser.Scene {
     this.MedWolfAsleepTotalText.setOrigin(0.5, 0.5)
     this.MedWolfAsleepTotalText.visible = false
 
-    this.BigWolfAsleepTotalText = this.add.text(1500, 700, '' + this.BigWolfAsleepTotalAmount,
+    this.BigWolfAsleepTotalText = this.add.text(350, 700, '' + this.BigWolfAsleepTotalAmount,
       { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.BigWolfAsleepTotalText.setOrigin(0.5, 0.5)
     this.BigWolfAsleepTotalText.visible = false
 
-    this.timeText = this.add.text(150, 32, 'Until Dawn: ' + this.formatTime(this._default_time),
-      { font: '30px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
+    this.timeText = this.add.text(610, 50, '' + this.formatTime(this._default_time),
+      { font: '70px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.timeText.setOrigin(0.5, 0.5)
+
+    this.timeImage = this.add.image(270, 50, 'timerImage').setAlpha(1)
+    this.timeImage.setScale(0.8)
 
     // Each 1000 ms calls countDown
     this.time.addEvent({ delay: 900, callback: this.countDown, callbackScope: this, loop: true })
@@ -109,23 +112,24 @@ class HUD extends Phaser.Scene {
       this.ContinueButton.setTexture('ContinueButton')
     }, this)
 
-    this.MenuButton = this.add.sprite(1600, 400, 'ExitButton').setInteractive()
+    this.MenuButton = this.add.sprite(1600, 400, 'MenuButton').setInteractive()
     this.MenuButton.setScale(0.8)
     this.MenuButton.on('pointerdown', function (pointer) {
       this.GoToMenu()
     }.bind(this))
     this.MenuButton.on('pointerover', function () {
-      this.MenuButton.setTexture('ExitPressedButton')
+      this.MenuButton.setTexture('MenuPressedButton')
     }, this)
     this.MenuButton.on('pointerout', function () {
-      this.MenuButton.setTexture('ExitButton')
+      this.MenuButton.setTexture('MenuButton')
     }, this)
 
     this.ContinueButton.visible = false
     this.MenuButton.visible = false
 
     this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(1)
-    this.dark.depth = this.timeText.depth - 1
+    this.timeImage.depth = this.timeText.depth - 1
+    this.dark.depth = this.timeImage.depth - 1
     this.tweens.add({
       targets: this.dark,
       alpha: { value: 0, duration: 150000, ease: 'Power1' },
@@ -197,9 +201,12 @@ class HUD extends Phaser.Scene {
     // Subtract one second
     if (this._default_time > 0) {
       this._default_time -= 1
-      this.timeText.text = ('Until Dawn: ' + this.formatTime(this._default_time))
+      this.timeText.text = ('' + this.formatTime(this._default_time))
       this.NightsCompleteTextLost.text = ('' + this.NightsCompleteAmount)
       this.NightsCompleteTextWon.text = ('' + this.NightsCompleteAmount)
+      this.BigWolfAsleepTotalText.text = ('' + this.BigWolfAsleepTotalAmount)
+      this.MedWolfAsleepTotalText.text = ('' + this.MedWolfAsleepTotalAmount)
+      this.BabyWolfAsleepTotalText.text = ('' + this.BabyWolfAsleepTotalAmount)
       this.SmallWolfCountText.text = (this.BabyWolfAwakeCurrentAmount + ' / ' + this.SmallWolfCount)
       this.MedWolfCountText.text = (this.MedWolfAwakeCurrentAmount + ' / ' + this.MedWolfCount)
       this.BigWolfCountText.text = (this.BigWolfAwakeCurrentAmount + ' / ' + this.BigWolfCount)
@@ -217,6 +224,7 @@ class HUD extends Phaser.Scene {
       if (this.happenOnce === false) {
         this.happenOnce = true
         this.timeText.visible = false
+        this.timeImage.visible = false
         this.SmallWolfCountText.visible = false
         this.MedWolfCountText.visible = false
         this.BigWolfCountText.visible = false
@@ -239,6 +247,7 @@ class HUD extends Phaser.Scene {
       if (this.happenOnce === false) {
         this.happenOnce = true
         this.timeText.visible = false
+        this.timeImage.visible = false
         this.SmallWolfCountText.visible = false
         this.MedWolfCountText.visible = false
         this.BigWolfCountText.visible = false
@@ -273,7 +282,8 @@ class HUD extends Phaser.Scene {
     this.ContinueButton.visible = false
     this.MenuButton.visible = false
     this.dark = this.add.image((1800 / 2), (900 / 2), 'darkBackground').setAlpha(1)
-    this.dark.depth = this.timeText.depth - 1
+    this.timeImage.depth = this.timeText.depth - 1
+    this.dark.depth = this.timeImage.depth - 1
     this.tweens.add({
       targets: this.dark,
       alpha: { value: 0, duration: 150000, ease: 'Power1' },
@@ -281,6 +291,7 @@ class HUD extends Phaser.Scene {
       loop: -1
     })
     this.timeText.visible = true
+    this.timeImage.visible = true
     this.SmallWolfCountText.visible = true
     this.MedWolfCountText.visible = true
     this.BigWolfCountText.visible = true
