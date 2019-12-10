@@ -73,7 +73,7 @@ class HUD extends Phaser.Scene {
     this.NightsCompleteTextLost.setOrigin(0.5, 0.5)
     this.NightsCompleteTextLost.visible = false
 
-    this.BabyWolfAsleepTotalText = this.add.text(1500, 710, '' + this.BabyWolfAsleepTotalAmount,
+    this.BabyWolfAsleepTotalText = this.add.text(1500, 700, '' + this.BabyWolfAsleepTotalAmount,
       { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.BabyWolfAsleepTotalText.setOrigin(0.5, 0.5)
     this.BabyWolfAsleepTotalText.visible = false
@@ -83,7 +83,7 @@ class HUD extends Phaser.Scene {
     this.MedWolfAsleepTotalText.setOrigin(0.5, 0.5)
     this.MedWolfAsleepTotalText.visible = false
 
-    this.BigWolfAsleepTotalText = this.add.text(350, 700, '' + this.BigWolfAsleepTotalAmount,
+    this.BigWolfAsleepTotalText = this.add.text(350, 710, '' + this.BigWolfAsleepTotalAmount,
       { font: '100px comic sans', fontStyle: 'bold', fill: '#FFFFFF', align: 'center' })
     this.BigWolfAsleepTotalText.setOrigin(0.5, 0.5)
     this.BigWolfAsleepTotalText.visible = false
