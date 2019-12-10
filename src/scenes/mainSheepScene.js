@@ -991,13 +991,6 @@ class mainSheepScene extends Phaser.Scene {
   // Creates circle around enemy
   // Adds Zzzs to circle's path
   zzzDrop (enemyX, enemyY, amountOfZs) {
-    // Creation of Zzz sprite
-    // this.Zzz = new Zzz({
-    //   scene: this,
-    //   x: enemyX,
-    //   y: enemyY
-    // })
-
     // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
 
@@ -1009,6 +1002,15 @@ class mainSheepScene extends Phaser.Scene {
     // Checks for overlap with player character and Zzzs
     // Calls increaseYawnRadiusByZzz when true
     this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz, null, this)
+
+    // How long has the zzzs existed in the scene?
+    this.timedEvent = this.time.addEvent({ delay: 5000, callback: this.zzzClear(this.zzzGroup), callbackScope: this, loop: false })
+  }
+
+  // Clear zzzGroups zzz objects
+  zzzClear (zzzItems) {
+    this.zzzItems.clear(true, true)
+    console.log('loss of zzzs')
   }
 
   // Increases YawnBlast radius
