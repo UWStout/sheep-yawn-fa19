@@ -27,7 +27,15 @@ class Loading extends Phaser.Scene {
     this.setupProgressBar(200)
 
     // Load all the assets needed for next state
-
+    
+    // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
+ 
+    this.load.image('tutorial1', 'assets/images/tutorialCard_1.png')
+    this.load.image('tutorial2', 'assets/images/tutorialCard_2.png')
+    this.load.image('tutorial3', 'assets/images/tutorialCard_3.png')
+    this.load.image('tutorial4', 'assets/images/tutorialCard_4.png')
+    this.load.image('tutorial5', 'assets/images/tutorialCard_5.png')
+    this.load.image('tutorial6', 'assets/images/tutorialCard_6.png')
     this.load.image('timerImage', 'assets/images/UntilDawnLabel.png')
     this.load.image('CursorImage', 'assets/images/MouseCursor.png')
     this.load.image('MenuButton', 'assets/images/MenuButton.png')

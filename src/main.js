@@ -76,12 +76,8 @@ class Game extends Phaser.Game {
     // this.scene.add('Test', TestScene, false)
     this.scene.add('SheepMove', mainSheepScene, false)
     this.scene.add('HUDScene', HUD, false)
-<<<<<<< HEAD
-    this.scene.add('MainMenuScene', MainMenu, false)
-=======
     this.scene.add('LoadingScene', Loading, false)
     this.scene.add('MainMenuScene', MainMenu, false) // uncomment later
->>>>>>> ad8079eb20c819d96aeed1066076697c3a62464e
     // Extra scenes showing how you can layer scenes together
     // this.scene.add('Info', InfoScene, false)
     // this.scene.add('PauseMenu', PauseMenuScene, false)
