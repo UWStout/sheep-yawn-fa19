@@ -77,7 +77,7 @@ class MainMenu extends Phaser.Scene {
 
     // Back Button
     this.BackButton = this.add.sprite(1310, 598, 'backUnpressed').setInteractive()
-    this.BackButton.setScale(0.9)
+    this.BackButton.setScale(1.5)
     this.BackButton.setVisible(false)
     this.BackButton.setActive(false)
 
@@ -88,6 +88,10 @@ class MainMenu extends Phaser.Scene {
     // Switch image to play offPress button
     this.PlayButton.on('pointerout', function () {
       this.PlayButton.setTexture('playUnpressed')
+    }, this)
+    // Call bringUpCredits function when CreditsButton is pressed
+    this.PlayButton.on('pointerdown', function (event) {
+      this.scene.start('SheepMove')
     }, this)
 
     // Switch image to credits onPress button
@@ -102,12 +106,28 @@ class MainMenu extends Phaser.Scene {
     this.CreditsButton.on('pointerdown', function (pointer) {
       this.bringUpCredits()
     }.bind(this))
+
+    // Switch image to back onPress button
+    this.BackButton.on('pointerover', function () {
+      this.BackButton.setTexture('backPressed')
+    }, this)
+    // Switch image to back offPress button
+    this.BackButton.on('pointerout', function () {
+      this.BackButton.setTexture('backUnpressed')
+    }, this)
+    // Call backToMenu function when BackButton is pressed
+    this.BackButton.on('pointerdown', function (pointer) {
+      this.backToMenu()
+    }.bind(this))
   }
 
-  toPlay () {
-    this.scene.start('SheepMove')
-  }
+  // Send us to play the game aka to MainSheepScene
+  // toPlay () {
+  //   this.scene.start('mainSheepScene')
+  // }
 
+  // Hide all buttons currently on screne
+  // Bring up credits panel and back button
   bringUpCredits () {
     this.PlayButton.setVisible(false)
     this.PlayButton.setActive(false)
@@ -116,6 +136,18 @@ class MainMenu extends Phaser.Scene {
     this.credPanel.setVisible(true)
     this.BackButton.setVisible(true)
     this.BackButton.setActive(true)
+  }
+
+  // Hide credit Panel and back button
+  // Reshow Play and Credits button
+  backToMenu () {
+    this.credPanel.setVisible(false)
+    this.BackButton.setVisible(false)
+    this.BackButton.setActive(false)
+    this.PlayButton.setVisible(true)
+    this.PlayButton.setActive(true)
+    this.CreditsButton.setVisible(true)
+    this.CreditsButton.setActive(true)
   }
 }
 
