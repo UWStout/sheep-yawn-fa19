@@ -20,7 +20,8 @@ class Loading extends Phaser.Scene {
 
   preload () {
     // Add the logo to the screen and center it
-    this.logo = this.add.sprite(centerX(this), centerY(this) - 100, 'logo')
+    // this.load.sprite
+    this.logo = this.add.sprite(centerX(this), centerY(this) - 100, 'assets/images/LoadingWoolhemina.png')
     this.logo.setScale(0.5, 0.5)
     centerGameObjects([this.logo])
 
@@ -120,7 +121,7 @@ class Loading extends Phaser.Scene {
 
     // Load a bunch of junk to slow down the preloader
     for (let i = 0; i < 500; i++) {
-      this.load.image(`logo${i}`, './assets/images/icon.png')
+      this.load.image(`logo${i}`, './assets/images/assets/images/LoadingWoolhemina.png.png')
     }
   }
 
