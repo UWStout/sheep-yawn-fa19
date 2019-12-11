@@ -1,0 +1,34 @@
+{
+  "title": "Woolhemina's Bedtime Round-Up",
+  "byLine": "Even sheep need to count on some sleep",
+  "bannerTitle": "",
+  "bannerWide": "",
+  "markdown": "WebData/gameInfo.md",
+  "media": [
+    {
+      "title": "Game Trailer",
+      "vimeoID": "378602892",
+      "alt": "Woolhemina's Bedtime Round-Up SGX Trailer"
+    }, {
+      "title": "Screenshot 1",
+      "link": "",
+      "alt": "Woolhemina's Bedtime Round-Up Screenashot"
+    }, {
+      "title": "Screenshot 2",
+      "link": "",
+      "alt": "Woolhemina's Bedtime Round-Up Screenshot"
+    }, {
+      "title": "Screenshot 3",
+      "link": "",
+      "alt": "Woolhemina's Bedtime Round-Up Screenshot"
+    }, {
+      "title": "Screenshot 4",
+      "link": "",
+      "alt": "Woolhemina's Bedtime Round-Up Screenshot"
+    }, {
+      "title": "Source Code Evolution",
+      "vimeoID": "378646787",
+      "alt": "gource visualization of the changes in the source code"
+    }
+  ]
+}
