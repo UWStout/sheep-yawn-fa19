@@ -25,19 +25,19 @@ class MainMenu extends Phaser.Scene {
   // Load all data needed for this scene
   preload () {
     // The audiosprite with all music and SFX (keep this for sounds only need to load once)
-    this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
-      'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
-      'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
-    ])
-    this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
-    this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
-    this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
-    this.load.image('playUnpressed', 'assets/images/PlayButton.png')
-    this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
-    this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
-    this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
-    this.load.image('backPressed', 'assets/images/BackPressedButton.png')
-    this.load.image('backUnpressed', 'assets/images/BackButton.png')
+    // this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
+    //   'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
+    //   'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
+    // ])
+    // this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
+    // this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
+    // this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
+    // this.load.image('playUnpressed', 'assets/images/PlayButton.png')
+    // this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
+    // this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
+    // this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
+    // this.load.image('backPressed', 'assets/images/BackPressedButton.png')
+    // this.load.image('backUnpressed', 'assets/images/BackButton.png')
   }
 
   // Creates objects and other items used within the scene
@@ -93,7 +93,7 @@ class MainMenu extends Phaser.Scene {
     // Call bringUpCredits function when CreditsButton is pressed
     this.PlayButton.on('pointerdown', function (event) {
       this.music.stop()
-      this.scene.start('LoadingScene')
+      this.scene.start('TutorialScene')
     }, this)
 
     // Switch image to credits onPress button
