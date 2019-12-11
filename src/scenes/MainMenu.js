@@ -3,15 +3,7 @@
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
-import { centerX, centerY } from '../utils'
-
 import MainMenuImage from '..//sprites/MainMenuImage'
-import PlayPressed from '..//sprites/PlayPressed'
-import PlayUnpressed from '..//sprites/PlayUnpressed'
-import OptionsPressed from '..//sprites/OptionsPressed'
-import OptionsUnpressed from '..//sprites/OptionsUnpressed'
-import CreditsPressed from '..//sprites/CreditsPressed'
-import CreditsUnpressed from '..//sprites/CreditsUnpressed'
 import CreditsPanel from '..//sprites/CreditsPanel'
 
 class MainMenu extends Phaser.Scene {
@@ -19,8 +11,8 @@ class MainMenu extends Phaser.Scene {
   init () {
     // If running as a packaged app, go to full screen right away
     if (__NWJS__) {
-      let canvas = this.sys.game.canvas
-      let fullscreen = this.sys.game.device.fullscreen
+      const canvas = this.sys.game.canvas
+      const fullscreen = this.sys.game.device.fullscreen
       if (fullscreen.available) {
         canvas[fullscreen.request]()
       }

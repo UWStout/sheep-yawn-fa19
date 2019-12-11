@@ -27,9 +27,7 @@ class Loading extends Phaser.Scene {
     this.setupProgressBar(200)
 
     // Load all the assets needed for next state
-    
     // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
- 
     this.load.image('tutorial1', 'assets/images/tutorialCard_1.png')
     this.load.image('tutorial2', 'assets/images/tutorialCard_2.png')
     this.load.image('tutorial3', 'assets/images/tutorialCard_3.png')
@@ -66,7 +64,9 @@ class Loading extends Phaser.Scene {
     this.load.image('treeImage', 'assets/images/asset_oakTree.png')
     this.load.image('FirePitImage', 'assets/images/asset_firePit.png')
     this.load.image('pineImage', 'assets/images/asset_pineTree.png')
-    this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
+    this.load.image('woolfImageBig', 'assets/images/Big.png')
+    this.load.image('woolfImageSmall', 'assets/images/Small.png')
+    this.load.image('woolfImageMed', 'assets/images/Med.png')
     this.load.image('tile1', 'assets/images/Tile_01.png')
     this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
     this.load.image('mapTile', 'assets/images/DummyBoundary.png')
@@ -138,17 +138,17 @@ class Loading extends Phaser.Scene {
 
   setupProgressBar (yOffset) {
     // Local variables for accessing width and height
-    let width = this.cameras.main.width
-    let height = this.cameras.main.height
+    const width = this.cameras.main.width
+    const height = this.cameras.main.height
 
     // Create graphics assets for progress bar
-    let progressBar = this.add.graphics()
-    let progressBkg = this.add.graphics()
+    const progressBar = this.add.graphics()
+    const progressBkg = this.add.graphics()
     progressBkg.fillStyle(0x222222, 0.8)
     // progressBkg.fillRect(width / 2 - 160, height / 2 - 25 + yOffset, 320, 50)
     progressBkg.fillRect(width / 2 - 280, height / 2 + 80, 320, 50)
 
-        let percentText = this.make.text({
+    const percentText = this.make.text({
       x: width / 2 - 120,
       y: height / 2 + 106,
       text: '0%',
@@ -169,7 +169,7 @@ class Loading extends Phaser.Scene {
     })
 
     this.load.on('fileprogress', (file) => {
-      assetText.setText(`Loading asset: ${file.key}`)
+      // assetText.setText(`Loading asset: ${file.key}`)
     })
 
     this.load.on('complete', () => {

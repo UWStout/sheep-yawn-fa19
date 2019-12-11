@@ -1,9 +1,6 @@
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
-// Import needed functions from utils and config settings
-import { centerGameObjects, centerX, centerY } from '../utils'
-
 class Tutorial extends Phaser.Scene {
   init (data) { }
 
@@ -73,12 +70,7 @@ class Tutorial extends Phaser.Scene {
     }, this)
   }
 
-
-  update () {
-  }
-
-  getCurrentNumber ()
-  {
+  getCurrentNumber () {
     if (this.tutorial1Image.visible === true) {
       return 1
     } else if (this.tutorial2Image.visible === true) {

@@ -9,15 +9,15 @@
 
 export default {
   gameWidth: 1800, // The width of the game viewport in the browser
-  gameHeight: 900, // The height of the game viewport in the browser 
+  gameHeight: 900, // The height of the game viewport in the browser
   localStorageName: 'stoutGDD325', // Prefix for cookie & session storage
 
   // List of webfonts you want to load
   webfonts: ['Libre Franklin'],
 
   // Sound and music settings
-  MUSIC_VOLUME: 0.5, //.5
-  SFX_VOLUME: 1, //.8
+  MUSIC_VOLUME: 0.5, // .5
+  SFX_VOLUME: 1, // .8
 
   // Minimum time to display the splash screen
   MIN_SPLASH_SECONDS: 2,

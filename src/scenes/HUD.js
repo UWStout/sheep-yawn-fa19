@@ -1,9 +1,6 @@
-/* global __NWJS__ */
+
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
-import Textbox from '../objects/Textbox'
-
-import { centerX, centerY } from '../utils'
 
 class HUD extends Phaser.Scene {
   // Initialize the stage and any simple settings
