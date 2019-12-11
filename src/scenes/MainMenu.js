@@ -37,6 +37,7 @@ class MainMenu extends Phaser.Scene {
       'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
       'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
     ])
+    this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
     this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
     this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
     this.load.image('playUnpressed', 'assets/images/PlayButton.png')

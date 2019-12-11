@@ -1,51 +1,30 @@
+/* global __NWJS__ */
+
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
-// Import needed functions from utils and config settings
-import { centerGameObjects, centerX, centerY } from '../utils'
-
-/**
- * The Loading game state. This game state displays a dynamic splash screen used
- * to communicate the progress of asset loading. It should ensure it is always
- * displayed some mimimum amount of time (in case the assets are already cached
- * locally) and it should have pre-loaded any assets it needs to display in main
- * before it is run. Generally only runs once, after main, and cannot be re-entered.
- *
- * See Phaser.State for more about game states.
- */
-class Loading extends Phaser.Scene {
-  // Initialize some local settings for this state
+class LoadingSheep extends Phaser.Scene {
   init () {
+
   }
 
-  preload () {
-    // Add the logo to the screen and center it
-    // this.load.image('logoPic', 'assets/images/LoadingWoolhemina.png')
-    this.logo = this.add.sprite(centerX(this), centerY(this), 'logoPic')
-    centerGameObjects([this.logo])
+  // Load all data needed for this scene
+  preload () { 
+    this.logo = this.add.sprite(centerX(this), centerY(this) - 100, 'logoPic')
+    // centerGameObjects([this.logo])
+    this.add.existing(this.logo)
+    this.logo.setScale(0.5, 0.5)
 
     this.setupProgressBar(200)
 
     // Load all the assets needed for next state
-    
-    // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
- 
-    this.load.image('tutorial1', 'assets/images/tutorialCard_1.png')
-    this.load.image('tutorial2', 'assets/images/tutorialCard_2.png')
-    this.load.image('tutorial3', 'assets/images/tutorialCard_3.png')
-    this.load.image('tutorial4', 'assets/images/tutorialCard_4.png')
-    this.load.image('tutorial5', 'assets/images/tutorialCard_5.png')
-    this.load.image('tutorial6', 'assets/images/tutorialCard_6.png')
+
     this.load.image('timerImage', 'assets/images/UntilDawnLabel.png')
     this.load.image('CursorImage', 'assets/images/MouseCursor.png')
     this.load.image('MenuButton', 'assets/images/MenuButton.png')
     this.load.image('MenuPressedButton', 'assets/images/MenuPressed.png')
-    this.load.image('BackButton', 'assets/images/BackButton.png')
-    this.load.image('BackPressedButton', 'assets/images/BackPressedButton.png')
-    this.load.image('SkipButton', 'assets/images/Skip.png')
-    this.load.image('SkipPressedButton', 'assets/images/SkipPressed.png')
-    this.load.image('NextButton', 'assets/images/Next.png')
-    this.load.image('NextPressedButton', 'assets/images/NextPressed.png')
+    // this.load.image('BackButton', 'assets/images/BackButton.png')
+    // this.load.image('BackPressedButton', 'assets/images/BackPressed.png')
     this.load.image('ContinueButton', 'assets/images/Continue.png')
     this.load.image('ContinuePressedButton', 'assets/images/ContinuePressed.png')
     // this.load.image('CreditsButton', 'assets/images/CreditsButton.png')
@@ -129,65 +108,13 @@ class Loading extends Phaser.Scene {
       'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
       'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
     ])
-
-    // Load a bunch of junk to slow down the preloader
-    for (let i = 0; i < 500; i++) {
-      this.load.image(`logo${i}`, './assets/images/icon.png')
-    }
   }
 
-  setupProgressBar (yOffset) {
-    // Local variables for accessing width and height
-    let width = this.cameras.main.width
-    let height = this.cameras.main.height
+  // Creates objects and other items used within the scene
+  create () { 
 
-    // Create graphics assets for progress bar
-    let progressBar = this.add.graphics()
-    let progressBkg = this.add.graphics()
-    progressBkg.fillStyle(0x222222, 0.8)
-    // progressBkg.fillRect(width / 2 - 160, height / 2 - 25 + yOffset, 320, 50)
-    progressBkg.fillRect(width / 2 - 280, height / 2 + 80, 320, 50)
-
-        let percentText = this.make.text({
-      x: width / 2 - 120,
-      y: height / 2 + 106,
-      text: '0%',
-      style: {
-        font: '30px monospace',
-        fill: '#ffffff'
-      }
-    })
-
-    centerGameObjects([percentText])
-
-    // Display the progress bar
-    this.load.on('progress', (percent) => {
-      progressBar.clear()
-      progressBar.fillStyle(0xffffff, 1)
-      progressBar.fillRect(width / 2 - 280, height / 2 + 80, 320, 50)
-      percentText.setText(`${parseInt(percent * 100)}%`)
-    })
-
-    this.load.on('fileprogress', (file) => {
-      assetText.setText(`Loading asset: ${file.key}`)
-    })
-
-    this.load.on('complete', () => {
-      percentText.destroy()
-      progressBar.destroy()
-      progressBkg.destroy()
-    })
   }
 
-  // Pre-load is done
-  create () {
-  }
-
-  // Called repeatedly after pre-load finishes and after 'create' has run
-  update () {
-    this.scene.start('TutorialScene')
-  }
 }
 
-// Expose the Splash class for use in other modules
-export default Loading
+export default LoadingSheep
