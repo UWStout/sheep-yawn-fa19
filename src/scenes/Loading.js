@@ -25,6 +25,15 @@ class Loading extends Phaser.Scene {
     centerGameObjects([this.logo])
 
     this.setupProgressBar(200)
+    this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
+    this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
+    this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
+    this.load.image('playUnpressed', 'assets/images/PlayButton.png')
+    this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
+    this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
+    this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
+    this.load.image('backPressed', 'assets/images/BackPressedButton.png')
+    this.load.image('backUnpressed', 'assets/images/BackButton.png')
 
     // Load all the assets needed for next state
     // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen

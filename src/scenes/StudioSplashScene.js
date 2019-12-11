@@ -137,6 +137,10 @@ class StudioSplashScene extends Phaser.Scene {
     logoImage.setScale(0.6)
     logoImage.setAlpha(0.0)
 
+    const studioImage = this.add.image(centerX(this), centerY(this), 'SpoonImage')
+    studioImage.setScale(0.8)
+    studioImage.setAlpha(0.0)
+
     const carTween = this.add.tween({
       targets: carImage,
       alpha: 1.0,
@@ -146,6 +150,13 @@ class StudioSplashScene extends Phaser.Scene {
 
     const logoTween = this.add.tween({
       targets: logoImage,
+      alpha: 1.0,
+      duration: 1000,
+      paused: true
+    })
+
+    const studioTween = this.add.tween({
+      targets: studioImage,
       alpha: 1.0,
       duration: 1000,
       paused: true
@@ -161,17 +172,26 @@ class StudioSplashScene extends Phaser.Scene {
       logoTween.play()
     }, 6000)
 
-    // Fade out entire scene
     const sceneCamera = this.cameras.main
+
+    // Fade in spoon image
+    setTimeout(() => {
+      carImage.visible = false
+      logoImage.visible = false
+      studioTween.play()
+    }, 12000)
+
+    // Fade out entire scene
     setTimeout(() => {
       sceneCamera.fadeOut(2000)
-    }, 12000)
+    }, 25000)
 
     const myScene = this
     setTimeout(() => {
       const loadingText = myScene.add.text(centerX(myScene), centerY(myScene),
-        'loading', { font: '16px Arial', fill: '#FFFFFF', align: 'center' })
+        '', { font: '16px Arial', fill: '#FFFFFF', align: 'center' })
       loadingText.setOrigin(0.5, 0.5)
+      this.bkgSfx.destroy()
       myScene.allowNextScene = true
     }, 15000)
   }
