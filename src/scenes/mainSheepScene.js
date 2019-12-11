@@ -636,25 +636,25 @@ class mainSheepScene extends Phaser.Scene {
     for (let i = 0; i < this.WoolfArrayLength; i++) {
       if (this.WoolfArray[i].isAwake === true) {
         if (this.WoolfArray[i].x < 250) {
-          console.log('wolf tried to go left')
+          if (__DEV__) console.log('wolf tried to go left')
           this.WoolfArray[i].x = 260
         }
         if (this.WoolfArray[i].x > 2500) {
-          console.log('wolf tried to go right')
+          if (__DEV__) console.log('wolf tried to go right')
           this.WoolfArray[i].x = 2490
         }
         if (this.WoolfArray[i].y < 250) {
-          console.log('wolf tried to go up')
+          if (__DEV__) console.log('wolf tried to go up')
           this.WoolfArray[i].y = 260
         }
         if (this.WoolfArray[i].y > 2500) {
-          console.log('wolf tried to go down')
+          if (__DEV__) console.log('wolf tried to go down')
           this.WoolfArray[i].y = 2490
         }
         if (this.WoolfArray[i].hasMoved === false) {
-          console.log('hi')
+          if (__DEV__) console.log('hi')
           this.myDelay = (Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
-          console.log(this.myDelay)
+          if (__DEV__) console.log(this.myDelay)
           this.timedEvent = this.time.addEvent({ delay: this.myDelay, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: false })
           this.WoolfArray[i].hasMoved = true
         }
@@ -836,7 +836,7 @@ class mainSheepScene extends Phaser.Scene {
     this.yawnBlastCircle.body.setCircle(75, 54, 48.5)
     this.physics.add.collider(this.yawnBlastCircle)
 
-    // console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
+    // if (__DEV__) console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
@@ -868,10 +868,10 @@ class mainSheepScene extends Phaser.Scene {
         if (this.WoolfArray[i]) {
           // check to see if the woolf is already asleep
           if (this.WoolfArray[i].isAwake === true) {
-            console.log('wolf is awake')
-            console.log(this.WoolfArrayLength)
+            if (__DEV__) console.log('wolf is awake')
+            if (__DEV__) console.log(this.WoolfArrayLength)
           } else if (this.WoolfArray[i].isAwake === false) {
-            console.log('wolf is asleep')
+            if (__DEV__) console.log('wolf is asleep')
             // this.WoolfArray.splice((i - 1), (i - 1))
           }
           // Check for overlap with enemy and yawnBlast
@@ -894,12 +894,12 @@ class mainSheepScene extends Phaser.Scene {
     // Has the Enemy lost all their health?
     // Play death anim.s if so
     if (woolfy.getHealth() === 0) {
-      console.log('Name: ' + woolfy.getEnemyName())
-      console.log('No more health')
+      if (__DEV__) console.log('Name: ' + woolfy.getEnemyName())
+      if (__DEV__) console.log('No more health')
       this.updateScore(woolfy)
       woolfy.body.enable = false
       if (this._invert === true) {
-        console.log('anim of back')
+        if (__DEV__) console.log('anim of back')
         if (woolfy.getEnemyName() === 'woolfBaby') {
           woolfy.anims.play('babyWoolfAsleepFrontAnim')
         } else if (woolfy.getEnemyName() === 'woolfMedium') {
@@ -910,7 +910,7 @@ class mainSheepScene extends Phaser.Scene {
       }
 
       if (this._invert === false) {
-        console.log('anim of front')
+        if (__DEV__) console.log('anim of front')
         if (woolfy.getEnemyName() === 'woolfBaby') {
           woolfy.anims.play('babyWoolfAsleepBackAnim')
         } else if (woolfy.getEnemyName() === 'woolfMedium') {
@@ -974,22 +974,22 @@ class mainSheepScene extends Phaser.Scene {
   // Moves Enemy around the scene
   moveEnemyAnim (myEnemy) {
     if (myEnemy.isAwake === true) {
-      // console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
-      // console.log('Are we assigning anims? in movement?')
+      // if (__DEV__) console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
+      // if (__DEV__) console.log('Are we assigning anims? in movement?')
       // Is enemy moving in negative (left) direction
       if (myEnemy.body.velocity.x < 0) {
-        console.log('going left')
+        if (__DEV__) console.log('going left')
         myEnemy.flipX = false
       }
       if (myEnemy.body.velocity.x >= 0) {
-        console.log('going right')
+        if (__DEV__) console.log('going right')
         myEnemy.flipX = true
       }
       if (myEnemy.body.velocity.y < 0) {
-        // console.log('going down')
+        // if (__DEV__) console.log('going down')
         // Is the Enemy a baby woolf?
         if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // console.log('testing down')
+          // if (__DEV__) console.log('testing down')
           // Is Enemy left run running
           // Play anim if not so
           if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
@@ -1009,12 +1009,12 @@ class mainSheepScene extends Phaser.Scene {
           }
         }
         if (myEnemy.body.velocity.y >= 0) {
-          // console.log('going up')
+          // if (__DEV__) console.log('going up')
           // Is the Enemy a baby woolf?
           if (myEnemy.getEnemyName() === 'woolfBaby') {
             // Is Enemy left run running
             // Play anim if not so
-            // console.log('testing up')
+            // if (__DEV__) console.log('testing up')
             if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
               myEnemy.anims.play('babyWoolfRightRunAnim')
             }
@@ -1041,12 +1041,12 @@ class mainSheepScene extends Phaser.Scene {
 
   wolfMoveRightLeft (myEnemy) {
     myEnemy.body.velocity.x = (-1 * myEnemy.body.velocity.x)
-    console.log('left right does this happen?')
+    if (__DEV__) console.log('left right does this happen?')
   }
 
   wolfMoveUpDown (myEnemy) {
     myEnemy.body.velocity.y = (-1 * myEnemy.body.velocity.y)
-    console.log('up down does this happen?')
+    if (__DEV__) console.log('up down does this happen?')
   }
 
   newLevel () {
@@ -1254,14 +1254,14 @@ class mainSheepScene extends Phaser.Scene {
   depthCheck (myTree) {
     if (myTree.depth > this.player.depth) {
       // Might be behind or to the side of the tree
-      // console.log('1) is it behind?')
+      // if (__DEV__) console.log('1) is it behind?')
       if (this.player.body.position.y < (myTree.y + 114)) {
         myTree.body.setOffset(myTree.offsetX, myTree.offsetY)
       }
       if (((this.player.x > (myTree.x + myTree.width / 2)) || (this.player.x < (myTree.x - myTree.width / 2))) || (this.player.y + (this.player.height / 2)) < (myTree.y - (myTree.height / 2))) {
       // not behind tree
       // top left, top right, bottom left, bottom right
-        // console.log('2 not behind tree')
+        // if (__DEV__) console.log('2 not behind tree')
         if (myTree.enemyBehindTree === false) {
           myTree.setAlpha(1, 1, 1, 1)
         }
@@ -1270,7 +1270,7 @@ class mainSheepScene extends Phaser.Scene {
         myTree.setAlpha(0.2, 0.2, 1, 1)
       }
     } else {
-      // console.log('4 below or collide with tree?')
+      // if (__DEV__) console.log('4 below or collide with tree?')
       if (myTree.enemyBehindTree === false) {
         myTree.setAlpha(1, 1, 1, 1)
       }
@@ -1279,18 +1279,18 @@ class mainSheepScene extends Phaser.Scene {
       this.testTreeTopCollide = myTree.body.position.y - (myTree.treeHeight / 2)
       this.testTreeBottomCollide = myTree.body.position.y + (myTree.treeHeight)
       if ((this.sheepFootPosY < this.testTreeBottomCollide) && (this.sheepFootPosY > this.testTreeTopCollide)) {
-        // console.log('can collide with tree stump')
+        // if (__DEV__) console.log('can collide with tree stump')
         // allow the player to collide with the tree stump
         myTree.body.enable = true
         this.physics.add.collider(this.player, myTree)
       }
       if (this.sheepFootPosY > this.testTreeBottomCollide) {
         if (this.sheepFootPosX > myTree.body.position.x + myTree.inFrontValue || this.sheepFootPosX < myTree.body.position.x - myTree.inFrontValue) {
-          // console.log('to the side of the tree')
+          // if (__DEV__) console.log('to the side of the tree')
           myTree.body.setOffset(myTree.offsetX, myTree.offsetChange)
         }
         if (this.sheepFootPosY < myTree.body.position.y) {
-          // console.log('collision at tree base')
+          // if (__DEV__) console.log('collision at tree base')
           myTree.body.setOffset(myTree.offsetX, myTree.offsetY)
         }
         myTree.body.enable = true

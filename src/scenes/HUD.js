@@ -1,4 +1,6 @@
 
+/* globals __DEV__ */
+
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
@@ -214,7 +216,7 @@ class HUD extends Phaser.Scene {
   }
 
   GoToMenu () {
-    console.log('go to menu')
+    if (__DEV__) console.log('go to menu')
     window.location.reload()
   }
 
