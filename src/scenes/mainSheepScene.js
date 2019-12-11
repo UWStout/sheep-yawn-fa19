@@ -637,22 +637,26 @@ class mainSheepScene extends Phaser.Scene {
       if (this.WoolfArray[i].isAwake === true) {
         if (this.WoolfArray[i].x < 250) {
           console.log('wolf tried to go left')
-          this.WoolfArray[i].x = 260
+          this.WoolfArray[i].x += 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
         }
         if (this.WoolfArray[i].x > 2500) {
           console.log('wolf tried to go right')
-          this.WoolfArray[i].x = 2490
+          this.WoolfArray[i].x -= 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
         }
         if (this.WoolfArray[i].y < 250) {
           console.log('wolf tried to go up')
-          this.WoolfArray[i].y = 260
+          this.WoolfArray[i].y += 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
         }
         if (this.WoolfArray[i].y > 2500) {
           console.log('wolf tried to go down')
-          this.WoolfArray[i].y = 2490
+          this.WoolfArray[i].y -= 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
         }
         if (this.WoolfArray[i].hasMoved === false) {
-          console.log('hi')
+          console.log('quit calling this')
           this.myDelay = (Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
           console.log(this.myDelay)
           this.timedEvent = this.time.addEvent({ delay: this.myDelay, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: false })
@@ -974,68 +978,122 @@ class mainSheepScene extends Phaser.Scene {
   // Moves Enemy around the scene
   moveEnemyAnim (myEnemy) {
     if (myEnemy.isAwake === true) {
-      // console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
-      // console.log('Are we assigning anims? in movement?')
-      // Is enemy moving in negative (left) direction
+
+      this.LeftTrue = true
+      this.DownTrue = true
+      this.enemyName = myEnemy.getEnemyName()
+
       if (myEnemy.body.velocity.x < 0) {
         console.log('going left')
+        this.LeftTrue = true
+      } else {
+        console.log('going right')
+        this.LeftTrue = false
+      }
+      if (myEnemy.body.velocity.y < 0) {
+        console.log('going down')
+        this.DownTrue = false
+      } else { // -48 27
+        console.log('going up')
+        this.DownTrue = true
+      }
+      if (this.DownTrue === false && myEnemy.body.velocity.x < 0) {
+        console.log('going left')
+        myEnemy.flipX = true
+      }
+      if (this.DownTrue === false && myEnemy.body.velocity.x >= 0) {
+        console.log('going right')
         myEnemy.flipX = false
       }
-      if (myEnemy.body.velocity.x >= 0) {
+      if (this.DownTrue === true && myEnemy.body.velocity.x < 0) {
+        console.log('going left')
+        myEnemy.flipX = true
+      }
+      if (this.DownTrue === true && myEnemy.body.velocity.x >= 0) {
         console.log('going right')
         myEnemy.flipX = true
       }
-      if (myEnemy.body.velocity.y < 0) {
-        // console.log('going down')
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // console.log('testing down')
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            myEnemy.anims.play('babyWoolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            myEnemy.anims.play('woolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            myEnemy.anims.play('alphaWoolfLeftRunAnim')
-          }
+      console.log(myEnemy.body.velocity)
+      if (this.enemyName === 'woolfBaby' && this.DownTrue !== true && this.LeftTrue === true) { // baby going up and left
+        console.log('baby going up and left')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
+          myEnemy.anims.play('babyWoolfRightRunAnim')
         }
-        if (myEnemy.body.velocity.y >= 0) {
-          // console.log('going up')
-          // Is the Enemy a baby woolf?
-          if (myEnemy.getEnemyName() === 'woolfBaby') {
-            // Is Enemy left run running
-            // Play anim if not so
-            // console.log('testing up')
-            if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
-              myEnemy.anims.play('babyWoolfRightRunAnim')
-            }
-          } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-            // Is Enemy left run running
-            // Play anim if not so
-            if (myEnemy.anims.getCurrentKey() !== 'woolfRightRunAnim') {
-              myEnemy.anims.play('woolfRightRunAnim')
-            }
-          } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-            // Is Enemy left run running
-            // Play anim if not so
-            if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
-              myEnemy.anims.play('alphaWoolfRightRunAnim')
-            }
-          }
-        }// (myEnemy.body.velocity.y > 0)
-      } // myEnemy.body.velocity.y < 0
-    } else { // is awake
-      myEnemy.body.velocity.x = 0
-      myEnemy.body.velocity.y = 0
+      } else if (this.enemyName === 'woolfBaby' && this.DownTrue !== true && this.LeftTrue === false) { // baby going up and right
+        console.log('baby going up and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
+          myEnemy.anims.play('babyWoolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBaby' && this.DownTrue === true && this.LeftTrue === false) { // baby going down and right
+        console.log('baby going down and right')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+          myEnemy.anims.play('babyWoolfLeftRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBaby') { // baby going down and right
+        console.log('baby going down and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
+          myEnemy.anims.play('babyWoolfLeftRunAnim')
+        }
+      }
+
+      console.log(myEnemy.body.velocity)
+      if (this.enemyName === 'woolfMedium' && this.DownTrue !== true && this.LeftTrue === true) { // woolfMedium going up and left
+        console.log('woolfMedium going up and left')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'woolfRightRunAnim') {
+          myEnemy.anims.play('woolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfMedium' && this.DownTrue !== true && this.LeftTrue === false) { // woolfMedium going up and right
+        console.log('woolfMedium going up and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'woolfRightRunAnim') {
+          myEnemy.anims.play('woolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfMedium' && this.DownTrue === true && this.LeftTrue === false) { // woolfMedium going down and right
+        console.log('woolfMedium going down and right')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          myEnemy.anims.play('woolfLeftRunAnim')
+        }
+      } else if (this.enemyName === 'woolfMedium') { // woolfMedium going down and right
+        console.log('woolfMedium going down and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'woolfRightRunAnim') {
+          myEnemy.anims.play('woolfLeftRunAnim')
+        }
+      }
+
+      console.log(myEnemy.body.velocity)
+      if (this.enemyName === 'woolfBig' && this.DownTrue !== true && this.LeftTrue === true) { // alpha going up and left
+        console.log('baby going up and left')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+          myEnemy.anims.play('alphaWoolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBig' && this.DownTrue !== true && this.LeftTrue === false) { // alpha going up and right
+        console.log('baby going up and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+          myEnemy.anims.play('alphaWoolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBig' && this.DownTrue === true && this.LeftTrue === false) { // alpha going down and right
+        console.log('alpha going down and right')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+          myEnemy.anims.play('alphaWoolfLeftRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBig') { // alpha going down and right
+        console.log('alpha going down and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+          myEnemy.anims.play('alphaWoolfLeftRunAnim')
+        }
+      }
+
     }
   }
 
