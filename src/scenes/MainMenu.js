@@ -32,6 +32,7 @@ class MainMenu extends Phaser.Scene {
 
   // Load all data needed for this scene
   preload () {
+    this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
     this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
     this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
     this.load.image('playUnpressed', 'assets/images/PlayButton.png')
