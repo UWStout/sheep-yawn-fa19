@@ -206,7 +206,7 @@ class TestScene extends Phaser.Scene {
   }
 
   showPauseMenu () {
-    console.log('Showing Pause Menu')
+    if (__DEV__) console.log('Showing Pause Menu')
     this.pauseTransition = false
     this.scene.pause()
     this.scene.launch('PauseMenu', {
@@ -223,7 +223,7 @@ class TestScene extends Phaser.Scene {
 
     // Check for pause
     if (this.escKey.isDown && !this.escKey.oldDown) {
-      console.log('pausing')
+      if (__DEV__) console.log('pausing')
       this.matter.world.pause()
       this.anims.pauseAll()
       this.escKey.oldDown = true

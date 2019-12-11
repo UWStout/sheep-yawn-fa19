@@ -212,7 +212,7 @@ class PauseMenuScene extends Phaser.Scene {
       this.escKey.oldDown = true
 
       // Shut down this scene and resume the old one
-      console.log('resuming')
+      if (__DEV__) console.log('resuming')
       this.scene.resume(this.parentScene, {
         musicVolume: this.music.volume,
         sfxVolume: this.runningSFX.volume

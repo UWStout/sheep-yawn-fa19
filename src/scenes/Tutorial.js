@@ -1,3 +1,5 @@
+/* globals __DEV__ */
+
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
@@ -94,7 +96,7 @@ class Tutorial extends Phaser.Scene {
     this.tutorial4Image.visible = false
     this.tutorial5Image.visible = false
     this.tutorial6Image.visible = false
-    console.log(current)
+    if (__DEV__) console.log(current)
     if (current === 6) {
       this.scene.start('SheepMove')
     } else if (current === 1) {
@@ -118,7 +120,7 @@ class Tutorial extends Phaser.Scene {
     this.tutorial4Image.visible = false
     this.tutorial5Image.visible = false
     this.tutorial6Image.visible = false
-    console.log(current)
+    if (__DEV__) console.log(current)
     if (current === 1) {
       this.BackButton.visible = false
     } else if (current === 2) {
