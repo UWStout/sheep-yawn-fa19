@@ -35,7 +35,7 @@ class mainSheepScene extends Phaser.Scene {
 
     this._woolf_Velocity = 30
     this._sheep_Velocity = 300
-
+    this.AllZArray = []
     this.sfxOn = true
 
     this.levelNumber = 1
@@ -396,7 +396,7 @@ class mainSheepScene extends Phaser.Scene {
         yoyo: true,
         loop: -1
       })
-      this.BabyWolfAmount = 3 // 3
+      this.BabyWolfAmount = 0 // 3
       this.MediumWolfAmount = 1 // 1
       this.BigWolfAmount = 0
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
@@ -931,9 +931,9 @@ class mainSheepScene extends Phaser.Scene {
   zzzDrop (enemyX, enemyY, amountOfZs) {
     // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
-
     // Sets up holder for zzz sprites
     this.zzzGroup = this.physics.add.group({ key: 'zzzImage', frameQuantity: amountOfZs })
+    this.AllZArray.push(this.zzzGroup)
     // Places Zzz's on ellipse path
     Phaser.Actions.PlaceOnEllipse(this.zzzGroup.getChildren(), this.enemyEllipse)
 
@@ -942,7 +942,7 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz, null, this)
 
     // How long has the zzzs existed in the scene?
-    this.timedEvent = this.time.addEvent({ delay: 5000, callback: () => { this.zzzClear(this.zzzGroup) }, callbackScope: this, loop: false })
+    // this.timedEvent = this.time.addEvent({ delay: 5000, callback: () => { this.zzzClear(this.zzzGroup) }, callbackScope: this, loop: false })
   }
 
   // Clear zzzGroups zzz objects
@@ -983,11 +983,16 @@ class mainSheepScene extends Phaser.Scene {
       this.DownTrue = true
       this.enemyName = myEnemy.getEnemyName()
 
-      if (myEnemy.body.velocity.x < 0) {
-        console.log('going left')
+      myEnemy.prevX = myEnemy.body.x
+      console.log('look Kendra ' + myEnemy.body.x)
+      console.log('look Kendra prev ' + myEnemy.prevX)
+      if (myEnemy.prevX > myEnemy.body.x) {
+        console.log('look Kendra left')
+        // going left
         this.LeftTrue = true
-      } else {
-        console.log('going right')
+      } else if (myEnemy.prevX <= myEnemy.body.x) {
+        console.log('look Kendra right')
+        // going right
         this.LeftTrue = false
       }
       if (myEnemy.body.velocity.y < 0) {
@@ -1108,6 +1113,11 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   newLevel () {
+
+    for (let i = 0; i < (this.AllZArray.length); i++) {
+      this.zzzClear(this.AllZArray[i])
+    }
+    
     this.BigWolfsAwakeCurrentAmount = 0
     this.BabyWolfsAwakeCurrentAmount = 0
     this.MediumWolfAwakeCurrentAmount = 0
