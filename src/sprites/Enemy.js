@@ -12,6 +12,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
     this.zzzCount = zzzAmount
     this.isAwake = true
     this.hasMoved = false
+    this.prevX = 1.24 // trying to make it a double
 
     // Event check for when health is equal to zero
     this.on('die', this.die, this)
