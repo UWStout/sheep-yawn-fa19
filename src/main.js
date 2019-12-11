@@ -9,9 +9,10 @@ import PhaserDebugDrawPlugin from 'phaser-plugin-debug-draw'
 import UIPlugin from '../plugins/rexrainbow/rexuiplugin.min'
 
 // Import the scenes used in our game
-// import BootScene from './scenes/Boot' // A bootstraping loader that loads the assets need by ... the loader!
+import BootScene from './scenes/Boot' // A bootstraping loader that loads the assets need by ... the loader!
 // import SplashScene from './scenes/Splash' // A fancy loading splash screen for loading more assets
 // import TestScene from './scenes/TestScene' // The main game level for testing
+import StudioSplashScene from './scenes/StudioSplashScene' // Seth's Safari studio splash scene
 import mainSheepScene from './scenes/mainSheepScene' // main scene
 import HUD from './scenes/HUD'
 import MainMenu from './scenes/MainMenu'
@@ -72,9 +73,10 @@ class Game extends Phaser.Game {
     })
 
     // Name and load ALL needed game scenes (add more scenes here as you make them)
-    // this.scene.add('Boot', BootScene, false)
+    this.scene.add('Boot', BootScene, false)
     // this.scene.add('Splash', SplashScene, false)
     // this.scene.add('Test', TestScene, false)
+    this.scene.add('StudioSplash', StudioSplashScene, false)
     this.scene.add('SheepMove', mainSheepScene, false)
     this.scene.add('TutorialScene', Tutorial, false)
     this.scene.add('HUDScene', HUD, false)
@@ -86,7 +88,7 @@ class Game extends Phaser.Game {
 
     // Start with the bootstrap scene that will load assets needed for the splash scene
     // this.scene.start('SheepMove')
-    this.scene.start('MainMenuScene')
+    this.scene.start('Boot')
   }
 }
 
