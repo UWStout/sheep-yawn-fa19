@@ -49,6 +49,7 @@ class MainMenu extends Phaser.Scene {
 
   // Creates objects and other items used within the scene
   create () {
+    this.input.setDefaultCursor('url(assets/images/MouseCursor.png), pointer')
     this.music = this.sound.addAudioSprite('sounds')
     this.music.play('MenuScreen', { volume: 0.5 })
     // Creation of MainMenu title

@@ -68,10 +68,8 @@ class mainSheepScene extends Phaser.Scene {
   // Create
 
   // Creates objects and other items used within the scene
-  // Not immediately added to scene, unless add/addExisting Is stated
-  
+  // Not immediately added to scene, unless add/addExisting Is stated  
   create () {
-    this.input.setDefaultCursor('url(assets/images/MouseCursor.png), pointer')
     // Start playing the background music
     this.music = this.sound.addAudioSprite('sounds')
     // this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
@@ -401,7 +399,7 @@ class mainSheepScene extends Phaser.Scene {
         yoyo: true,
         loop: -1
       })
-      this.BabyWolfAmount = 0 // 3
+      this.BabyWolfAmount = 3 // 3
       this.MediumWolfAmount = 1 // 1
       this.BigWolfAmount = 0
       for (let i = 0; i < (this.BabyWolfAmount); i++) {

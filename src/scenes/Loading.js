@@ -41,7 +41,11 @@ class Loading extends Phaser.Scene {
     this.load.image('MenuButton', 'assets/images/MenuButton.png')
     this.load.image('MenuPressedButton', 'assets/images/MenuPressed.png')
     this.load.image('BackButton', 'assets/images/BackButton.png')
-    this.load.image('BackPressedButton', 'assets/images/BackPressed.png')
+    this.load.image('BackPressedButton', 'assets/images/BackPressedButton.png')
+    this.load.image('SkipButton', 'assets/images/Skip.png')
+    this.load.image('SkipPressedButton', 'assets/images/SkipPressed.png')
+    this.load.image('NextButton', 'assets/images/Next.png')
+    this.load.image('NextPressedButton', 'assets/images/NextPressed.png')
     this.load.image('ContinueButton', 'assets/images/Continue.png')
     this.load.image('ContinuePressedButton', 'assets/images/ContinuePressed.png')
     this.load.image('CreditsButton', 'assets/images/CreditsButton.png')
@@ -204,7 +208,7 @@ class Loading extends Phaser.Scene {
 
   // Called repeatedly after pre-load finishes and after 'create' has run
   update () {
-    this.scene.start('SheepMove')
+    this.scene.start('TutorialScene')
   }
 }
 
