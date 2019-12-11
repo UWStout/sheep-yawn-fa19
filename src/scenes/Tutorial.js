@@ -4,7 +4,9 @@
 import Phaser from 'phaser'
 
 class Tutorial extends Phaser.Scene {
-  init (data) { }
+  init () { 
+    this.cameras.main.setBackgroundColor('#e6ccff')
+  }
 
   preload () {
   }

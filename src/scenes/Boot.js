@@ -9,7 +9,7 @@ class Boot extends Phaser.Scene {
   // Initialize the stage and any simple settings
   init () {
     // Set the background color
-    this.cameras.main.backgroundColor = '000000'
+    this.cameras.main.setBackgroundColor('#000000')
 
     // If running as a packaged app, go to full screen right away
     if (__NWJS__) {
@@ -25,7 +25,7 @@ class Boot extends Phaser.Scene {
   preload () {
     // Show message that fonts are loading
     const text = this.add.text(centerX(this), centerY(this),
-      '', { font: '16px Arial', fill: '#dddddd', align: 'center' })
+      'loading', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     text.setOrigin(0.5, 0.5)
 
     // Read the assets for the splash screen (used in next stage)

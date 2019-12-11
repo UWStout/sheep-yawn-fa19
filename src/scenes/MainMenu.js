@@ -9,6 +9,7 @@ import CreditsPanel from '..//sprites/CreditsPanel'
 class MainMenu extends Phaser.Scene {
   // Initialize the stage and any simple settings
   init () {
+    this.cameras.main.backgroundColor = '#000000'
     // If running as a packaged app, go to full screen right away
     if (__NWJS__) {
       const canvas = this.sys.game.canvas
@@ -93,7 +94,7 @@ class MainMenu extends Phaser.Scene {
     // Call bringUpCredits function when CreditsButton is pressed
     this.PlayButton.on('pointerdown', function (event) {
       this.music.stop()
-      this.scene.start('TutorialScene')
+      this.scene.start('LoadingScene')
     }, this)
 
     // Switch image to credits onPress button

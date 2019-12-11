@@ -1,8 +1,8 @@
 {
   "title": "Woolhemina's Bedtime Round-Up",
-  "byLine": "Even sheep need to count on some sleep",
-  "bannerTitle": "",
-  "bannerWide": "",
+  "byLine": "Yawn Until Dawn!",
+  "bannerTitle": "WebData/Game_Title_Banner.png",
+  "bannerWide": "WebData/Wide_Banner_Background.png",
   "markdown": "WebData/gameInfo.md",
   "media": [
     {
@@ -11,19 +11,19 @@
       "alt": "Woolhemina's Bedtime Round-Up SGX Trailer"
     }, {
       "title": "Screenshot 1",
-      "link": "",
+      "link": "WebData/GamePlay.png",
       "alt": "Woolhemina's Bedtime Round-Up Screenashot"
     }, {
       "title": "Screenshot 2",
-      "link": "",
+      "link": "WebData/Tutorial.png",
       "alt": "Woolhemina's Bedtime Round-Up Screenshot"
     }, {
       "title": "Screenshot 3",
-      "link": "",
+      "link": "WebData/YawnBlast.png",
       "alt": "Woolhemina's Bedtime Round-Up Screenshot"
     }, {
       "title": "Screenshot 4",
-      "link": "",
+      "link": "WebData/WinScreenGame.png",
       "alt": "Woolhemina's Bedtime Round-Up Screenshot"
     }, {
       "title": "Source Code Evolution",
