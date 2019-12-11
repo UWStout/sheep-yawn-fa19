@@ -77,8 +77,8 @@ class MainMenu extends Phaser.Scene {
     this.credPanel.setVisible(false)
 
     // Back Button
-    this.BackButton = this.add.sprite(1310, 598, 'backUnpressed').setInteractive()
-    this.BackButton.setScale(1.5)
+    this.BackButton = this.add.sprite(1530, 130, 'backUnpressed').setInteractive()
+    this.BackButton.setScale(0.9)
     this.BackButton.setVisible(false)
     this.BackButton.setActive(false)
 

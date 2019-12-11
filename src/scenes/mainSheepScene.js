@@ -978,7 +978,6 @@ class mainSheepScene extends Phaser.Scene {
   // Moves Enemy around the scene
   moveEnemyAnim (myEnemy) {
     if (myEnemy.isAwake === true) {
-
       this.LeftTrue = true
       this.DownTrue = true
       this.enemyName = myEnemy.getEnemyName()
@@ -1098,7 +1097,6 @@ class mainSheepScene extends Phaser.Scene {
           myEnemy.anims.play('alphaWoolfLeftRunAnim')
         }
       }
-
     }
   }
 

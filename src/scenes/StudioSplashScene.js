@@ -21,7 +21,7 @@ class StudioSplashScene extends Phaser.Scene {
     this.load.image('playUnpressed', 'assets/images/PlayButton.png')
     this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
     this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
-    this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
+    this.load.image('creditsPanel', 'assets/images/specialthanksCredits.png')
     this.load.image('backPressed', 'assets/images/BackPressedButton.png')
     this.load.image('backUnpressed', 'assets/images/BackButton.png')
 
