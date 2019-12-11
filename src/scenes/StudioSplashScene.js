@@ -165,7 +165,7 @@ class StudioSplashScene extends Phaser.Scene {
     // Fade in car image
     setTimeout(() => {
       carTween.play()
-    }, 1)
+    }, 1000)
 
     // Fade in logo image
     setTimeout(() => {
@@ -184,7 +184,7 @@ class StudioSplashScene extends Phaser.Scene {
     // Fade out entire scene
     setTimeout(() => {
       sceneCamera.fadeOut(2000)
-    }, 25000)
+    }, 17000)
 
     const myScene = this
     setTimeout(() => {

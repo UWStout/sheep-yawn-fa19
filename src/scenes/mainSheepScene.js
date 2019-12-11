@@ -396,9 +396,9 @@ class mainSheepScene extends Phaser.Scene {
         yoyo: true,
         loop: -1
       })
-      this.BabyWolfAmount = 1 // 3
+      this.BabyWolfAmount = 3 // 3
       this.MediumWolfAmount = 1 // 1
-      this.BigWolfAmount = 1
+      this.BigWolfAmount = 0
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
         this.xpos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
         this.ypos = (Math.floor(Math.random() * (2400 - 450 + 1)) + 450)
