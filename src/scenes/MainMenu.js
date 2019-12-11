@@ -3,15 +3,7 @@
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
-import { centerX, centerY } from '../utils'
-
 import MainMenuImage from '..//sprites/MainMenuImage'
-import PlayPressed from '..//sprites/PlayPressed'
-import PlayUnpressed from '..//sprites/PlayUnpressed'
-import OptionsPressed from '..//sprites/OptionsPressed'
-import OptionsUnpressed from '..//sprites/OptionsUnpressed'
-import CreditsPressed from '..//sprites/CreditsPressed'
-import CreditsUnpressed from '..//sprites/CreditsUnpressed'
 import CreditsPanel from '..//sprites/CreditsPanel'
 
 class MainMenu extends Phaser.Scene {
@@ -19,8 +11,8 @@ class MainMenu extends Phaser.Scene {
   init () {
     // If running as a packaged app, go to full screen right away
     if (__NWJS__) {
-      let canvas = this.sys.game.canvas
-      let fullscreen = this.sys.game.device.fullscreen
+      const canvas = this.sys.game.canvas
+      const fullscreen = this.sys.game.device.fullscreen
       if (fullscreen.available) {
         canvas[fullscreen.request]()
       }
@@ -32,19 +24,27 @@ class MainMenu extends Phaser.Scene {
 
   // Load all data needed for this scene
   preload () {
-    this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
-    this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
-    this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
-    this.load.image('playUnpressed', 'assets/images/PlayButton.png')
-    this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
-    this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
-    this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
-    this.load.image('backPressed', 'assets/images/BackPressedButton.png')
-    this.load.image('backUnpressed', 'assets/images/BackButton.png')
+    // The audiosprite with all music and SFX (keep this for sounds only need to load once)
+    // this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
+    //   'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
+    //   'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
+    // ])
+    // this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
+    // this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
+    // this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
+    // this.load.image('playUnpressed', 'assets/images/PlayButton.png')
+    // this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
+    // this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
+    // this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
+    // this.load.image('backPressed', 'assets/images/BackPressedButton.png')
+    // this.load.image('backUnpressed', 'assets/images/BackButton.png')
   }
 
   // Creates objects and other items used within the scene
   create () {
+    this.input.setDefaultCursor('url(assets/images/MouseCursor.png), pointer')
+    this.music = this.sound.addAudioSprite('sounds')
+    this.music.play('MenuScreen', { volume: 0.5 })
     // Creation of MainMenu title
     this.mainMenuTitleImage = new MainMenuImage({
       scene: this,
@@ -77,8 +77,8 @@ class MainMenu extends Phaser.Scene {
     this.credPanel.setVisible(false)
 
     // Back Button
-    this.BackButton = this.add.sprite(1310, 598, 'backUnpressed').setInteractive()
-    this.BackButton.setScale(1.5)
+    this.BackButton = this.add.sprite(1530, 130, 'backUnpressed').setInteractive()
+    this.BackButton.setScale(0.9)
     this.BackButton.setVisible(false)
     this.BackButton.setActive(false)
 
@@ -92,7 +92,8 @@ class MainMenu extends Phaser.Scene {
     }, this)
     // Call bringUpCredits function when CreditsButton is pressed
     this.PlayButton.on('pointerdown', function (event) {
-      this.scene.start('LoadingScene')
+      this.music.stop()
+      this.scene.start('TutorialScene')
     }, this)
 
     // Switch image to credits onPress button

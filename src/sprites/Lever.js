@@ -38,7 +38,7 @@ class Lever extends Phaser.GameObjects.Sprite {
   beginOverlap (event, bodyA, bodyB) {
     if ((bodyA.id === this.body.id || bodyB.id === this.body.id) &&
       (bodyA.id === this.playerBodyID || bodyB.id === this.playerBodyID)) {
-      console.log('lever collide begin')
+      if (__DEV__) console.log('lever collide begin')
       this._playerOverlapping = true
     }
   }
@@ -46,7 +46,7 @@ class Lever extends Phaser.GameObjects.Sprite {
   endOverlap (event, bodyA, bodyB) {
     if ((bodyA.id === this.body.id || bodyB.id === this.body.id) &&
       (bodyA.id === this.playerBodyID || bodyB.id === this.playerBodyID)) {
-      console.log('lever collide end')
+      if (__DEV__) console.log('lever collide end')
       this._playerOverlapping = false
     }
   }

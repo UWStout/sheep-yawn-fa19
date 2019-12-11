@@ -1,37 +1,27 @@
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
 
-// Import needed functions from utils and config settings
-import { centerGameObjects, centerX, centerY } from '../utils'
+import { centerX, centerY } from '../utils'
 
-/**
- * The Loading game state. This game state displays a dynamic splash screen used
- * to communicate the progress of asset loading. It should ensure it is always
- * displayed some mimimum amount of time (in case the assets are already cached
- * locally) and it should have pre-loaded any assets it needs to display in main
- * before it is run. Generally only runs once, after main, and cannot be re-entered.
- *
- * See Phaser.State for more about game states.
- */
-class Loading extends Phaser.Scene {
-  // Initialize some local settings for this state
-  init () {
+class StudioSplashScene extends Phaser.Scene {
+  init (data) {
+    this.cameras.main.setBackgroundColor('#000000')
+    this.allowNextScene = false
+    this.nextScene = 'MainMenuScene'
   }
 
   preload () {
-    // Add the logo to the screen and center it
-    // this.load.image('logoPic', 'assets/images/LoadingWoolhemina.png')
-    this.logo = this.add.sprite(centerX(this), centerY(this), 'logoPic')
-    centerGameObjects([this.logo])
+    // Show the studio splash logo
+    this.showLogo()
 
-    this.setupProgressBar(200)
+    // Main menu assets
     this.load.image('logoPic', 'assets/images/LoadingPinkWoolhemina.png')
     this.load.image('mainMenuTitle', 'assets/images/MainMenu_SplashScreen.png')
     this.load.image('playPressed', 'assets/images/PlayPressedButton.png')
     this.load.image('playUnpressed', 'assets/images/PlayButton.png')
     this.load.image('creditsPressed', 'assets/images/CreditsPressedButton.png')
     this.load.image('creditsUnpressed', 'assets/images/CreditsButton.png')
-    this.load.image('creditsPanel', 'assets/images/CreditsPanel.png')
+    this.load.image('creditsPanel', 'assets/images/specialthanksCredits.png')
     this.load.image('backPressed', 'assets/images/BackPressedButton.png')
     this.load.image('backUnpressed', 'assets/images/BackButton.png')
 
@@ -132,71 +122,86 @@ class Loading extends Phaser.Scene {
     this.load.spritesheet('alphaWoolfAttackFront', 'assets/images/painted_altWoolf_partyHowl_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
     this.load.spritesheet('alphaWoolfAttackBack', 'assets/images/painted_altWoolf_partyHowl_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
     this.load.spritesheet('flames', 'assets/images/firePit_flames_spritesheet.png', { frameWidth: 512, frameHeight: 512, endFrame: 3 })
-
-    // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
-    this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
-      'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
-      'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
-    ])
-
-    // Load a bunch of junk to slow down the preloader
-    for (let i = 0; i < 500; i++) {
-      this.load.image(`logo${i}`, './assets/images/icon.png')
-    }
   }
 
-  setupProgressBar (yOffset) {
-    // Local variables for accessing width and height
-    const width = this.cameras.main.width
-    const height = this.cameras.main.height
+  showLogo () {
+    // Create an instance of the audiosprite to play the engine SFX
+    this.bkgSfx = this.sound.addAudioSprite('sounds')
+    this.bkgSfx.play('EngineStartAndRev')
 
-    // Create graphics assets for progress bar
-    const progressBar = this.add.graphics()
-    const progressBkg = this.add.graphics()
-    progressBkg.fillStyle(0x222222, 0.8)
-    // progressBkg.fillRect(width / 2 - 160, height / 2 - 25 + yOffset, 320, 50)
-    progressBkg.fillRect(width / 2 - 280, height / 2 + 80, 320, 50)
+    const carImage = this.add.image(centerX(this), centerY(this), 'safariCar')
+    carImage.setScale(0.55)
+    carImage.setAlpha(0.0)
 
-    const percentText = this.make.text({
-      x: width / 2 - 120,
-      y: height / 2 + 106,
-      text: '0%',
-      style: {
-        font: '30px monospace',
-        fill: '#ffffff'
-      }
+    const logoImage = this.add.image(centerX(this), centerY(this), 'safariLogo')
+    logoImage.setScale(0.6)
+    logoImage.setAlpha(0.0)
+
+    const studioImage = this.add.image(centerX(this), centerY(this), 'SpoonImage')
+    studioImage.setScale(0.8)
+    studioImage.setAlpha(0.0)
+
+    const carTween = this.add.tween({
+      targets: carImage,
+      alpha: 1.0,
+      duration: 1000,
+      paused: true
     })
 
-    centerGameObjects([percentText])
-
-    // Display the progress bar
-    this.load.on('progress', (percent) => {
-      progressBar.clear()
-      progressBar.fillStyle(0xffffff, 1)
-      progressBar.fillRect(width / 2 - 280, height / 2 + 80, 320, 50)
-      percentText.setText(`${parseInt(percent * 100)}%`)
+    const logoTween = this.add.tween({
+      targets: logoImage,
+      alpha: 1.0,
+      duration: 1000,
+      paused: true
     })
 
-    this.load.on('fileprogress', (file) => {
-      // assetText.setText(`Loading asset: ${file.key}`)
+    const studioTween = this.add.tween({
+      targets: studioImage,
+      alpha: 1.0,
+      duration: 1000,
+      paused: true
     })
 
-    this.load.on('complete', () => {
-      percentText.destroy()
-      progressBar.destroy()
-      progressBkg.destroy()
-    })
+    // Fade in car image
+    setTimeout(() => {
+      carTween.play()
+    }, 2000)
+
+    // Fade in logo image
+    setTimeout(() => {
+      logoTween.play()
+    }, 6000)
+
+    const sceneCamera = this.cameras.main
+
+    // Fade in spoon image
+    setTimeout(() => {
+      carImage.visible = false
+      logoImage.visible = false
+      studioTween.play()
+    }, 12000)
+
+    // Fade out entire scene
+    setTimeout(() => {
+      sceneCamera.fadeOut(2000)
+    }, 25000)
+
+    const myScene = this
+    setTimeout(() => {
+      const loadingText = myScene.add.text(centerX(myScene), centerY(myScene),
+        '', { font: '16px Arial', fill: '#FFFFFF', align: 'center' })
+      loadingText.setOrigin(0.5, 0.5)
+      this.bkgSfx.destroy()
+      myScene.allowNextScene = true
+    }, 15000)
   }
 
-  // Pre-load is done
-  create () {
-  }
-
-  // Called repeatedly after pre-load finishes and after 'create' has run
   update () {
-    this.scene.start('TutorialScene')
+    if (this.allowNextScene) {
+      this.scene.start(this.nextScene)
+    }
   }
 }
 
-// Expose the Splash class for use in other modules
-export default Loading
+// Expose the class TestScene to other files
+export default StudioSplashScene
