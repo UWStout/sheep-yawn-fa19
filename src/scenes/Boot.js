@@ -9,7 +9,7 @@ class Boot extends Phaser.Scene {
   // Initialize the stage and any simple settings
   init () {
     // Set the background color
-    this.cameras.main.backgroundColor = '#7f7f7f'
+    this.cameras.main.backgroundColor = '000000'
 
     // If running as a packaged app, go to full screen right away
     if (__NWJS__) {
@@ -25,10 +25,11 @@ class Boot extends Phaser.Scene {
   preload () {
     // Show message that fonts are loading
     const text = this.add.text(centerX(this), centerY(this),
-      'loading', { font: '16px Arial', fill: '#dddddd', align: 'center' })
+      '', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     text.setOrigin(0.5, 0.5)
 
     // Read the assets for the splash screen (used in next stage)
+    this.load.image('SpoonImage', 'assets/images/SpeakingSpoonStudioCenter.png')
     this.load.image('logo', './assets/images/icon.png')
     this.load.image('safariCar', 'assets/images/safariCar-reduced.png')
     this.load.image('safariLogo', 'assets/images/safariLogo.png')

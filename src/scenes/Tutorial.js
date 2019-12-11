@@ -46,7 +46,7 @@ class Tutorial extends Phaser.Scene {
       this.SkipButton.setTexture('SkipButton')
     }, this)
 
-    this.BackButton = this.add.sprite(1670, 790, 'BackButton').setInteractive()
+    this.BackButton = this.add.sprite(135, 800, 'BackButton').setInteractive()
     this.BackButton.setScale(0.68)
     this.BackButton.on('pointerdown', function (pointer) {
       this.BackFunction(this.getCurrentNumber())
@@ -59,7 +59,7 @@ class Tutorial extends Phaser.Scene {
     }, this)
     this.BackButton.visible = false
 
-    this.NextButton = this.add.sprite(135, 800, 'NextButton').setInteractive()
+    this.NextButton = this.add.sprite(1670, 790, 'NextButton').setInteractive()
     this.NextButton.setScale(0.8)
     this.NextButton.on('pointerdown', function (pointer) {
       this.NextFunction(this.getCurrentNumber())
