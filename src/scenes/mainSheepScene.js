@@ -1051,6 +1051,31 @@ class mainSheepScene extends Phaser.Scene {
                 myEnemy.anims.play('alphaWoolfRightRunAnim')
               }
             }
+
+            // if (myEnemy.x === 0) {
+            //   console.log('going down')
+            //   // Is the Enemy a baby woolf?
+            //   if (myEnemy.getEnemyName() === 'woolfBaby') {
+            //     console.log('testing down')
+            //     // Is Enemy left run running
+            //     // Play anim if not so
+            //     if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftIdleAnim') {
+            //       myEnemy.anims.play('babyWoolfLeftIdleAnim')
+            //     }
+            //   } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
+            //     // Is Enemy left run running
+            //     // Play anim if not so
+            //     if (myEnemy.anims.getCurrentKey() !== 'woolfLeftIdleAnim') {
+            //       myEnemy.anims.play('woolfLeftIdleAnim')
+            //     }
+            //   } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
+            //     // Is Enemy left run running
+            //     // Play anim if not so
+            //     if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftIdleAnim') {
+            //       myEnemy.anims.play('alphaWoolfLeftIdleAnim')
+            //     }
+            //   }
+            }
           }
         }
       }

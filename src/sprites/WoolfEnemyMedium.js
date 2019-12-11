@@ -7,7 +7,7 @@ class WoolfEnemyMedium extends Enemy {
   // Initalization
   constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
-    super({ scene, x, y, imageKey: 'woolfImage', health: 3, zzzAmount: 10 })
+    super({ scene, x, y, imageKey: 'imageKey', health: 3, zzzAmount: 10 })
     this.key = 'woolf'
     this.name = 'woolfMedium'
 
