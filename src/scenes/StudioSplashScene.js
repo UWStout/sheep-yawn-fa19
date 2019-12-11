@@ -165,7 +165,7 @@ class StudioSplashScene extends Phaser.Scene {
     // Fade in car image
     setTimeout(() => {
       carTween.play()
-    }, 2000)
+    }, 1)
 
     // Fade in logo image
     setTimeout(() => {
