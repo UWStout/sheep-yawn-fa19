@@ -24,5 +24,5 @@ ffmpeg  -y -r 30 \
 	-f image2pipe -vcodec ppm \
 	-i - -vcodec libx264 \
 	-pix_fmt yuv420p \
-	-crf 19 -threads 0 \
+	-crf 0 -threads 0 \
 	-bf 0 gourceVideo.mp4
