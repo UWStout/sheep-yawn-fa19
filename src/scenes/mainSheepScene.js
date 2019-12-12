@@ -12,14 +12,11 @@ import Woolhemina from '..//sprites/Woolhemina'
 import WoolfEnemyMedium from '..//sprites/WoolfEnemyMedium'
 import WoolfEnemyBig from '..//sprites/WoolfEnemyBig'
 import WoolfEnemyBaby from '..//sprites/WoolfEnemyBaby'
-import Tree from '..//sprites/Tree'
 import Oak from '..//sprites/Oak'
 import Pine from '..//sprites/Pine'
 import FirePit from '..//sprites/FirePit'
 import House from '..//sprites/House'
 import MapTile from '..//sprites/MapTile'
-import Zzz from '..//sprites/Zzz'
-import Enemy from '../sprites/Enemy'
 import YawnCircle from '../sprites/YawnCircle'
 // import HUD from './HUD'
 
@@ -30,96 +27,6 @@ class mainSheepScene extends Phaser.Scene {
 
   // Grabs images and other material needed for the scene before any functions run
   preload () {
-    this.load.image('timerImage', 'assets/images/UntilDawnLabel.png')
-    this.load.image('CursorImage', 'assets/images/MouseCursor.png')
-    this.load.image('MenuButton', 'assets/images/MenuButton.png')
-    this.load.image('MenuPressedButton', 'assets/images/MenuPressed.png')
-    this.load.image('BackButton', 'assets/images/BackButton.png')
-    this.load.image('BackPressedButton', 'assets/images/BackPressed.png')
-    this.load.image('ContinueButton', 'assets/images/Continue.png')
-    this.load.image('ContinuePressedButton', 'assets/images/ContinuePressed.png')
-    this.load.image('CreditsButton', 'assets/images/CreditsButton.png')
-    this.load.image('CreditsPressedButton', 'assets/images/CreditsPressedButton.png')
-    this.load.image('ExitButton', 'assets/images/ExitButton.png')
-    this.load.image('ExitPressedButton', 'assets/images/ExitPressedButton.png')
-    this.load.image('PlayButton', 'assets/images/PlayButton.png')
-    this.load.image('PlayPressedButton', 'assets/images/PlayPressedButton.png')
-    this.load.image('darkBackground', 'assets/images/DarkBackground.png')
-    this.load.image('win', 'assets/images/WinScreen.png')
-    this.load.image('lose', 'assets/images/LoseScreen.png')
-    this.load.image('SmallWoolfHUD', 'assets/images/WoolfPupCounter.png')
-    this.load.image('MedWoolfHUD', 'assets/images/WoolfCounter.png')
-    this.load.image('BigWoolfHUD', 'assets/images/AlphaCounter.png')
-    this.load.image('HouseClosedOnImage', 'assets/images/HouseClosedOn.png')
-    this.load.image('HouseClosedOffImage', 'assets/images/HouseClosedOff.png')
-    this.load.image('sheepImage', 'assets/images/woolhemina_testSprite_128.png')
-    this.load.image('treeImage', 'assets/images/asset_oakTree.png')
-    this.load.image('FirePitImage', 'assets/images/asset_firePit.png')
-    this.load.image('pineImage', 'assets/images/asset_pineTree.png')
-    this.load.image('woolfImage', 'assets/Test Art/testAsset_wolfEnemy (3).png')
-    this.load.image('tile1', 'assets/images/Tile_01.png')
-    this.load.image('zzzImage', 'assets/Test Art/dummyAsset_Z.png')
-    this.load.image('mapTile', 'assets/images/DummyBoundary.png')
-    this.load.image('grass1Tile', 'assets/images/Tile_01.png')
-    this.load.image('grass2Tile', 'assets/images/Tile_02.png')
-    this.load.image('grass3Tile', 'assets/images/Tile_03.png')
-    this.load.image('waterTile', 'assets/images/WaterTile.png')
-    this.load.image('topWaterTile', 'assets/images/WaterTile2.png')
-    this.load.image('sideFenceTile', 'assets/images/FenceTile_02.png')
-    this.load.image('bottomFenceTile', 'assets/images/FenceTile_01.png')
-    this.load.image('TopMountainMapTile', 'assets/images/MountainTile_03.png')
-    this.load.image('CornerMountainMapTile', 'assets/images/MountainTile_02.png')
-    this.load.image('BelowCornerMountainMapTile', 'assets/images/MountainTile_01.png')
-    this.load.image('yawnBlastCircleImage', 'assets/images/yawnBlast_hemisphereShape.png')
-    this.load.spritesheet('runleftFront', 'assets/images/painted_woolhemina_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
-    this.load.spritesheet('runUp', 'assets/images/painted_woolhemina_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 13 })
-    this.load.spritesheet('idleFront', 'assets/images/painted_resized_woolhemina_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 10 })
-    this.load.spritesheet('idleBack', 'assets/images/painted_resized_woolhemina_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
-    this.load.spritesheet('initalYawnFront', 'assets/images/painted_woolhemina_yawnBlast_initial_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
-    this.load.spritesheet('initalYawnBack', 'assets/images/painted_woolhemina_yawnBlast_initial_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 6 })
-    this.load.spritesheet('YawnLoopFront', 'assets/images/painted_woolhemina_yawnBlast_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
-    this.load.spritesheet('YawnLoopBack', 'assets/images/painted_woolhemina_yawnBlast_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 5 })
-    this.load.spritesheet('YawnReleaseFront', 'assets/images/painted_woolhemina_yawnBlast_release_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
-    this.load.spritesheet('YawnReleaseBack', 'assets/images/painted_woolhemina_yawnBlast_release_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
-    this.load.spritesheet('KnockbackLeftFront', 'assets/images/painted_woolhemina_surprised_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
-    this.load.spritesheet('KnockbackRightBack', 'assets/images/painted_woolhemina_surprised_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 24 })
-    this.load.spritesheet('breakGlass', 'assets/images/yawnBlast_shatter_spritesheet.png', { frameWidth: 256, frameHeight: 256, endFrame: 3 })
-    this.load.spritesheet('babyWoolfLeftRun', 'assets/images/painted_babyWoolf_runCycle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
-    this.load.spritesheet('babyWoolfRightRun', 'assets/images/painted_babyWoolf_runCycle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 11 })
-    this.load.spritesheet('babyWoolfLeftIdle', 'assets/images/painted_babyWoolf_idle_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
-    this.load.spritesheet('babyWoolfRightIdle', 'assets/images/painted_babyWoolf_idle_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 7 })
-    this.load.spritesheet('babyWoolfAsleepFront', 'assets/images/painted_babyWoolf_fallAsleep_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
-    this.load.spritesheet('babyWoolfAsleepBack', 'assets/images/painted_babyWoolf_fallAsleep_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 14 })
-    this.load.spritesheet('babyWoolfSleepLoopFront', 'assets/images/painted_babyWoolf_fallAsleep_loop_leftFront.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
-    this.load.spritesheet('babyWoolfSleepLoopBack', 'assets/images/painted_babyWoolf_fallAsleep_loop_rightBack.png', { frameWidth: 128, frameHeight: 128, endFrame: 8 })
-    this.load.spritesheet('woolfLeftRun', 'assets/images/painted_woolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
-    this.load.spritesheet('woolfRightRun', 'assets/images/painted_woolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
-    this.load.spritesheet('woolfLeftIdle', 'assets/images/painted_woolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
-    this.load.spritesheet('woolfRightIdle', 'assets/images/painted_woolf_idle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
-    this.load.spritesheet('woolfAsleepFront', 'assets/images/painted_woolf_fallAsleep_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    this.load.spritesheet('woolfAsleepBack', 'assets/images/painted_woolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    this.load.spritesheet('woolfSleepLoopFront', 'assets/images/painted_woolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    this.load.spritesheet('woolfSleepLoopBack', 'assets/images/painted_woolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    this.load.spritesheet('woolfAttackFront', 'assets/images/painted_woolf_armSlam_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
-    this.load.spritesheet('woolfAttackBack', 'assets/images/painted_woolf_armSlam_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
-    this.load.spritesheet('alphaWoolfLeftRun', 'assets/images/painted_altWoolf_runCycle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
-    this.load.spritesheet('alphaWoolfRightRun', 'assets/images/painted_altWoolf_runCycle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 11 })
-    this.load.spritesheet('alphaWoolfLeftIdle', 'assets/images/painted_altWoolf_idle_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
-    this.load.spritesheet('alphaWoolfRightIdle', 'assets/images/painted_altWoolf_idle_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 7 })
-    this.load.spritesheet('alphaWoolfAsleepFront', 'assets/images/painted_altWoolf_fallAsleep_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    this.load.spritesheet('alphaWoolfAsleepBack', 'assets/images/painted_altWoolf_fallAsleep_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 14 })
-    this.load.spritesheet('alphaWoolfSleepLoopFront', 'assets/images/painted_altWoolf_fallAsleep_loop_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    this.load.spritesheet('alphaWoolfSleepLoopBack', 'assets/images/painted_altWoolf_fallAsleep_loop_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 8 })
-    this.load.spritesheet('alphaWoolfAttackFront', 'assets/images/painted_altWoolf_partyHowl_leftFront.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
-    this.load.spritesheet('alphaWoolfAttackBack', 'assets/images/painted_altWoolf_partyHowl_rightBack.png', { frameWidth: 256, frameHeight: 256, endFrame: 15 })
-    this.load.spritesheet('flames', 'assets/images/firePit_flames_spritesheet.png', { frameWidth: 512, frameHeight: 512, endFrame: 3 })
-
-    // The audiosprite with all music and SFX (keep this for sounds only need to load once) // can load this in the splash screen
-    this.load.audioSprite('sounds', 'assets/audio/sounds.json', [
-      'assets/audio/sounds.ogg', 'assets/audio/sounds.mp3',
-      'assets/audio/sounds.m4a', 'assets/audio/sounds.ac3'
-    ])
-
     this.RightLeftArray = []
     this.UpDownArray = []
 
@@ -128,7 +35,7 @@ class mainSheepScene extends Phaser.Scene {
 
     this._woolf_Velocity = 30
     this._sheep_Velocity = 300
-
+    this.AllZArray = []
     this.sfxOn = true
 
     this.levelNumber = 1
@@ -160,7 +67,6 @@ class mainSheepScene extends Phaser.Scene {
   // Creates objects and other items used within the scene
   // Not immediately added to scene, unless add/addExisting Is stated
   create () {
-    this.input.setDefaultCursor('url(assets/images/MouseCursor.png), pointer')
     // Start playing the background music
     this.music = this.sound.addAudioSprite('sounds')
     // this.music.play('backgroundMusic', { volume: config.MUSIC_VOLUME })
@@ -490,7 +396,7 @@ class mainSheepScene extends Phaser.Scene {
         yoyo: true,
         loop: -1
       })
-      this.BabyWolfAmount = 0 // 3
+      this.BabyWolfAmount = 3 // 3
       this.MediumWolfAmount = 1 // 1
       this.BigWolfAmount = 0
       for (let i = 0; i < (this.BabyWolfAmount); i++) {
@@ -661,6 +567,7 @@ class mainSheepScene extends Phaser.Scene {
       }
       this.WoolfArray[i].body.setImmovable(true)
       this.WoolfArray[i].body.allowGravity = false
+      this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
       this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
     }
 
@@ -671,7 +578,8 @@ class mainSheepScene extends Phaser.Scene {
 
     // timed event to make enemy AI move
     for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: true })
+      // this.timedEvent = this.time.addEvent({ delay: 1, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: false })
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemyAnim(this.WoolfArray[i]) }, callbackScope: this, loop: true })
     }
 
     // Setup the key objects
@@ -713,11 +621,11 @@ class mainSheepScene extends Phaser.Scene {
       }
     }, this)
 
-    this.yawnKey.on('up', () => {
-      if (this.yawnSFX.isPlaying) {
-        this.yawnSFX.stop()
-      }
-    }, this)
+    // this.yawnKey.on('up', () => {
+    //   if (this.yawnSFX.isPlaying) {
+    //     this.yawnSFX.stop()
+    //   }
+    // }, this)
   }
 
   // ==================================================
@@ -725,7 +633,37 @@ class mainSheepScene extends Phaser.Scene {
 
   update (time, delta) {
     const velocity = { x: 0.0, y: 0.0 }
-
+    for (let i = 0; i < this.WoolfArrayLength; i++) {
+      if (this.WoolfArray[i].isAwake === true) {
+        if (this.WoolfArray[i].x < 250) {
+          // if (__DEV__) console.log('wolf tried to go left')
+          this.WoolfArray[i].x += 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+        }
+        if (this.WoolfArray[i].x > 2500) {
+          // if (__DEV__) console.log('wolf tried to go right')
+          this.WoolfArray[i].x -= 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+        }
+        if (this.WoolfArray[i].y < 250) {
+          // if (__DEV__) console.log('wolf tried to go up')
+          this.WoolfArray[i].y += 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+        }
+        if (this.WoolfArray[i].y > 2500) {
+          // if (__DEV__) console.log('wolf tried to go down')
+          this.WoolfArray[i].y -= 10
+          this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
+        }
+        if (this.WoolfArray[i].hasMoved === false) {
+          // if (__DEV__) console.log('quit calling this')
+          this.myDelay = (Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
+          // if (__DEV__) console.log(this.myDelay)
+          this.timedEvent = this.time.addEvent({ delay: this.myDelay, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: false })
+          this.WoolfArray[i].hasMoved = true
+        }
+      }
+    }
     // Is up key/keyboard key being pressed?
     if (this.cursors.up.isDown || this.upKey.isDown) {
       velocity.y -= this._sheep_Velocity
@@ -886,7 +824,7 @@ class mainSheepScene extends Phaser.Scene {
 
     this.yawnSFX.stop()
     if (this.sfxOn === true) {
-      this.yawnSFX.play('YawnBlast', { volume: this.yawnSFX.volume })
+      this.yawnSFX.play('YawnBlast', { volume: 0.2 })
     }
 
     // Add yawnblast image to scene
@@ -902,7 +840,7 @@ class mainSheepScene extends Phaser.Scene {
     this.yawnBlastCircle.body.setCircle(75, 54, 48.5)
     this.physics.add.collider(this.yawnBlastCircle)
 
-    // console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
+    // if (__DEV__) console.log('Does the yawnCircleImage exist? ' + this.yawnBlastCircle)
   }
 
   // Destroys sheep yawn circle if space key is not being pressed and
@@ -934,10 +872,10 @@ class mainSheepScene extends Phaser.Scene {
         if (this.WoolfArray[i]) {
           // check to see if the woolf is already asleep
           if (this.WoolfArray[i].isAwake === true) {
-            console.log('wolf is awake')
-            console.log(this.WoolfArrayLength)
+            // if (__DEV__) console.log('wolf is awake')
+            // if (__DEV__) console.log(this.WoolfArrayLength)
           } else if (this.WoolfArray[i].isAwake === false) {
-            console.log('wolf is asleep')
+            // if (__DEV__) console.log('wolf is asleep')
             // this.WoolfArray.splice((i - 1), (i - 1))
           }
           // Check for overlap with enemy and yawnBlast
@@ -960,13 +898,13 @@ class mainSheepScene extends Phaser.Scene {
     // Has the Enemy lost all their health?
     // Play death anim.s if so
     if (woolfy.getHealth() === 0) {
-      console.log('Name: ' + woolfy.getEnemyName())
-      console.log('No more health')
+      // if (__DEV__) console.log('Name: ' + woolfy.getEnemyName())
+      // if (__DEV__) console.log('No more health')
       this.updateScore(woolfy)
       woolfy.body.enable = false
       if (this._invert === true) {
-        console.log('anim of back')
-        if (woolfy.getEnemyName() === 'woolfBaby') {
+        // if (__DEV__) console.log('anim of back')
+          if (woolfy.getEnemyName() === 'woolfBaby') {
           woolfy.anims.play('babyWoolfAsleepFrontAnim')
         } else if (woolfy.getEnemyName() === 'woolfMedium') {
           woolfy.anims.play('woolfAsleepFrontAnim')
@@ -976,7 +914,7 @@ class mainSheepScene extends Phaser.Scene {
       }
 
       if (this._invert === false) {
-        console.log('anim of front')
+        // if (__DEV__) console.log('anim of front')
         if (woolfy.getEnemyName() === 'woolfBaby') {
           woolfy.anims.play('babyWoolfAsleepBackAnim')
         } else if (woolfy.getEnemyName() === 'woolfMedium') {
@@ -993,9 +931,9 @@ class mainSheepScene extends Phaser.Scene {
   zzzDrop (enemyX, enemyY, amountOfZs) {
     // Adjusts circle to scene
     this.enemyEllipse = this.add.ellipse(enemyX, enemyY + 15, 260, 150)
-
     // Sets up holder for zzz sprites
     this.zzzGroup = this.physics.add.group({ key: 'zzzImage', frameQuantity: amountOfZs })
+    this.AllZArray.push(this.zzzGroup)
     // Places Zzz's on ellipse path
     Phaser.Actions.PlaceOnEllipse(this.zzzGroup.getChildren(), this.enemyEllipse)
 
@@ -1004,7 +942,7 @@ class mainSheepScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.zzzGroup, this.increaseYawnRadiusByZzz, null, this)
 
     // How long has the zzzs existed in the scene?
-    this.timedEvent = this.time.addEvent({ delay: 5000, callback: () => { this.zzzClear(this.zzzGroup) }, callbackScope: this, loop: false })
+    // this.timedEvent = this.time.addEvent({ delay: 5000, callback: () => { this.zzzClear(this.zzzGroup) }, callbackScope: this, loop: false })
   }
 
   // Clear zzzGroups zzz objects
@@ -1028,136 +966,148 @@ class mainSheepScene extends Phaser.Scene {
 
   // Moves Enemy around the scene
   moveEnemy (myEnemy) {
-    // for (let i = 0; i < this.RightLeftArray; i++) {
-    //   this.physics.add.overlap(myEnemy, this.RightLeftArray[i], this.wolfMoveRightLeft(myEnemy), null, this)
-    // }
-    // for (let i = 0; i < this.UpDownArray; i++) {
-    //   this.physics.add.overlap(myEnemy, this.UpDownArray[i], this.wolfMoveUpDown(myEnemy), null, this)
-    // }
-
-    if (myEnemy.body.touching.left || (myEnemy.body.touching.right)) {
-      this.wolfMoveRightLeft(myEnemy)
-    } else if (myEnemy.body.touching.up || (myEnemy.body.touching.down)) {
-      this.wolfMoveUpDown(myEnemy)
-    }
-
     if (myEnemy.isAwake === true) {
       myEnemy.body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
-      console.log('How fast we going: ' + myEnemy.body.velocity.x + ' ' + myEnemy.body.velocity.y)
-      console.log('Are we assigning anims? in movement?')
-      // Is enemy moving in negative (left) direction
-      if (myEnemy.body.velocity.x < 0) {
-        console.log('going left')
-        myEnemy.flipX = false
+      myEnemy.hasMoved = false
+    } else {
+      myEnemy.body.velocity.x = 0
+      myEnemy.body.velocity.y = 0
+    }
+  }
 
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          console.log('testing right')
-          if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            myEnemy.anims.play('babyWoolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            myEnemy.anims.play('woolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            myEnemy.anims.play('alphaWoolfLeftRunAnim')
-          }
-        }
-      } else {
-        console.log('going right')
+  // Moves Enemy around the scene
+  moveEnemyAnim (myEnemy) {
+    if (myEnemy.isAwake === true) {
+      this.LeftTrue = true
+      this.DownTrue = true
+      this.enemyName = myEnemy.getEnemyName()
+
+      myEnemy.prevX = myEnemy.body.x
+      // if (myEnemy.prevX > myEnemy.body.x) {
+      //   console.log('going left hey')
+      //   // going left
+      //   this.LeftTrue = true
+      // } else if (myEnemy.prevX < myEnemy.body.x) {
+      //   console.log('going right hey')
+      //   // going right
+      //   this.LeftTrue = false
+      // }
+      if (myEnemy.body.velocity.y < 0) {
+        if (__DEV__) console.log('going up')
+        this.DownTrue = false
+      } else if (myEnemy.body.velocity.y < 0) {
+        if (__DEV__) console.log('going down')
+        this.DownTrue = true
+      }
+      if (this.DownTrue === false && myEnemy.body.velocity.x < 0) {
+        if (__DEV__) console.log('up left')
+        this.LeftTrue = true
         myEnemy.flipX = true
-        // Is the Enemy a baby woolf?
-        if (myEnemy.getEnemyName() === 'woolfBaby') {
-          // Is Enemy left run running
-          // Play anim if not so
-          console.log('testing right')
-          if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-            myEnemy.anims.play('babyWoolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-            myEnemy.anims.play('woolfLeftRunAnim')
-          }
-        } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-          // Is Enemy left run running
-          // Play anim if not so
-          if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-            myEnemy.anims.play('alphaWoolfLeftRunAnim')
-          }
+      }
+      if (this.DownTrue === false && myEnemy.body.velocity.x >= 0) {
+        if (__DEV__) console.log('up right')
+        this.LeftTrue = false
+        myEnemy.flipX = false
+      }
+      if (this.DownTrue === true && myEnemy.body.velocity.x < 0) {
+        if (__DEV__) console.log('down left')
+        this.LeftTrue = true
+        myEnemy.flipX = true
+      }
+      if (this.DownTrue === true && myEnemy.body.velocity.x >= 0) {
+        if (__DEV__) console.log('down right')
+        this.LeftTrue = false
+        myEnemy.flipX = true
+      }
+      // if (__DEV__) console.log(myEnemy.body.velocity)
+      if (this.enemyName === 'woolfBaby' && this.DownTrue !== true && this.LeftTrue === true) { // baby going up and left
+        if (__DEV__) console.log('baby going up and left')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
+          myEnemy.anims.play('babyWoolfRightRunAnim')
         }
-        if (myEnemy.body.velocity.y < 0) {
-          console.log('going down')
-          // Is the Enemy a baby woolf?
-          if (myEnemy.getEnemyName() === 'woolfBaby') {
-            console.log('testing down')
-            // Is Enemy left run running
-            // Play anim if not so
-            if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
-              myEnemy.anims.play('babyWoolfLeftRunAnim')
-            }
-          } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-            // Is Enemy left run running
-            // Play anim if not so
-            if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
-              myEnemy.anims.play('woolfLeftRunAnim')
-            }
-          } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-            // Is Enemy left run running
-            // Play anim if not so
-            if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
-              myEnemy.anims.play('alphaWoolfLeftRunAnim')
-            }
-          }
-          if (myEnemy.body.velocity.y > 0) {
-            console.log('going up')
-            // Is the Enemy a baby woolf?
-            if (myEnemy.getEnemyName() === 'woolfBaby') {
-              // Is Enemy left run running
-              // Play anim if not so
-              console.log('testing up')
-              if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
-                myEnemy.anims.play('babyWoolfRightRunAnim')
-              }
-            } else if (myEnemy.getEnemyName() === 'woolfMedium') { // Is the Enemy a regular woolf?
-              // Is Enemy left run running
-              // Play anim if not so
-              if (myEnemy.anims.getCurrentKey() !== 'woolfRightRunAnim') {
-                myEnemy.anims.play('woolfRightRunAnim')
-              }
-            } else if (myEnemy.getEnemyName() === 'woolfBig') { // Is the Enemy an alpha woolf?
-              // Is Enemy left run running
-              // Play anim if not so
-              if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
-                myEnemy.anims.play('alphaWoolfRightRunAnim')
-              }
-            }
-          }
+      } else if (this.enemyName === 'woolfBaby' && this.DownTrue !== true && this.LeftTrue === false) { // baby going up and right
+        if (__DEV__) console.log('baby going up and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfRightRunAnim') {
+          myEnemy.anims.play('babyWoolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBaby' && this.DownTrue === true && this.LeftTrue === false) { // baby going down and right
+        if (__DEV__) console.log('baby going down and right')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+          myEnemy.anims.play('babyWoolfLeftRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBaby' && this.DownTrue === true && this.LeftTrue === true) { // baby going down and left
+        if (__DEV__) console.log('baby going down and left')
+        myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'babyWoolfLeftRunAnim') {
+          myEnemy.anims.play('babyWoolfLeftRunAnim')
+        }
+      }
+
+      if (__DEV__) console.log(myEnemy.body.velocity)
+      if (this.enemyName === 'woolfMedium' && this.DownTrue !== true && this.LeftTrue === true) { // woolfMedium going up and left
+        if (__DEV__) console.log('woolfMedium going up and left')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'woolfRightRunAnim') {
+          myEnemy.anims.play('woolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfMedium' && this.DownTrue !== true && this.LeftTrue === false) { // woolfMedium going up and right
+        if (__DEV__) console.log('woolfMedium going up and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'woolfRightRunAnim') {
+          myEnemy.anims.play('woolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfMedium' && this.DownTrue === true && this.LeftTrue === false) { // woolfMedium going down and right
+        if (__DEV__) console.log('woolfMedium going down and right')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          myEnemy.anims.play('woolfLeftRunAnim')
+        }
+      } else if (this.enemyName === 'woolfMedium' && this.DownTrue === true && this.LeftTrue === true) { // woolfMedium going down and left
+        if (__DEV__) console.log('woolfMedium going down and left')
+        myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'woolfLeftRunAnim') {
+          myEnemy.anims.play('woolfLeftRunAnim')
+        }
+      }
+
+      if (__DEV__) console.log(myEnemy.body.velocity)
+      if (this.enemyName === 'woolfBig' && this.DownTrue !== true && this.LeftTrue === true) { // alpha going up and left
+        if (__DEV__) console.log('baby going up and left')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+          myEnemy.anims.play('alphaWoolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBig' && this.DownTrue !== true && this.LeftTrue === false) { // alpha going up and right
+        if (__DEV__) console.log('baby going up and right')
+        // myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfRightRunAnim') {
+          myEnemy.anims.play('alphaWoolfRightRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBig' && this.DownTrue === true && this.LeftTrue === false) { // alpha going down and right
+        if (__DEV__) console.log('alpha going down and right')
+        // myEnemy.flipX = true
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim') {
+          myEnemy.anims.play('alphaWoolfLeftRunAnim')
+        }
+      } else if (this.enemyName === 'woolfBig') { // alpha going down and left
+        if (__DEV__) console.log('alpha going down and left')
+        myEnemy.flipX = false
+        if (myEnemy.anims.getCurrentKey() !== 'alphaWoolfLeftRunAnim' && this.DownTrue === true && this.LeftTrue === true) {
+          myEnemy.anims.play('alphaWoolfLeftRunAnim')
         }
       }
     }
   }
 
-  wolfMoveRightLeft (myEnemy) {
-    myEnemy.body.velocity.x = (-1 * myEnemy.body.velocity.x)
-    console.log('left right does this happen?')
-  }
-
-  wolfMoveUpDown (myEnemy) {
-    myEnemy.body.velocity.y = (-1 * myEnemy.body.velocity.y)
-    console.log('up down does this happen?')
-  }
-
   newLevel () {
+
+    for (let i = 0; i < (this.AllZArray.length); i++) {
+      this.zzzClear(this.AllZArray[i])
+    }
+    
     this.BigWolfsAwakeCurrentAmount = 0
     this.BabyWolfsAwakeCurrentAmount = 0
     this.MediumWolfAwakeCurrentAmount = 0
@@ -1243,12 +1193,14 @@ class mainSheepScene extends Phaser.Scene {
         for (let k = 0; k < this.AllBorderTilesArray; k++) {
           this.physics.add.collider(this.WoolfArray[i], this.AllBorderTilesArray[k])
         }
+        this.WoolfArray[i].body.velocity.set(Phaser.Math.Between(-60, 60), Phaser.Math.Between(-60, 60))
         this.physics.add.collider(this.player, this.WoolfArray[i]) // ToDo: Kendra will test this later so wolf doesn't push sheep
       }
     }
 
     for (let i = 0; i < this.WoolfArrayLength; i++) {
-      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: true })
+      this.timedEvent = this.time.addEvent({ delay: 500, callback: () => { this.moveEnemyAnim(this.WoolfArray[i]) }, callbackScope: this, loop: true })
+      // this.timedEvent = this.time.addEvent({ delay: 1, callback: () => { this.moveEnemy(this.WoolfArray[i]) }, callbackScope: this, loop: false })
     }
   }
 
@@ -1358,17 +1310,16 @@ class mainSheepScene extends Phaser.Scene {
   }
 
   depthCheck (myTree) {
-
     if (myTree.depth > this.player.depth) {
       // Might be behind or to the side of the tree
-      // console.log('1) is it behind?')
+      // if (__DEV__) console.log('1) is it behind?')
       if (this.player.body.position.y < (myTree.y + 114)) {
         myTree.body.setOffset(myTree.offsetX, myTree.offsetY)
       }
       if (((this.player.x > (myTree.x + myTree.width / 2)) || (this.player.x < (myTree.x - myTree.width / 2))) || (this.player.y + (this.player.height / 2)) < (myTree.y - (myTree.height / 2))) {
       // not behind tree
       // top left, top right, bottom left, bottom right
-        // console.log('2 not behind tree')
+        // if (__DEV__) console.log('2 not behind tree')
         if (myTree.enemyBehindTree === false) {
           myTree.setAlpha(1, 1, 1, 1)
         }
@@ -1377,7 +1328,7 @@ class mainSheepScene extends Phaser.Scene {
         myTree.setAlpha(0.2, 0.2, 1, 1)
       }
     } else {
-      // console.log('4 below or collide with tree?')
+      // if (__DEV__) console.log('4 below or collide with tree?')
       if (myTree.enemyBehindTree === false) {
         myTree.setAlpha(1, 1, 1, 1)
       }
@@ -1386,18 +1337,18 @@ class mainSheepScene extends Phaser.Scene {
       this.testTreeTopCollide = myTree.body.position.y - (myTree.treeHeight / 2)
       this.testTreeBottomCollide = myTree.body.position.y + (myTree.treeHeight)
       if ((this.sheepFootPosY < this.testTreeBottomCollide) && (this.sheepFootPosY > this.testTreeTopCollide)) {
-        // console.log('can collide with tree stump')
+        // if (__DEV__) console.log('can collide with tree stump')
         // allow the player to collide with the tree stump
         myTree.body.enable = true
         this.physics.add.collider(this.player, myTree)
       }
       if (this.sheepFootPosY > this.testTreeBottomCollide) {
         if (this.sheepFootPosX > myTree.body.position.x + myTree.inFrontValue || this.sheepFootPosX < myTree.body.position.x - myTree.inFrontValue) {
-          // console.log('to the side of the tree')
+          // if (__DEV__) console.log('to the side of the tree')
           myTree.body.setOffset(myTree.offsetX, myTree.offsetChange)
         }
         if (this.sheepFootPosY < myTree.body.position.y) {
-          // console.log('collision at tree base')
+          // if (__DEV__) console.log('collision at tree base')
           myTree.body.setOffset(myTree.offsetX, myTree.offsetY)
         }
         myTree.body.enable = true

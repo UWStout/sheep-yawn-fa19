@@ -1,4 +1,3 @@
-/* globals __DEV__ */
 
 // Import the entire 'Enemy' namespace
 import Enemy from './Enemy'
@@ -7,7 +6,7 @@ class WoolfEnemyBaby extends Enemy {
   // Initalization
   constructor ({ scene, x, y }) {
     // Grabs items needed from Enemy class
-    super({ scene, x, y, imageKey: 'woolfImage', health: 1, zzzAmount: 5 })
+    super({ scene, x, y, imageKey: 'woolfImageSmall', health: 1, zzzAmount: 5 })
     this.key = 'woolf'
     this.name = 'woolfBaby'
 

@@ -1,9 +1,8 @@
-/* global __NWJS__ */
+
+/* globals __DEV__ */
+
 // Import the entire 'phaser' namespace
 import Phaser from 'phaser'
-import Textbox from '../objects/Textbox'
-
-import { centerX, centerY } from '../utils'
 
 class HUD extends Phaser.Scene {
   // Initialize the stage and any simple settings
@@ -21,6 +20,7 @@ class HUD extends Phaser.Scene {
     this.RoosterSFX = this.sound.addAudioSprite('sounds')
     this.TimeOver = false
     this.mySheepScene = this.scene.get('SheepMove')
+    this.MenuScene = this.scene.get('MainMenuScene')
     this.HasWon = false
     this.happenOnce = false
     this.timeCheck = 0
@@ -38,8 +38,8 @@ class HUD extends Phaser.Scene {
     this.MedWolfAwakeCurrentAmount = 0
     this.BigWolfAwakeCurrentAmount = 0
     this.NightsCompleteAmount = 0
-    // Holds count down's inital time 2:30 min in secs
-    this._default_time = 150 // 150
+    // Holds count down's inital time 1:00 min in secs
+    this._default_time = 90 // 150
     this.load.image('textboxBackground', 'assets/images/textbox.png')
     this.SmallWoolfHUD = this.add.image((1800 - 100), (210), 'SmallWoolfHUD').setAlpha(1)
     this.MedWoolfHUD = this.add.image((1800 - 100), (130), 'MedWoolfHUD').setAlpha(1)
@@ -216,7 +216,8 @@ class HUD extends Phaser.Scene {
   }
 
   GoToMenu () {
-    console.log('go to menu')
+    if (__DEV__) console.log('go to menu')
+    window.location.reload()
   }
 
   DecideWinLose () {
@@ -271,7 +272,7 @@ class HUD extends Phaser.Scene {
     this.MedWolfAwakeCurrentAmount = 0
     this.BigWolfAwakeCurrentAmount = 0
     this.TimeOver = false
-    this._default_time = 150 // 150
+    this._default_time = 90
     this.LoseHUD.visible = false
     this.WinHUD.visible = false
     this.NightsCompleteTextLost.visible = false
