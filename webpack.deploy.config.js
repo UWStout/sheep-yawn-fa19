@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MinifyPlugin = require('babel-minify-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
@@ -39,7 +39,9 @@ module.exports = {
           enforce: true
         }
       }
-    }
+    },
+    minimize: true,
+    minimizer: [new TerserPlugin()]
   },
   mode: 'production',
   plugins: [
@@ -61,7 +63,6 @@ module.exports = {
       },
       hash: false
     }),
-    new MinifyPlugin({}, { comments: false }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
   module: {

@@ -7,17 +7,14 @@ let FILES = [
   path.resolve('package.json'),
   path.resolve('index.html'),
   path.resolve('./dist/*.js'),
-  path.resolve('./assets/images/**/*'),
-  path.resolve('./assets/fonts/**/*'),
-  path.resolve('./assets/audio/sounds.ogg'),
-  path.resolve('./assets/audio/sounds.json')
+  path.resolve('./assets/**/*'),
 ]
 
 // Start the nw-builder configuration object
 let NW_CONFIG = {
   files: FILES,
   buildDir: './packaged/',
-  cacheDir: './node_modules/nw-builder/cache/',
+  cacheDir: '../nw-builder/cache/',
   flavor: 'sdk'
 }
 
@@ -44,7 +41,11 @@ nw.on('log', console.log)
 
 // Go ahead and build
 nw.build().then(() => {
-  console.log('all done!')
+  // Dealy exiting for 10secs
+  console.log('waiting ...')
+  setTimeout(() => {
+    console.log('all done!')
+  }, 10000)
 }).catch((error) => {
   console.error(error)
 })

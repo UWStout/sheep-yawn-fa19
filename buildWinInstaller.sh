@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Customize for specific game
-dirName=uwstout-gdd325-gamebase
-pkgName=DemoGame
+dirName=sheep-yawn
+pkgName=woolhemina-bedtime-round-up
 
 # Move to dir and rename it
 cd "./packaged/${dirName}/"
