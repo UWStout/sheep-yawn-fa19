@@ -12,12 +12,8 @@ class Boot extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#000000')
 
     // If running as a packaged app, go to full screen right away
-    if (__NWJS__) {
-      const canvas = this.sys.game.canvas
-      const fullscreen = this.sys.game.device.fullscreen
-      if (fullscreen.available) {
-        canvas[fullscreen.request]()
-      }
+    if (__NWJS__ && this.scale && !this.scale.isFullscreen) {
+      this.scale.startFullscreen()
     }
   }
 

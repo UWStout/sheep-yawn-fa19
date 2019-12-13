@@ -54,12 +54,16 @@ class Game extends Phaser.Game {
     // Pass configuration details to Phaser.Game
     super({
       pixelArt: false, // TODO: Turn this off if you aren't doing pixel art!!
-      width: config.gameWidth,
-      height: config.gameHeight,
       type: Phaser.WEBGL,
-      parent: 'content',
       title: 'Sheep Yawn',
       backgroundColor: '#9999cc',
+      scale: {
+        parent: 'content',
+        width: config.gameWidth,
+        height: config.gameHeight,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      },
       plugins: {
         scene: scenePlugins
       },
