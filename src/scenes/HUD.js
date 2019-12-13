@@ -7,15 +7,6 @@ import Phaser from 'phaser'
 class HUD extends Phaser.Scene {
   // Initialize the stage and any simple settings
   init () {
-    // If running as a packaged app, go to full screen right away
-    // if (__NWJS__) {
-    //   let canvas = this.sys.game.canvas
-    //   let fullscreen = this.sys.game.device.fullscreen
-    //   if (fullscreen.available) {
-    //     canvas[fullscreen.request]()
-    //   }
-    // }
-
     // Create sound sprite for running SFX
     this.RoosterSFX = this.sound.addAudioSprite('sounds')
     this.TimeOver = false

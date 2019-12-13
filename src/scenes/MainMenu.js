@@ -10,14 +10,6 @@ class MainMenu extends Phaser.Scene {
   // Initialize the stage and any simple settings
   init () {
     this.cameras.main.backgroundColor = '#000000'
-    // If running as a packaged app, go to full screen right away
-    if (__NWJS__) {
-      const canvas = this.sys.game.canvas
-      const fullscreen = this.sys.game.device.fullscreen
-      if (fullscreen.available) {
-        canvas[fullscreen.request]()
-      }
-    }
 
     // Create sound here
     // this.RoosterSFX = this.sound.addAudioSprite('sounds')
