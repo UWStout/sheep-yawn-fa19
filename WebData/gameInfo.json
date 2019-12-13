@@ -1,9 +1,9 @@
 {
   "title": "Woolhemina's Bedtime Round-Up",
   "byLine": "Yawn Until Dawn!",
-  "bannerTitle": "WebData/Game_Title_Banner.png",
-  "bannerWide": "WebData/Wide_Banner_Background.png",
-  "markdown": "WebData/gameInfo.md",
+  "bannerTitleURI": "WebData/Game_Title_Banner.png",
+  "bannerWideURI": "WebData/Wide_Banner_Background.png",
+  "markdownURI": "WebData/gameInfo.md",
   "media": [
     {
       "title": "Game Trailer",
