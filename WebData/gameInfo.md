@@ -7,27 +7,28 @@ Special Thanks to Mae Techmeier
 Audio Credits: Kevin MacLeod, The Green Orbs, YouTube Audio Library
 
 ## Creators
-Syd Simonis
+
+### Syd Simonis
 
 - Project Lead
 - Animation, Game Feel
 
-Zack Olson
+### Zack Olson
 
 - Character Modeling
 - Environment Art
 
-Mo Morris
+### Mo Morris
 
 - Character Rigging
 - User Interface and Sound
 
-Kendra Aumann-Weyenberg
+### Kendra Aumann-Weyenberg
 
 - Programmer
 - General Gameplay, World Generation
 
-Abby Smith
+### Abby Smith
 
 - Programmer
 - Mechanics Analyst
