@@ -1,0 +1,34 @@
+{
+  "title": "Woolhemina's Bedtime Round-Up",
+  "byLine": "Yawn Until Dawn!",
+  "bannerTitleURI": "WebData/Game_Title_Banner.png",
+  "bannerWideURI": "WebData/Wide_Banner_Background.png",
+  "markdownURI": "WebData/gameInfo.md",
+  "media": [
+    {
+      "title": "Game Trailer",
+      "vimeoID": "378602892",
+      "alt": "Woolhemina's Bedtime Round-Up SGX Trailer"
+    }, {
+      "title": "Screenshot 1",
+      "link": "WebData/GamePlay.png",
+      "alt": "Woolhemina's Bedtime Round-Up Screenashot"
+    }, {
+      "title": "Screenshot 2",
+      "link": "WebData/Tutorial.png",
+      "alt": "Woolhemina's Bedtime Round-Up Screenshot"
+    }, {
+      "title": "Screenshot 3",
+      "link": "WebData/YawnBlast.png",
+      "alt": "Woolhemina's Bedtime Round-Up Screenshot"
+    }, {
+      "title": "Screenshot 4",
+      "link": "WebData/WinScreenGame.png",
+      "alt": "Woolhemina's Bedtime Round-Up Screenshot"
+    }, {
+      "title": "Source Code Evolution",
+      "vimeoID": "378646787",
+      "alt": "gource visualization of the changes in the source code"
+    }
+  ]
+}
